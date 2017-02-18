@@ -1,4 +1,5 @@
 import {Component, OnInit} from "@angular/core";
+import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-register',
@@ -35,8 +36,12 @@ import {Component, OnInit} from "@angular/core";
           </div>
           <div class="form-group">
             <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-              <input type="datetime" class="form-control" placeholder="Birthday (yyyy-mm-dd)">
+              <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true" (click)="d.toggle()"></i></span>
+              <input class="form-control" placeholder="Birthday (yyyy-mm-dd)" 
+                name="dp" [(ngModel)]="birthdayDatePickerModel" ngbDatepicker #d="ngbDatepicker"
+                [maxDate]="maxDate"
+                [minDate]="minDate">
+              <!--<input type="datetime" class="form-control" placeholder="Birthday (yyyy-mm-dd)">-->
             </div>
           </div>
           <!--END USER INFORMATION-->
@@ -90,7 +95,24 @@ import {Component, OnInit} from "@angular/core";
 })
 export class RegisterComponent implements OnInit {
 
+  birthdayDatePickerModel;
+
+  private maxDate: NgbDateStruct;
+
+  private minDate: NgbDateStruct;
+
   constructor() {
+    let currentDate = new Date();
+    this.maxDate = {
+      year: currentDate.getFullYear(),
+      month: currentDate.getMonth() + 1,
+      day: currentDate.getDate()
+    };
+    this.minDate = {
+      year: 1994,
+      month: 1,
+      day: 1
+    }
   }
 
   ngOnInit() {

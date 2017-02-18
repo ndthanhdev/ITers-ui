@@ -30,7 +30,7 @@ import {Component, OnInit} from "@angular/core";
         </form>
       </div>
       <div class="card-footer d-flex justify-content-end">
-        <button type="button" class="btn btn-link" routerLink="../register">Register</button>
+        <button type="button" class="btn btn-link" routerLink="/register">Register</button>
         <button type="button" class="btn btn-primary">Login</button>
       </div>
     </div>
