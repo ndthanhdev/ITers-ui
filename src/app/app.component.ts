@@ -1,9 +1,11 @@
 import {Component} from "@angular/core";
+import {Router} from "@angular/router";
+import "rxjs/add/operator/map";
 
 @Component({
   selector: 'app-root',
   template: `
-  <app-navbar></app-navbar>
+  <app-navbar *ngIf="isLoginOrRegisterRoute()"></app-navbar>
   <div class="container">
     <router-outlet></router-outlet>
   </div>
@@ -12,5 +14,13 @@ import {Component} from "@angular/core";
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
-  title = 'app works!';
+
+  constructor(private router: Router) {
+  }
+
+  private isLoginOrRegisterRoute(): boolean {
+    return this.router.routerState.snapshot.url != '/login' &&
+      this.router.routerState.snapshot.url != '/register'
+  }
+
 }

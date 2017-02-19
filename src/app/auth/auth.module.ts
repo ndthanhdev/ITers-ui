@@ -5,6 +5,7 @@ import {LoginComponent} from "./login/login.component";
 import {RegisterComponent} from "./register/register.component";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {FormsModule} from "@angular/forms";
+import {LoginService} from "./login/login.service";
 
 @NgModule({
   imports: [
@@ -16,6 +17,9 @@ import {FormsModule} from "@angular/forms";
   declarations: [
     LoginComponent,
     RegisterComponent
+  ],
+  providers: [
+    LoginService
   ]
 })
 export class AuthModule {
