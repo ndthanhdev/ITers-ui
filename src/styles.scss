@@ -3,3 +3,10 @@ html {
   position: relative;
   min-height: 100%;
 }
+
+app-root {
+  .container {
+    //margin-top: 70px;
+    padding: 70px 15px 0;
+  }
+}

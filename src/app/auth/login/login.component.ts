@@ -1,4 +1,5 @@
 import {Component, OnInit} from "@angular/core";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -31,8 +32,8 @@ import {Component, OnInit} from "@angular/core";
       </div>
       <div class="card-footer">
         <div class="d-flex flex-row justify-content-end">
-          <button type="button" class="btn btn-link mr-auto pl-0" routerLink="/register">Register</button>
-          <button type="button" class="btn btn-link">Continue as Guest</button>
+          <button type="button" class="btn btn-link mr-auto pl-0" (click)="navigateToRegister()">Register</button>
+          <button type="button" class="btn btn-link" (click)="navigateToHome()">Continue as Guest</button>
           <button type="button" class="btn btn-primary">Login</button>
         </div>
       </div>
@@ -44,10 +45,19 @@ import {Component, OnInit} from "@angular/core";
 })
 export class LoginComponent implements OnInit {
 
-  constructor() {
+  constructor(private router: Router) {
   }
 
   ngOnInit() {
+  }
+
+
+  private navigateToHome() {
+    this.router.navigate(['/home']);
+  }
+
+  private navigateToRegister() {
+    this.router.navigate(['/register']);
   }
 
 }

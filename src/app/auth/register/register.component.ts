@@ -1,5 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-register',
@@ -85,7 +86,7 @@ import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
         </form>
       </div>
       <div class="card-footer d-flex justify-content-end">
-        <button type="button" class="btn btn-link mr-auto pl-0" routerLink="/login">Login</button>
+        <button type="button" class="btn btn-link mr-auto pl-0" (click)="navigateToLogin()">Login</button>
         <button type="button" class="btn btn-link">Clear</button>
         <button type="button" class="btn btn-primary">Register</button>
       </div>
@@ -102,7 +103,7 @@ export class RegisterComponent implements OnInit {
 
   private minDate: NgbDateStruct;
 
-  constructor() {
+  constructor(private router: Router) {
     const currentDate = new Date();
     this.maxDate = {
       year: currentDate.getFullYear(),
@@ -119,4 +120,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
 
+  private navigateToLogin() {
+    this.router.navigate(['/login']);
+  }
 }

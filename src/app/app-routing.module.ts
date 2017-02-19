@@ -6,11 +6,10 @@ const routes: Routes = [
     path: '',
     loadChildren: 'app/auth/auth.module#AuthModule'
   },
-  // { // if path is '', redirectTo home, since there's no home yet, so we redirect it to login
-  //   path: '',
-  //   redirectTo: 'auth',
-  //   pathMatch: 'full'
-  // },
+  {
+    path: 'home',
+    loadChildren: 'app/home/home.module#HomeModule'
+  },
   {
     path: '**',
     loadChildren: 'app/core/core.module#CoreModule'
