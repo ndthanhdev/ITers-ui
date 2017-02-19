@@ -29,12 +29,16 @@ import {Component, OnInit} from "@angular/core";
           </div>
         </form>
       </div>
-      <div class="card-footer d-flex justify-content-end">
-        <button type="button" class="btn btn-link" routerLink="/register">Register</button>
-        <button type="button" class="btn btn-primary">Login</button>
+      <div class="card-footer">
+        <div class="d-flex flex-row justify-content-end">
+          <button type="button" class="btn btn-link mr-auto pl-0" routerLink="/register">Register</button>
+          <button type="button" class="btn btn-link">Continue as Guest</button>
+          <button type="button" class="btn btn-primary">Login</button>
+        </div>
       </div>
     </div>
-    </div>
+  </div>
+  
   `,
   styleUrls: ['./login.component.scss']
 })

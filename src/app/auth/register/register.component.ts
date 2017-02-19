@@ -85,6 +85,7 @@ import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
         </form>
       </div>
       <div class="card-footer d-flex justify-content-end">
+        <button type="button" class="btn btn-link mr-auto pl-0" routerLink="/login">Login</button>
         <button type="button" class="btn btn-link">Clear</button>
         <button type="button" class="btn btn-primary">Register</button>
       </div>
@@ -102,7 +103,7 @@ export class RegisterComponent implements OnInit {
   private minDate: NgbDateStruct;
 
   constructor() {
-    let currentDate = new Date();
+    const currentDate = new Date();
     this.maxDate = {
       year: currentDate.getFullYear(),
       month: currentDate.getMonth() + 1,
