@@ -7,12 +7,14 @@ import {TopicDetailComponent} from "./topic-detail/topic-detail.component";
 import {TopicDetailInputComponent} from "./topic-detail-input/topic-detail-input.component";
 import {TopicService} from "./topic.service";
 import {HttpModule} from "@angular/http";
+import {MomentModule} from "angular2-moment";
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
     HttpModule,
+    MomentModule,
     TopicRoutingModule
   ],
   declarations: [TopicListComponent, TopicDetailComponent, TopicDetailInputComponent],

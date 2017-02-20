@@ -24,7 +24,6 @@ export class ListHeaderComponent implements OnInit {
   @Output() addClicked = new EventEmitter();
 
   constructor() {
-    this.collectionSize = 22; // TODO: remove this when got data from server
   }
 
   ngOnInit() {
