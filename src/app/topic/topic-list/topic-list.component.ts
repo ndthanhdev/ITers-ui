@@ -24,9 +24,9 @@ import {Observable} from "rxjs";
     <app-topic-detail-input
       *ngIf="isAdding"
       [isAdding]="isAdding"
-      (saved)="onInputSaved()">
+      (saved)="onInputSaved()"
+      (canceled)="onInputCanceled()">
     </app-topic-detail-input>
-    <!--*ngFor="let topic of (topics | async);let i = index"-->
       
     <template ngFor let-topic [ngForOf]="topics | async" let-i="index">
       <app-topic-detail
@@ -41,7 +41,7 @@ import {Observable} from "rxjs";
     [page]="currentPage"
     [collectionSize]="(topics | async).length"
     (scrollTopClicked)="onScrollTopClicked()" 
-    (pageChange)="onPageChange($event)" >
+    (pageChange)="onPageChange($event)">
   </app-list-footer>
   `,
   styleUrls: ['./topic-list.component.scss']
@@ -73,6 +73,10 @@ export class TopicListComponent implements OnInit {
   }
 
   private onInputSaved() {
+    this.isAdding = false;
+  }
+
+  private onInputCanceled() {
     this.isAdding = false;
   }
 

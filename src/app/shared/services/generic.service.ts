@@ -15,6 +15,11 @@ export class GenericService {
     this.http = injector.get(Http);
   }
 
+  protected post(options?: RequestOptions): Observable<any> {
+    return this.post(options).map(this.extractData);
+  }
+
+
   /**
    * Perform get request with specified options to server.
    * @param options? optional options, if this is null, then this method will perform getAll.

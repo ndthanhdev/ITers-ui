@@ -6,14 +6,14 @@ import {Thread} from "../../shared/models/thread.model";
   selector: 'app-topic-detail',
   template: `
   <app-topic-detail-input 
-    *ngIf="isEditing" 
+    *ngIf="isEditing"
+    [topicTitle]="topic.title"
     [isEditing]="isEditing" 
-    (saved)="onInputSaved()"
-    (canceled)="onInputCanceled()">
+    (saved)="onInputSaved()">
   </app-topic-detail-input>
   <div class="list-group-item list-group-item-action flex-column align-items-start" *ngIf="!isEditing">
     <div class="d-flex w-100 justify-content-end">
-      <h4 class="mr-auto"><a href="#">{{topic.title}}</a></h4>
+      <h4 class="mr-auto"><span class="lead">#{{topic.id}}</span><a href="#" class="ml-2">{{topic.title}}</a></h4>
       <span class="badge badge-pill badge-default align-self-center ml-1 mr-1">Thread: {{topic.threads_count}}</span>
       <span class="badge badge-pill badge-default align-self-center ml-1 mr-1">Post: {{topic.posts_count}}</span>
     </div>
@@ -34,6 +34,7 @@ export class TopicDetailComponent implements OnInit {
   private isEditing: boolean = false;
 
   constructor() {
+    console.log("created an topic detail!");
   }
 
   ngOnInit() {
@@ -50,8 +51,5 @@ export class TopicDetailComponent implements OnInit {
     this.isEditing = false;
   }
 
-  private onInputCanceled() {
-    this.isEditing = false;
-  }
 
 }
