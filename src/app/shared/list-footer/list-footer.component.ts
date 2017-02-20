@@ -11,7 +11,10 @@ import {Component, OnInit, Input, Output, EventEmitter} from "@angular/core";
       [pageSize]="10"
       [page]="page" 
       [boundaryLinks]="true"></ngb-pagination>
-    <button type="button" class="btn btn-outline-primary align-self-start">
+    <button type="button" class="btn btn-outline-primary align-self-start"
+      placement="left" 
+      ngbTooltip="Go to top"
+      (click)="onScrollTopClicked()">
       <i class="fa fa-arrow-up" aria-hidden="true"></i>
     </button>
   </div>
@@ -23,6 +26,7 @@ export class ListFooterComponent implements OnInit {
   @Input() collectionSize: number;
 
   @Output() pageChange: EventEmitter<number> = new EventEmitter();
+  @Output() scrollTopClicked = new EventEmitter();
 
   constructor() {
     this.collectionSize = 22; // TODO: remove this when got data from server
@@ -33,6 +37,10 @@ export class ListFooterComponent implements OnInit {
 
   private onPageChange($event) {
     this.pageChange.emit($event);
+  }
+
+  private onScrollTopClicked() {
+    this.scrollTopClicked.emit();
   }
 
 }

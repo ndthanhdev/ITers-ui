@@ -1,12 +1,14 @@
 import {Component} from "@angular/core";
 import {Router} from "@angular/router";
 import "rxjs/add/operator/map";
+import {PageScrollConfig} from "ng2-page-scroll";
 
 @Component({
   selector: 'app-root',
   template: `
+  <div id="app-top"></div>
   <app-navbar *ngIf="isLoginOrRegisterRoute()"></app-navbar>
-  <div class="container">
+  <div class="container" >
     <router-outlet></router-outlet>
   </div>
   <app-footer></app-footer>
@@ -16,6 +18,7 @@ import "rxjs/add/operator/map";
 export class AppComponent {
 
   constructor(private router: Router) {
+    PageScrollConfig.defaultDuration = 350;
   }
 
   private isLoginOrRegisterRoute(): boolean {

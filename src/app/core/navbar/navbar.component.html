@@ -4,18 +4,18 @@
           aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <a class="navbar-brand" routerLink="/home">ITers</a>
+  <a class="navbar-brand" (click)="goToHome()">ITers</a>
 
   <div class="collapse navbar-collapse" id="app-navbar">
     <div class="navbar-nav mr-auto mt-2 mt-md-0">
-      <a class="nav-item nav-link" routerLink="/home">
+      <a class="nav-item nav-link" (click)="goToHome()">
         <span>Hello, Vu Nguyen Hung</span>
         <small class="text-primary">
           <i class="fa fa-circle" aria-hidden="true"></i>
           <span>Admin</span>
         </small>
       </a>
-      <a class="nav-item nav-link" routerLink="/home" placement="right" ngbTooltip="Dashboard">
+      <a class="nav-item nav-link" (click)="goToHome()" placement="right" ngbTooltip="Dashboard">
         <i class="fa fa-globe fa-lg" aria-hidden="true"></i>
       </a>
     </div>
@@ -25,7 +25,7 @@
         <span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span>
       </div>
       <!--<button class="btn btn-outline-primary my-2 my-sm-0" type="button">Logout</button>-->
-      <button class="btn btn-outline-primary my-2 my-sm-0" type="button" routerLink="/">Login</button>
+      <button class="btn btn-outline-primary my-2 my-sm-0" type="button" (click)="goToDefault()">Login</button>
     </form>
   </div>
 </nav>

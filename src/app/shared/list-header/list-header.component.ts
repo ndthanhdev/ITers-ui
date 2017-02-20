@@ -11,7 +11,7 @@ import {Component, OnInit, Output, EventEmitter, Input} from "@angular/core";
     [pageSize]="10" 
     [boundaryLinks]="true"
     [page]="page"></ngb-pagination>
-    <button type="button" class="btn btn-outline-primary align-self-start">+</button>
+    <button (click)="onAddClicked()" type="button" class="btn btn-outline-primary align-self-start">+</button>
   </div>
   `,
   styleUrls: ['./list-header.component.scss']
@@ -19,7 +19,9 @@ import {Component, OnInit, Output, EventEmitter, Input} from "@angular/core";
 export class ListHeaderComponent implements OnInit {
   @Input() page: number;
   @Input() collectionSize: number;
+
   @Output() pageChange: EventEmitter<number> = new EventEmitter();
+  @Output() addClicked = new EventEmitter();
 
   constructor() {
     this.collectionSize = 22; // TODO: remove this when got data from server
@@ -32,5 +34,8 @@ export class ListHeaderComponent implements OnInit {
     this.pageChange.emit($event);
   }
 
+  private onAddClicked() {
+    this.addClicked.emit();
+  }
 
 }
