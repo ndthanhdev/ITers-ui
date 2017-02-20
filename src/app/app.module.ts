@@ -7,12 +7,20 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {CoreModule} from "./core/core.module";
 import {HomeModule} from "./home/home.module";
 import {Ng2PageScrollModule} from "ng2-page-scroll";
+import {StoreModule} from "@ngrx/store";
+import {reducer, initialState} from "./shared/store/reducers/app.reducer";
+import {StoreDevtoolsModule} from "@ngrx/store-devtools";
+import {EffectsModule} from "@ngrx/effects";
+import {TopicServiceEffect} from "./shared/store/effects/topic.effect";
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     NgbModule.forRoot(),
     Ng2PageScrollModule.forRoot(),
+    StoreModule.provideStore(reducer, initialState),
+    StoreDevtoolsModule.instrumentOnlyWithExtension(),
+    EffectsModule.run(TopicServiceEffect),
     BrowserModule,
     AppRoutingModule,
     AuthModule,
