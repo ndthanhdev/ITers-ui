@@ -19,7 +19,6 @@ import {SharedModule} from "../../shared/shared.module";
     TopicRoutingModule
   ],
   declarations: [TopicListComponent, TopicDetailComponent, TopicDetailInputComponent, TopicComponent],
-  exports: [TopicListComponent],
   providers: [TopicService]
 })
 export class TopicModule {

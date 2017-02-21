@@ -1,26 +1,18 @@
-import {Component, OnInit, Inject} from "@angular/core";
+import {Component, Inject, Input} from "@angular/core";
 import {PageScrollService, PageScrollInstance} from "ng2-page-scroll";
 import {DOCUMENT} from "@angular/platform-browser";
-import {Store} from "@ngrx/store";
-import {Observable} from "rxjs";
 import {Topic} from "../../../shared/models/topic.model";
-import {UIAction} from "../../../shared/store/actions/ui.action";
-import {AppState} from "../../../shared/store/reducers/app.reducer";
 
 @Component({
   selector: 'app-topic-list',
   template: `
-  <div class="d-flex justify-content-center">
-    <i *ngIf="loadingTopic | async" class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
-  </div>
   <app-list-header 
-    *ngIf="!(loadingTopic | async)"
     [page]="currentPage"
-    [collectionSize]="(topics | async).length"
+    [collectionSize]="topics.length"
     (pageChange)="onPageChange($event)" 
     (addClicked)="onAddTopicButtonClicked()">
   </app-list-header>
-  <div class="list-group mb-3" *ngIf="!(loadingTopic | async)">
+  <div class="list-group mb-3">
     <app-topic-detail-input
       *ngIf="isAdding"
       [isAdding]="isAdding"
@@ -28,7 +20,7 @@ import {AppState} from "../../../shared/store/reducers/app.reducer";
       (canceled)="onInputCanceled()">
     </app-topic-detail-input>
       
-    <template ngFor let-topic [ngForOf]="topics | async" let-i="index">
+    <template ngFor let-topic [ngForOf]="topics" let-i="index">
       <app-topic-detail
         *ngIf="i < (currentPage * 10) && i >= ((currentPage-1) * 10)"
         [topic]="topic">
@@ -37,31 +29,23 @@ import {AppState} from "../../../shared/store/reducers/app.reducer";
     
   </div>
   <app-list-footer
-    *ngIf="!(loadingTopic | async)"
     [page]="currentPage"
-    [collectionSize]="(topics | async).length"
+    [collectionSize]="topics.length"
     (scrollTopClicked)="onScrollTopClicked()" 
     (pageChange)="onPageChange($event)">
   </app-list-footer>
   `,
   styleUrls: ['topic-list.component.scss']
 })
-export class TopicListComponent implements OnInit {
+export class TopicListComponent {
+  @Input() topics: Topic[];
+
   private currentPage: number = 1;
   private isAdding: boolean;
-  private topics: Observable<Topic[]>;
-  private loadingTopic: Observable<boolean>;
+
 
   constructor(private pageScrollService: PageScrollService,
-              @Inject(DOCUMENT) private document: any,
-              private uiAction: UIAction,
-              private store: Store<AppState>) {
-    this.store.dispatch(uiAction.startTopicsLoad());
-  }
-
-  ngOnInit() {
-    this.topics = this.store.select(state => state.dataState.topics);
-    this.loadingTopic = this.store.select(state => state.uiState.loadingTopics);
+              @Inject(DOCUMENT) private document: any) {
   }
 
   private onPageChange($event) {
