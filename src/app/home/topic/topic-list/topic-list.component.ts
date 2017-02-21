@@ -43,7 +43,6 @@ export class TopicListComponent {
   private currentPage: number = 1;
   private isAdding: boolean;
 
-
   constructor(private pageScrollService: PageScrollService,
               @Inject(DOCUMENT) private document: any) {
   }

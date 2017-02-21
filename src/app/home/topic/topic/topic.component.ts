@@ -7,15 +7,18 @@ import {Topic} from "../../../shared/models/topic.model";
 
 @Component({
   template: `
-  <div class="jumbotron">
+  <div class="jumbotron mb-3">
     <h1 class="display-4">ITers</h1>
     <span class="lead">Forum for TDT IT Student</span>
   </div>
-  <div *ngIf="loadingTopic | async" class="d-flex justify-content-center">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active">Topic</li>
+  </ol>
+  <div *ngIf="loadingTopics | async" class="d-flex justify-content-center">
     <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
   </div>
   <app-topic-list 
-    *ngIf="!(loadingTopic | async)" 
+    *ngIf="!(loadingTopics | async)" 
     [topics]="topics | async">
   </app-topic-list>
   `,
@@ -23,7 +26,7 @@ import {Topic} from "../../../shared/models/topic.model";
 })
 export class TopicComponent implements OnInit {
   private topics: Observable<Topic[]>;
-  private loadingTopic: Observable<boolean>;
+  private loadingTopics: Observable<boolean>;
 
   constructor(private uiAction: UIAction,
               private store: Store<AppState>) {
@@ -32,7 +35,7 @@ export class TopicComponent implements OnInit {
 
   ngOnInit() {
     this.topics = this.store.select(state => state.dataState.topics);
-    this.loadingTopic = this.store.select(state => state.uiState.loadingTopics);
+    this.loadingTopics = this.store.select(state => state.uiState.loadingTopics);
   }
 
 }

@@ -1,4 +1,5 @@
-import {Thread} from "./thread.model";
+import {Thread, ThreadInterface} from "./thread.model";
+import {UserInterface, User} from "./user.model";
 /**
  * Created by vunguyenhung on 2/20/17.
  */
@@ -7,7 +8,8 @@ export interface TopicInterface {
   title: string;
   threads_count: number;
   posts_count: number;
-  latest_threads: Thread[];
+  users : UserInterface[];
+  latest_threads: ThreadInterface[];
   created_at: Date;
   updated_at: Date
 }
@@ -17,6 +19,7 @@ export class Topic implements TopicInterface {
   title: string;
   created_at: Date;
   updated_at: Date;
+  users: User[];
   threads_count: number;
   posts_count: number;
   latest_threads: Thread[];
@@ -28,6 +31,7 @@ export class Topic implements TopicInterface {
     this.updated_at = that.updated_at;
     this.threads_count = that.threads_count;
     this.posts_count = that.posts_count;
-    this.latest_threads = that.latest_threads;
+    this.latest_threads = that.latest_threads; // TODO: convert to array of Object
+    this.users = that.users; // TODO: convert to array of Object
   }
 }

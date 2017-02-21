@@ -1,6 +1,7 @@
 import {Component, OnInit, Input} from "@angular/core";
 import {Topic} from "../../../shared/models/topic.model";
 import {Thread} from "../../../shared/models/thread.model";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-topic-detail',
@@ -13,7 +14,7 @@ import {Thread} from "../../../shared/models/thread.model";
   </app-topic-detail-input>
   <div class="list-group-item list-group-item-action flex-column align-items-start" *ngIf="!isEditing">
     <div class="d-flex w-100 justify-content-end">
-      <h4 class="mr-auto"><span class="lead">#{{topic.id}}</span><a href="#" class="ml-2">{{topic.title}}</a></h4>
+      <h4 class="mr-auto"><span class="lead">#{{topic.id}}</span><a [routerLink]="['/topics', topic.id]" class="ml-2">{{topic.title}}</a></h4>
       <span class="badge badge-pill badge-default align-self-center ml-1 mr-1">Thread: {{topic.threads_count}}</span>
       <span class="badge badge-pill badge-default align-self-center ml-1 mr-1">Post: {{topic.posts_count}}</span>
     </div>
@@ -33,7 +34,7 @@ export class TopicDetailComponent implements OnInit {
   private latestThread: Thread;
   private isEditing: boolean = false;
 
-  constructor() {
+  constructor(private router: Router) {
   }
 
   ngOnInit() {
@@ -50,5 +51,8 @@ export class TopicDetailComponent implements OnInit {
     this.isEditing = false;
   }
 
+  private goToTopic($topidId){
+    this.router.navigate(['/topics', $topidId])
+  }
 
 }

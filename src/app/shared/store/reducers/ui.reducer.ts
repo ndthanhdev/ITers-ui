@@ -5,11 +5,13 @@ import {UIAction} from "../actions/ui.action";
  */
 
 export const initialState: UIState = {
-  loadingTopics: false
+  loadingTopics: false,
+  loadingTopic: false
 };
 
 export interface UIState {
   loadingTopics: boolean
+  loadingTopic: boolean
 }
 
 export function reducer(state: UIState = initialState, action: Action): UIState {
@@ -19,6 +21,12 @@ export function reducer(state: UIState = initialState, action: Action): UIState 
 
     case UIAction.END_TOPICS_LOAD:
       return Object.assign({}, state, {loadingTopics: false});
+
+    case UIAction.START_TOPIC_LOAD:
+      return Object.assign({}, state, {loadingTopic: true});
+
+    case UIAction.END_TOPIC_LOAD:
+      return Object.assign({}, state, {loadingTopic: false});
 
     default:
       return state;

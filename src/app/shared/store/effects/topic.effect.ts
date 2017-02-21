@@ -26,4 +26,13 @@ export class TopicServiceEffect {
       this.dataAction.loadTopics(topics),
       this.uiAction.endTopicsLoad()
     ]));
+
+  @Effect() topicLoad$: Observable<Action> = this.actions
+    .ofType(UIAction.START_TOPIC_LOAD)
+    .map(action => action.payload)
+    .switchMap(payload => this.topicService.loadTopic(payload.id))
+    .concatMap(topic => Observable.from([
+      this.dataAction.loadTopic(topic),
+      this.uiAction.endTopicLoad()
+    ]));
 }

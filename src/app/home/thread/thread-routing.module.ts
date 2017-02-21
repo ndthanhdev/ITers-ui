@@ -1,14 +1,11 @@
 import {NgModule} from "@angular/core";
 import {Routes, RouterModule} from "@angular/router";
+import {ThreadComponent} from "./thread/thread.component";
 
 const routes: Routes = [
   {
     path: '',
-    loadChildren: 'app/home/topic/topic.module#TopicModule'
-  },
-  {
-    path: ':id',
-    loadChildren: 'app/home/thread/thread.module#ThreadModule'
+    component: ThreadComponent
   }
 ];
 
@@ -17,5 +14,4 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: []
 })
-export class HomeRoutingModule {
-}
+export class ThreadRoutingModule { }

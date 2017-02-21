@@ -1,4 +1,5 @@
 import {User, UserInterface} from "./user.model";
+import {PostInterface, Post} from "./post.model";
 /**
  * Created by vunguyenhung on 2/20/17.
  */
@@ -9,9 +10,8 @@ export interface ThreadInterface {
   topic_id: number;
   created_at: Date;
   updated_at: Date;
-
+  latest_posts: PostInterface[];
 }
-
 
 export class Thread implements ThreadInterface {
   id: number;
@@ -20,6 +20,7 @@ export class Thread implements ThreadInterface {
   updated_at: Date;
   title: string;
   user: User;
+  latest_posts: Post[];
 
   public constructor(that: ThreadInterface) {
     this.id = that.id;
@@ -28,5 +29,7 @@ export class Thread implements ThreadInterface {
     this.updated_at = that.updated_at;
     this.title = that.title;
     this.user = new User(that.user);
+    this.latest_posts = that.latest_posts; // TODO: convert to array of Object
+
   }
 }
