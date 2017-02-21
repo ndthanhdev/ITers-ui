@@ -1,20 +1,20 @@
 /* tslint:disable:no-unused-variable */
 import {async, ComponentFixture, TestBed} from "@angular/core/testing";
-import {HomeComponent} from "./home.component";
+import {ThreadListComponent} from "./thread-list.component";
 
-describe('HomeComponent', () => {
-  let component: HomeComponent;
-  let fixture: ComponentFixture<HomeComponent>;
+describe('ThreadListComponent', () => {
+  let component: ThreadListComponent;
+  let fixture: ComponentFixture<ThreadListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [HomeComponent]
+      declarations: [ThreadListComponent]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HomeComponent);
+    fixture = TestBed.createComponent(ThreadListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

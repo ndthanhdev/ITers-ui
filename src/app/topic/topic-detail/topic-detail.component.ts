@@ -34,7 +34,6 @@ export class TopicDetailComponent implements OnInit {
   private isEditing: boolean = false;
 
   constructor() {
-    console.log("created an topic detail!");
   }
 
   ngOnInit() {

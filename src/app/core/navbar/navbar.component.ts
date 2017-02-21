@@ -15,7 +15,7 @@ export class NavbarComponent implements OnInit {
   }
 
   private goToHome() {
-    this.router.navigate(['/home']);
+    this.router.navigate(['/topics']);
   }
 
   private goToDefault() {

@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-topic',
   template: `
   <div class="jumbotron">
     <h1 class="display-4">ITers</h1>
@@ -9,20 +9,14 @@ import {Component, OnInit} from "@angular/core";
   </div>
   <app-topic-list></app-topic-list>
   `,
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./topic.component.scss']
 })
-export class HomeComponent implements OnInit {
-  private currentPage: number = 1;
-
+export class TopicComponent implements OnInit {
 
   constructor() {
   }
 
   ngOnInit() {
-  }
-
-  private onPageChange($event) {
-    this.currentPage = $event;
   }
 
 }

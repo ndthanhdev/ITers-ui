@@ -8,7 +8,7 @@ const routes: Routes = [
     loadChildren: 'app/auth/auth.module#AuthModule'
   },
   {
-    path: 'home',
+    path: 'topics',
     loadChildren: 'app/home/home.module#HomeModule'
   },
   {
