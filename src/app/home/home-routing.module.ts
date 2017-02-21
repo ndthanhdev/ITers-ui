@@ -5,10 +5,6 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: 'app/home/topic/topic.module#TopicModule'
-  },
-  {
-    path: ':id',
-    loadChildren: 'app/home/thread/thread.module#ThreadModule'
   }
 ];
 
