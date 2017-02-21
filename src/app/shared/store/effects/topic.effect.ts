@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {Actions, Effect} from "@ngrx/effects";
 import {DataAction} from "../actions/data.action";
 import {UIAction} from "../actions/ui.action";
-import {TopicService} from "../../../topic/topic.service";
+import {TopicService} from "../../../home/topic/topic.service";
 import {Observable} from "rxjs";
 import {Action} from "@ngrx/store";
 /**

@@ -1,8 +1,8 @@
 import {Injectable, Injector} from "@angular/core";
 import {Observable} from "rxjs";
-import {Topic, TopicInterface} from "../shared/models/topic.model";
-import {GenericService} from "../shared/services/generic.service";
 import {Response} from "@angular/http";
+import {GenericService} from "../../shared/services/generic.service";
+import {Topic, TopicInterface} from "../../shared/models/topic.model";
 
 @Injectable()
 export class TopicService extends GenericService {

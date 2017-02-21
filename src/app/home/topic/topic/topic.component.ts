@@ -9,7 +9,7 @@ import {Component, OnInit} from "@angular/core";
   </div>
   <app-topic-list></app-topic-list>
   `,
-  styleUrls: ['./topic.component.scss']
+  styleUrls: ['topic.component.scss']
 })
 export class TopicComponent implements OnInit {
 

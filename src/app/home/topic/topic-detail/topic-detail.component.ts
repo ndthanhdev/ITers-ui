@@ -1,6 +1,6 @@
 import {Component, OnInit, Input} from "@angular/core";
-import {Topic} from "../../shared/models/topic.model";
-import {Thread} from "../../shared/models/thread.model";
+import {Topic} from "../../../shared/models/topic.model";
+import {Thread} from "../../../shared/models/thread.model";
 
 @Component({
   selector: 'app-topic-detail',
@@ -26,7 +26,7 @@ import {Thread} from "../../shared/models/thread.model";
     
   </div>
   `,
-  styleUrls: ['./topic-detail.component.scss']
+  styleUrls: ['topic-detail.component.scss']
 })
 export class TopicDetailComponent implements OnInit {
   @Input() topic: Topic;

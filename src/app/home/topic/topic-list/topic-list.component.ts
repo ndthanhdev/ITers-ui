@@ -1,11 +1,11 @@
 import {Component, OnInit, Inject} from "@angular/core";
 import {PageScrollService, PageScrollInstance} from "ng2-page-scroll";
 import {DOCUMENT} from "@angular/platform-browser";
-import {UIAction} from "../../shared/store/actions/ui.action";
 import {Store} from "@ngrx/store";
-import {AppState} from "../../shared/store/reducers/app.reducer";
-import {Topic} from "../../shared/models/topic.model";
 import {Observable} from "rxjs";
+import {Topic} from "../../../shared/models/topic.model";
+import {UIAction} from "../../../shared/store/actions/ui.action";
+import {AppState} from "../../../shared/store/reducers/app.reducer";
 
 @Component({
   selector: 'app-topic-list',
@@ -44,7 +44,7 @@ import {Observable} from "rxjs";
     (pageChange)="onPageChange($event)">
   </app-list-footer>
   `,
-  styleUrls: ['./topic-list.component.scss']
+  styleUrls: ['topic-list.component.scss']
 })
 export class TopicListComponent implements OnInit {
   private currentPage: number = 1;

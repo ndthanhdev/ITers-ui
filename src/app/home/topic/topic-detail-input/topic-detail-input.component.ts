@@ -13,7 +13,7 @@ import {Component, OnInit, Input, Output, EventEmitter} from "@angular/core";
     </div>
   </div>
   `,
-  styleUrls: ['./topic-detail-input.component.scss']
+  styleUrls: ['topic-detail-input.component.scss']
 })
 export class TopicDetailInputComponent implements OnInit {
   @Input() topicTitle: string;
