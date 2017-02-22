@@ -36,7 +36,7 @@ export class ThreadComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private uiAction: UIAction,
               private store: Store<AppState>) {
-    this.topicId = route.snapshot.params['id'];
+    this.topicId = route.snapshot.params['topicId'];
     this.store.dispatch(uiAction.startTopicLoad(this.topicId));
   }
 

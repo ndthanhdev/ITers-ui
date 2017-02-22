@@ -12,7 +12,10 @@ import {Thread} from "../../../shared/models/thread.model";
     (pageChange)="onPageChange($event)" 
     (addClicked)="onAddTopicButtonClicked()">
   </app-list-header>
-  <div class="list-group mb-3">
+  <div *ngIf="threads.length == 0" class="d-flex justify-content-center">
+    <span class="lead">This topic doesn't have any thread right now. <a href="#">Create one</a></span>
+  </div>
+  <div class="list-group mb-3" *ngIf="threads.length > 0">
     <template ngFor let-thread [ngForOf]="threads" let-i="index">
       <app-thread-detail
         *ngIf="i < (currentPage * 10) && i >= ((currentPage - 1) * 10)"

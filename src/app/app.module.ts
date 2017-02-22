@@ -12,15 +12,20 @@ import {reducer, initialState} from "./shared/store/reducers/app.reducer";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import {EffectsModule} from "@ngrx/effects";
 import {TopicServiceEffect} from "./shared/store/effects/topic.effect";
+import {FroalaEditorModule, FroalaViewModule} from "angular2-froala-wysiwyg";
+import {ThreadServiceEffect} from "./shared/store/effects/thread.effect";
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     NgbModule.forRoot(),
     Ng2PageScrollModule.forRoot(),
+    FroalaEditorModule.forRoot(),
+    FroalaViewModule.forRoot(),
     StoreModule.provideStore(reducer, initialState),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     EffectsModule.run(TopicServiceEffect),
+    EffectsModule.run(ThreadServiceEffect),
     BrowserModule,
     AppRoutingModule,
     AuthModule,

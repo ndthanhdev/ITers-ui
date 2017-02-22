@@ -9,6 +9,8 @@ export class UIAction {
   static END_TOPICS_LOAD = '[UI ACTION] END_TOPICS_LOAD';
   static START_TOPIC_LOAD = '[UI ACTION] START_TOPIC_LOAD';
   static END_TOPIC_LOAD = '[UI ACTION] END_TOPIC_LOAD';
+  static START_THREAD_LOAD = '[UI ACTION] START_THREAD_LOAD';
+  static END_THREAD_LOAD = '[UI ACTION] END_THREAD_LOAD';
 
   public startTopicsLoad(): Action {
     return {type: UIAction.START_TOPICS_LOAD}
@@ -28,4 +30,18 @@ export class UIAction {
   public endTopicLoad(): Action {
     return {type: UIAction.END_TOPIC_LOAD}
   }
+
+  public startThreadLoad(topicId: number, threadId: number): Action {
+    return {
+      type: UIAction.START_THREAD_LOAD, payload: {
+        topicId: topicId,
+        threadId: threadId
+      }
+    }
+  }
+
+  public endThreadLoad(): Action{
+    return {type: UIAction.END_THREAD_LOAD}
+  }
+
 }

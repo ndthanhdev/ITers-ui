@@ -19,12 +19,11 @@ import {Router} from "@angular/router";
       <span class="badge badge-pill badge-default align-self-center ml-1 mr-1">Post: {{topic.posts_count}}</span>
     </div>
     
-    <p *ngIf="latestThread" class="mb-0"><a href="#">{{latestThread.title}}</a></p>
+    <p *ngIf="latestThread" class="mb-0"><a [routerLink]="['/topics', topic.id, 'threads', latestThread.id]">{{latestThread.title}}</a></p>
     <div class="d-flex w-100 justify-content-end">
       <small *ngIf="latestThread" class="align-self-center mr-auto"><a href="#" class="mr-2">{{latestThread.user.full_name}}</a>{{latestThread.created_at | amTimeAgo}}</small>
       <button (click)="handleEdit()" type="button" class="btn btn-sm btn-outline-primary"><i class="fa fa-pencil"></i></button>
     </div>
-    
   </div>
   `,
   styleUrls: ['topic-detail.component.scss']

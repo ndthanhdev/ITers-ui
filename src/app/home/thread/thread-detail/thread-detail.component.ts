@@ -6,7 +6,7 @@ import {Thread} from "../../../shared/models/thread.model";
   template: `
   <div class="list-group-item list-group-item-action flex-column align-items-start">
     <div class="d-flex w-100 justify-content-end">
-      <h4 class="mr-auto"><span class="lead">#{{thread.id}}</span><a href="#" class="ml-2">{{thread.title}}</a></h4>
+      <h4 class="mr-auto"><span class="lead">#{{thread.id}}</span><a [routerLink]="['/topics', thread.topic_id, 'threads', thread.id]" class="ml-2">{{thread.title}}</a></h4>
       <span class="badge badge-pill badge-default align-self-center ml-1 mr-1">Post: {{thread.latest_posts.length}}</span>
     </div>
     <p class="mb-0">By <a href="#" class="mr-1">{{thread.user.full_name}}</a>{{thread.created_at | amTimeAgo}}</p>

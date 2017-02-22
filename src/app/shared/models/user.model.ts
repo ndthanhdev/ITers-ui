@@ -6,7 +6,12 @@ export interface UserInterface {
   full_name: string;
   start_year: number;
   email: string;
-  birthday: Date
+  birthday: Date;
+  pivot: {
+    post_id: number,
+    user_id: number,
+    liked: boolean
+  }
 }
 
 export class User implements UserInterface {
@@ -15,6 +20,7 @@ export class User implements UserInterface {
   start_year: number;
   email: string;
   birthday: Date;
+  pivot: {post_id: number; user_id: number; liked: boolean};
 
   public constructor(that: UserInterface) {
     this.id = that.id;
@@ -22,6 +28,7 @@ export class User implements UserInterface {
     this.start_year = that.start_year;
     this.email = that.email;
     this.birthday = that.birthday;
+    this.pivot = that.pivot;
   }
 
 }

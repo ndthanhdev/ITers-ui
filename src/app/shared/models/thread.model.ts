@@ -11,6 +11,7 @@ export interface ThreadInterface {
   created_at: Date;
   updated_at: Date;
   latest_posts: PostInterface[];
+  oldest_posts: PostInterface[];
 }
 
 export class Thread implements ThreadInterface {
@@ -21,6 +22,7 @@ export class Thread implements ThreadInterface {
   title: string;
   user: User;
   latest_posts: Post[];
+  oldest_posts: Post[];
 
   public constructor(that: ThreadInterface) {
     this.id = that.id;
@@ -30,6 +32,6 @@ export class Thread implements ThreadInterface {
     this.title = that.title;
     this.user = new User(that.user);
     this.latest_posts = that.latest_posts; // TODO: convert to array of Object
-
+    this.oldest_posts = that.oldest_posts
   }
 }

@@ -7,9 +7,14 @@ const routes: Routes = [
     loadChildren: 'app/home/topic/topic.module#TopicModule'
   },
   {
-    path: ':id',
+    path: ':topicId',
     loadChildren: 'app/home/thread/thread.module#ThreadModule'
+  },
+  {
+    path: ':topicId/threads/:threadId',
+    loadChildren: 'app/home/post/post.module#PostModule'
   }
+  // not found here?
 ];
 
 @NgModule({
