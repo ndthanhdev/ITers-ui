@@ -8,7 +8,7 @@ import {Post} from "../../../shared/models/post.model";
     <div class="card ">
       <div class="card-header d-flex justify-content-between">
           <span class="lead mr-2">
-            #{{index+1}} <a href="#" class="mr-2">{{post.user.full_name}}</a><small class="text-muted">{{post.created_at | amTimeAgo}}</small>
+            #{{index+1}} <a [routerLink]="['/users', post.user.id]" class="mr-2">{{post.user.full_name}}</a><small class="text-muted">{{post.created_at | amTimeAgo}}</small>
           </span>
           <button type="button" class="btn btn-sm btn-outline-success" *ngIf="!post.confirmed">Confirm</button>
       </div>
@@ -36,7 +36,6 @@ export class PostDetailComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.post);
   }
 
   private calculateVotes(): number{

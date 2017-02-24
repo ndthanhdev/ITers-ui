@@ -21,8 +21,8 @@ export class Thread implements ThreadInterface {
   updated_at: Date;
   title: string;
   user: User;
-  latest_posts: Post[];
-  oldest_posts: Post[];
+  latest_posts: Post[] = [];
+  oldest_posts: Post[] = [];
 
   public constructor(that: ThreadInterface) {
     this.id = that.id;
@@ -31,7 +31,9 @@ export class Thread implements ThreadInterface {
     this.updated_at = that.updated_at;
     this.title = that.title;
     this.user = new User(that.user);
-    this.latest_posts = that.latest_posts; // TODO: convert to array of Object
-    this.oldest_posts = that.oldest_posts
+    if (that.latest_posts)
+      that.latest_posts.forEach(post => this.latest_posts.push(new Post(post)));
+    if (that.oldest_posts)
+      that.oldest_posts.forEach(post => this.oldest_posts.push(new Post(post)));
   }
 }

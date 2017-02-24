@@ -13,7 +13,7 @@ import {AppState} from "../../../shared/store/reducers/app.reducer";
   </div>
   <div class="jumbotron mb-3" *ngIf="!(loadingThread | async)">
     <h1 class="display-4">{{thread?.title}}</h1>
-    <span class="lead">Created by <a href="#" class="mr-2">{{thread?.user.full_name}}</a><small class="text-muted">{{thread?.created_at | amTimeAgo}}</small></span>
+    <span class="lead text-muted">Created by <a [routerLink]="['/users', thread?.user.id]" class="mr-2">{{thread?.user.full_name}}</a><small class="text-muted">{{thread?.created_at | amTimeAgo}}</small></span>
   </div>
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a [routerLink]="['/topics']">Topic</a></li>

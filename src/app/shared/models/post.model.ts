@@ -22,7 +22,7 @@ export class Post implements PostInterface{
   thread_id: number;
   created_at: Date;
   updated_at: Date;
-  interacted_users: User[];
+  interacted_users: User[] = [];
 
   public constructor(that : PostInterface){
     this.id = that.id;
@@ -32,7 +32,7 @@ export class Post implements PostInterface{
     this.thread_id = that.thread_id;
     this.created_at = that.created_at;
     this.updated_at = that.updated_at;
-    this.interacted_users = that.interacted_users;
+    that.interacted_users.forEach(user => this.interacted_users.push(new User(user)));
   }
 
 }

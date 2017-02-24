@@ -7,13 +7,16 @@ import {UIAction} from "../actions/ui.action";
 export const initialState: UIState = {
   loadingTopics: false,
   loadingTopic: false,
-  loadingThread: false
+  loadingThread: false,
+  loadingUser: false
+
 };
 
 export interface UIState {
   loadingTopics: boolean;
   loadingTopic: boolean;
   loadingThread: boolean;
+  loadingUser: boolean
 }
 
 export function reducer(state: UIState = initialState, action: Action): UIState {
@@ -35,6 +38,12 @@ export function reducer(state: UIState = initialState, action: Action): UIState 
 
     case UIAction.END_THREAD_LOAD:
       return Object.assign({}, state, {loadingThread: false});
+
+    case UIAction.START_USER_LOAD:
+      return Object.assign({}, state, {loadingUser: true});
+
+    case UIAction.END_USER_LOAD:
+      return Object.assign({}, state, {loadingUser: false});
 
     default:
       return state;

@@ -1,3 +1,4 @@
+import {AccountInterface, Account} from "./account.model";
 /**
  * Created by vunguyenhung on 2/20/17.
  */
@@ -7,6 +8,7 @@ export interface UserInterface {
   start_year: number;
   email: string;
   birthday: Date;
+  account: AccountInterface;
   pivot: {
     post_id: number,
     user_id: number,
@@ -21,6 +23,7 @@ export class User implements UserInterface {
   email: string;
   birthday: Date;
   pivot: {post_id: number; user_id: number; liked: boolean};
+  account: Account;
 
   public constructor(that: UserInterface) {
     this.id = that.id;
@@ -29,6 +32,8 @@ export class User implements UserInterface {
     this.email = that.email;
     this.birthday = that.birthday;
     this.pivot = that.pivot;
+    if (that.account)
+      this.account = new Account(that.account);
   }
 
 }

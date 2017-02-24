@@ -13,8 +13,11 @@ import {Observable} from "rxjs";
   </div>
   <div class="jumbotron mb-3" *ngIf="!(loadingTopic | async)">
     <h1 class="display-4">{{topic?.title}}</h1>
-    <span class="lead" *ngIf="topic?.users.length > 0">
-      Mods: <a href="#" class="mr-2" *ngFor="let user of topic?.users"><i class="fa fa-user mr-1"></i>{{user.full_name}}</a>
+    <span class="lead text-muted" *ngIf="topic?.users.length > 0">
+      Mods: <a  class="mr-2" 
+      *ngFor="let user of topic?.users" 
+      [routerLink]="['/users', user.id]">
+      <i class="fa fa-user mr-1"></i>{{user.full_name}}</a>
     </span>
   </div>
   <ol class="breadcrumb">

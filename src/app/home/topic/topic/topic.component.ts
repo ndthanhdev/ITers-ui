@@ -9,7 +9,7 @@ import {Topic} from "../../../shared/models/topic.model";
   template: `
   <div class="jumbotron mb-3">
     <h1 class="display-4">ITers</h1>
-    <span class="lead">Forum for TDT IT Student</span>
+    <span class="lead text-muted">Forum for TDT IT Student</span>
   </div>
   <ol class="breadcrumb">
     <li class="breadcrumb-item active">Topic</li>

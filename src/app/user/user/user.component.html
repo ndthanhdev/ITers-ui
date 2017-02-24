@@ -1,0 +1,109 @@
+<div *ngIf="loadingUser | async" class="d-flex justify-content-center">
+  <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+</div>
+<!--NG2 - USER HEADER COMPONENT-->
+<div class="jumbotron mb-3" *ngIf="!(loadingUser | async)">
+  <div class="d-flex align-items-start">
+    <h1 class="display-4 mr-2">{{user?.full_name}}</h1>
+    <!--<span class="badge badge-success rounded-circle"><i class="fa fa-check"></i></span>-->
+    <button class="btn btn-sm btn-success rounded-circle"><i class="fa fa-check"></i></button>
+  </div>
+  <div class="lead text-muted">{{user?.account.current_role.role()}} since {{user?.account.current_role.valid_from | amTimeAgo}}</div>
+</div>
+<!--NG2 - USER HEADER COMPONENT-->
+
+<div class="d-flex justify-content-center mb-3 " *ngIf="!(loadingUser | async)">
+  <div class="card w-100">
+    <div class="card-block">
+      <div class="d-flex align-items-center">
+        <h1 class="card-title mr-2">User Information</h1>
+        <button type="button" class="btn btn-outline-primary btn-sm">Save</button>
+      </div>
+      <hr class="mt-0">
+
+      <div class="row d-flex justify-content-center mb-3">
+        <form class="col-6">
+          <!--START USER INFORMATION-->
+          <div class="form-group">
+            <label for="input-fullname">Full name:</label>
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+              <input type="text" class="form-control" aria-describedby="school-id" id="input-fullname"
+                     [value]="user?.full_name">
+              <!--<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> VALIDATION-->
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="input-email">Email:</label>
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-envelope-square" aria-hidden="true"></i></span>
+              <input type="email" class="form-control" id="input-email" readonly [value]="user?.email">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="input-startyear">Start year:</label>
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-book" aria-hidden="true"></i></span>
+              <input type="number" class="form-control" id="input-startyear" [value]="user?.start_year">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="input-birthday">Birthday:</label>
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+              <input type="datetime" class="form-control" placeholder="(yyyy-mm-dd)" id="input-birthday"
+                     [value]="user?.birthday">
+            </div>
+          </div>
+          <!--END USER INFORMATION-->
+        </form>
+      </div>
+
+      <div class="d-flex align-items-center">
+        <h1 class="card-title mr-2">Account Information</h1>
+      </div>
+      <hr class="mt-0">
+
+      <div class="row d-flex justify-content-center mb-3">
+        <form class="col-6">
+          <!--START ACCOUNT INFORMATION-->
+          <div class="form-group">
+            <label for="input-schoolid">School Id:</label>
+            <div class="input-group">
+              <span class="input-group-addon">
+                  <i class="fa fa-id-badge" aria-hidden="true"></i>
+              </span>
+              <input type="text" class="form-control" aria-describedby="school-id" readonly id="input-schoolid"
+                     [value]="user?.account.school_id">
+              <!--<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> VALIDATION-->
+            </div>
+          </div>
+          <!--END ACCOUNT INFORMATION-->
+        </form>
+      </div>
+
+      <!--START ROLE INFORMATION-->
+      <div class="d-flex align-items-center">
+        <h1 class="card-title mr-2">Role Information</h1>
+        <button type="button" class="btn btn-outline-primary btn-sm">Save</button>
+      </div>
+      <hr class="mt-0">
+      <div class="row d-flex justify-content-center">
+        <form class="col-6">
+          <!--IF ROLE BELOW ADMIN-->
+          <div class="form-group">
+            <label for="input-role1">Role:</label>
+            <div class="input-group">
+              <span class="input-group-addon"><i class="fa fa-key" aria-hidden="true"></i></span>
+              <input type="text" class="form-control" aria-describedby="school-id" value="User" id="input-role1"
+                     readonly [value]="user?.account.current_role.role()">
+            </div>
+          </div>
+          <!--IF ROLE BELOW ADMIN-->
+
+        </form>
+      </div>
+      <!--END ROLE INFORMATION-->
+    </div>
+  </div>
+</div>

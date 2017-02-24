@@ -7,10 +7,15 @@ import {Action} from "@ngrx/store";
 export class UIAction {
   static START_TOPICS_LOAD = '[UI ACTION] START_TOPICS_LOAD';
   static END_TOPICS_LOAD = '[UI ACTION] END_TOPICS_LOAD';
+
   static START_TOPIC_LOAD = '[UI ACTION] START_TOPIC_LOAD';
   static END_TOPIC_LOAD = '[UI ACTION] END_TOPIC_LOAD';
+
   static START_THREAD_LOAD = '[UI ACTION] START_THREAD_LOAD';
   static END_THREAD_LOAD = '[UI ACTION] END_THREAD_LOAD';
+
+  static START_USER_LOAD = '[UI ACTION] START_USER_LOAD';
+  static END_USER_LOAD = '[UI ACTION] END_USER_LOAD';
 
   public startTopicsLoad(): Action {
     return {type: UIAction.START_TOPICS_LOAD}
@@ -44,4 +49,14 @@ export class UIAction {
     return {type: UIAction.END_THREAD_LOAD}
   }
 
+  public startUserLoad(userId: number): Action {
+    return {
+      type: UIAction.START_USER_LOAD,
+      payload: {id: userId}
+    }
+  }
+
+  public endUserLoad(): Action{
+    return {type: UIAction.END_USER_LOAD}
+  }
 }
