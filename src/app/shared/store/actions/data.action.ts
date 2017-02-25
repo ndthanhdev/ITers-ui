@@ -6,6 +6,7 @@ import {Topic} from "../../models/topic.model";
 import {Action} from "@ngrx/store";
 import {Thread} from "../../models/thread.model";
 import {User} from "../../models/user.model";
+import {Account} from "../../models/account.model";
 @Injectable()
 export class DataAction {
   static LOAD_TOPICS = '[DATA ACTION] LOAD_TOPICS';
@@ -13,6 +14,7 @@ export class DataAction {
   static LOAD_THREAD = '[DATA ACTION] LOAD_THREAD';
 
   static LOAD_USER = '[DATA ACTION] LOAD_USER';
+  static LOGIN = '[DATA ACTION] LOGIN';
 
   public loadTopics(topics: Topic[]): Action {
     return {
@@ -28,17 +30,26 @@ export class DataAction {
     }
   }
 
-  public loadThread(thread: Thread): Action{
+  public loadThread(thread: Thread): Action {
     return {
       type: DataAction.LOAD_THREAD,
       payload: {thread: thread}
     }
   }
 
-  public loadUser(user: User): Action{
+  public loadUser(user: User): Action {
     return {
       type: DataAction.LOAD_USER,
       payload: {user: user}
+    }
+  }
+
+  public login(loggedInAccount: Account): Action {
+    return {
+      type: DataAction.LOGIN,
+      payload: {
+        loggedInAccount : loggedInAccount
+      }
     }
   }
 

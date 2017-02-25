@@ -17,6 +17,9 @@ export class UIAction {
   static START_USER_LOAD = '[UI ACTION] START_USER_LOAD';
   static END_USER_LOAD = '[UI ACTION] END_USER_LOAD';
 
+  static START_LOGIN = '[UI ACTION] START_LOGIN';
+  static END_LOGIN = '[UI ACTION] END_LOGIN';
+
   public startTopicsLoad(): Action {
     return {type: UIAction.START_TOPICS_LOAD}
   }
@@ -45,7 +48,7 @@ export class UIAction {
     }
   }
 
-  public endThreadLoad(): Action{
+  public endThreadLoad(): Action {
     return {type: UIAction.END_THREAD_LOAD}
   }
 
@@ -56,7 +59,21 @@ export class UIAction {
     }
   }
 
-  public endUserLoad(): Action{
+  public endUserLoad(): Action {
     return {type: UIAction.END_USER_LOAD}
+  }
+
+  public startLogin(school_id: string, password: string): Action {
+    return {
+      type: UIAction.START_LOGIN,
+      payload: {
+        school_id: school_id,
+        password: password
+      }
+    }
+  }
+
+  public endLogin(): Action {
+    return {type: UIAction.END_LOGIN}
   }
 }

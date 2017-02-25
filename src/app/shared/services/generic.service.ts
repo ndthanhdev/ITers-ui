@@ -15,6 +15,10 @@ export class GenericService {
     this.http = injector.get(Http);
   }
 
+  protected post(options?: RequestOptions, data?: Object|string): Observable<any> {
+    return this.http.post(this.BASE_URL, data, this.defaultRequestOptions().merge(options));
+  }
+
   protected get(options?: RequestOptions): Observable<any> {
     return this.request(options).map(this.extractData);
   }
@@ -51,7 +55,8 @@ export class GenericService {
    */
   protected defaultHeaders(): Headers {
     return new Headers({
-      'Accept': 'application/json'
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
     });
   }
 
@@ -59,7 +64,7 @@ export class GenericService {
     return resp.json();
   }
 
-  protected extractData(resp: Response): any{
+  protected extractData(resp: Response): any {
     return resp.json();
   }
 }

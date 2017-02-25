@@ -16,6 +16,7 @@ import {FroalaEditorModule, FroalaViewModule} from "angular2-froala-wysiwyg";
 import {ThreadServiceEffect} from "./shared/store/effects/thread.effect";
 import {UserModule} from "./user/user.module";
 import {UserServiceEffect} from "./shared/store/effects/user.effect";
+import {AuthServiceEffect} from "./shared/store/effects/auth.effect";
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,6 +30,7 @@ import {UserServiceEffect} from "./shared/store/effects/user.effect";
     EffectsModule.run(TopicServiceEffect),
     EffectsModule.run(ThreadServiceEffect),
     EffectsModule.run(UserServiceEffect),
+    EffectsModule.run(AuthServiceEffect),
     BrowserModule,
     AppRoutingModule,
     AuthModule,

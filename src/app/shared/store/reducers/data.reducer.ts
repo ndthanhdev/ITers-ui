@@ -3,6 +3,7 @@ import {Action} from "@ngrx/store";
 import {DataAction} from "../actions/data.action";
 import {Thread} from "../../models/thread.model";
 import {User} from "../../models/user.model";
+import {Account} from "../../models/account.model";
 /**
  * Created by vunguyenhung on 2/20/17.
  */
@@ -11,14 +12,16 @@ export const initialState = {
   topics: [],
   topic: null,
   thread: null,
-  user: null
+  user: null,
+  loggedInAccount: null
 };
 
 export interface DataState {
   topics: Topic[];
   topic: Topic;
   thread: Thread;
-  user: User
+  user: User;
+  loggedInAccount: Account;
 }
 
 export function reducer(state: DataState = initialState, action: Action): DataState {
@@ -34,6 +37,9 @@ export function reducer(state: DataState = initialState, action: Action): DataSt
 
     case DataAction.LOAD_USER:
       return Object.assign({}, state, {user: action.payload.user});
+
+    case DataAction.LOGIN:
+      return Object.assign({}, state, {loggedInAccount: action.payload.loggedInAccount});
 
     default:
       return state;

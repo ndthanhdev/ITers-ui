@@ -3,7 +3,7 @@ import {UserInterface, User} from "./user.model";
  * Created by vunguyenhung on 2/21/17.
  */
 
-export interface PostInterface{
+export interface PostInterface {
   id: number;
   content: string;
   confirmed: boolean;
@@ -14,7 +14,7 @@ export interface PostInterface{
   interacted_users: UserInterface[];
 }
 
-export class Post implements PostInterface{
+export class Post implements PostInterface {
   id: number;
   content: string;
   confirmed: boolean;
@@ -24,7 +24,7 @@ export class Post implements PostInterface{
   updated_at: Date;
   interacted_users: User[] = [];
 
-  public constructor(that : PostInterface){
+  public constructor(that: PostInterface) {
     this.id = that.id;
     this.content = that.content;
     this.confirmed = that.confirmed;
@@ -32,7 +32,8 @@ export class Post implements PostInterface{
     this.thread_id = that.thread_id;
     this.created_at = that.created_at;
     this.updated_at = that.updated_at;
-    that.interacted_users.forEach(user => this.interacted_users.push(new User(user)));
+    if (that.interacted_users)
+      that.interacted_users.forEach(user => this.interacted_users.push(new User(user)));
   }
 
 }
