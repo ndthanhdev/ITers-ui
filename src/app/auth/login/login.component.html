@@ -4,7 +4,6 @@
       <h2>Login</h2>
     </div>
     <div class="card-block">
-      <!--Handle On Enter Action-->
       <form #loginForm="ngForm" (ngSubmit)="onSubmit()" (keyup.enter)="onSubmit()">
         <div class="form-group" [ngClass]="{'has-danger': !(school_id.valid || school_id.untouched)}"> <!--class = has-success-->
           <div class="input-group">

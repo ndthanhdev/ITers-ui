@@ -30,7 +30,6 @@ export class AuthService extends GenericService {
   private extractAccount(token: string) {
     let jwtHelper = new JwtHelper();
     let rawAccount = jwtHelper.decodeToken(token);
-    console.log("rawAccount: ", rawAccount);
     return new Account(rawAccount);
   }
 

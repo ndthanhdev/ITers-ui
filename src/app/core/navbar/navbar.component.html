@@ -7,25 +7,43 @@
   <a class="navbar-brand" (click)="goToHome()">ITers</a>
 
   <div class="collapse navbar-collapse" id="app-navbar">
+
     <div class="navbar-nav mr-auto mt-2 mt-md-0">
-      <a class="nav-item nav-link" (click)="goToHome()">
-        <span>Hello, Vu Nguyen Hung</span>
-        <small class="text-primary">
+
+      <!--IF LOGGED IN-->
+      <a class="nav-item nav-link" (click)="goToUser(loggedInAccount.user.id)" *ngIf="loggedInAccount">
+        <span>Hello, {{loggedInAccount.user.full_name}}</span>
+        <small [ngClass]="{
+        'text-info': loggedInAccount.current_role.is(1),
+        'text-success': loggedInAccount.current_role.is(2),
+        'text-primary': loggedInAccount.current_role.is(3)}">
           <i class="fa fa-circle" aria-hidden="true"></i>
-          <span>Admin</span>
+          <span>{{loggedInAccount.current_role.role()}}</span>
         </small>
       </a>
-      <a class="nav-item nav-link" (click)="goToHome()" placement="right" ngbTooltip="Dashboard">
+      <!--IF LOGGED IN-->
+
+      <!--IF ADMIN-->
+      <a class="nav-item nav-link" (click)="goToHome()" placement="right" ngbTooltip="Dashboard"
+         *ngIf="loggedInAccount?.current_role?.is(3)">
         <i class="fa fa-globe fa-lg" aria-hidden="true"></i>
       </a>
+      <!--IF ADMIN-->
+
     </div>
+
     <form class="form-inline my-2 my-lg-0">
       <div class="input-group mr-sm-2">
         <input class="form-control" type="text" placeholder="Search">
         <span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span>
       </div>
       <!--<button class="btn btn-outline-primary my-2 my-sm-0" type="button">Logout</button>-->
-      <button class="btn btn-outline-primary my-2 my-sm-0" type="button" (click)="goToDefault()">Login</button>
+      <button class="btn btn-outline-primary my-2 my-sm-0" type="button" (click)="goToDash()" *ngIf="!loggedInAccount">
+        Login
+      </button>
+      <button class="btn btn-outline-primary my-2 my-sm-0" type="button" (click)="logout()" *ngIf="loggedInAccount">
+        Logout
+      </button>
     </form>
   </div>
 </nav>

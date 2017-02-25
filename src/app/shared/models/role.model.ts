@@ -23,7 +23,7 @@ export class Role implements RoleInterface {
   }
 
   public role(): string {
-    switch (this.privilege_level){
+    switch (this.privilege_level) {
       case 1:
         return 'User';
       case 2:
@@ -33,6 +33,10 @@ export class Role implements RoleInterface {
       default:
         return 'Guest'
     }
+  }
+
+  public is(privilege_level : number): boolean {
+    return this.privilege_level === privilege_level;
   }
 
 }

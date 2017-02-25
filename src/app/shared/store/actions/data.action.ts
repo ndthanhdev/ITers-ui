@@ -15,6 +15,7 @@ export class DataAction {
 
   static LOAD_USER = '[DATA ACTION] LOAD_USER';
   static LOGIN = '[DATA ACTION] LOGIN';
+  static LOGOUT = '[DATA ACTION] LOGOUT';
 
   public loadTopics(topics: Topic[]): Action {
     return {
@@ -47,10 +48,12 @@ export class DataAction {
   public login(loggedInAccount: Account): Action {
     return {
       type: DataAction.LOGIN,
-      payload: {
-        loggedInAccount : loggedInAccount
-      }
+      payload: {loggedInAccount: loggedInAccount}
     }
+  }
+
+  public logout(): Action {
+    return {type: DataAction.LOGOUT}
   }
 
 }

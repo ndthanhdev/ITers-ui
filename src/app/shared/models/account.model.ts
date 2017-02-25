@@ -12,6 +12,7 @@ export interface AccountInterface {
   updated_at: Date;
   user: UserInterface;
   latest_roles: RoleInterface[];
+  current_role: Role;
 }
 
 export class Account implements AccountInterface {
@@ -31,6 +32,9 @@ export class Account implements AccountInterface {
     this.confirmed = that.confirmed;
     this.created_at = that.created_at;
     this.updated_at = that.updated_at;
+
+    if(that.current_role)
+      this.current_role = new Role(that.current_role);
     if (that.latest_roles)
       this.current_role = new Role(that.latest_roles[0]);
     if (that.user)

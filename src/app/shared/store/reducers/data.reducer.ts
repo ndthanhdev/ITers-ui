@@ -41,6 +41,9 @@ export function reducer(state: DataState = initialState, action: Action): DataSt
     case DataAction.LOGIN:
       return Object.assign({}, state, {loggedInAccount: action.payload.loggedInAccount});
 
+    case DataAction.LOGOUT:
+      return Object.assign({}, state, {loggedInAccount: null});
+
     default:
       return state;
   }
