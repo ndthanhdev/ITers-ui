@@ -25,5 +25,16 @@ export class AuthServiceEffect {
     .concatMap(account => Observable.from([
       this.dataAction.login(account),
       this.uiAction.endLogin()
+    ]));
+
+
+  @Effect() register$: Observable<Action> = this.actions
+    .ofType(UIAction.START_REGISTER)
+    .map(action => action.payload)
+    .switchMap(payload => this.authService.register(payload.user, payload.account))
+    .concatMap(msg => Observable.from([
+      this.dataAction.register(msg),
+      this.uiAction.endRegister()
+      // TODO: start login
     ]))
 }

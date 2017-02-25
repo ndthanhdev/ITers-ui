@@ -5,7 +5,7 @@
     </div>
     <div class="card-block">
       <form #loginForm="ngForm" (ngSubmit)="onSubmit()" (keyup.enter)="onSubmit()">
-        <div class="form-group" [ngClass]="{'has-danger': !(school_id.valid || school_id.untouched)}"> <!--class = has-success-->
+        <div class="form-group" [ngClass]="{'has-danger': !(school_id.valid || school_id.untouched)}">
           <div class="input-group">
               <span class="input-group-addon">
                   <i class="fa fa-user" aria-hidden="true"></i>
@@ -13,7 +13,6 @@
             <input required type="text" class="form-control" id="school-id" aria-describedby="school-id"
                    placeholder="School ID"
                    name="school_id_input" [(ngModel)]="school_id_input" #school_id="ngModel" [ngClass]="{'form-control-danger': !(school_id.valid || school_id.untouched)}">
-            <!--class = form-control-success-->
           </div>
           <small [hidden]="school_id.valid || school_id.untouched" class="form-text text-danger">School ID is required</small>
         </div>

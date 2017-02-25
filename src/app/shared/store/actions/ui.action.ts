@@ -20,6 +20,9 @@ export class UIAction {
   static START_LOGIN = '[UI ACTION] START_LOGIN';
   static END_LOGIN = '[UI ACTION] END_LOGIN';
 
+  static START_REGISTER = '[UI ACTION] START_REGISTER';
+  static END_REGISTER = '[UI ACTION] END_REGISTER';
+
   public startTopicsLoad(): Action {
     return {type: UIAction.START_TOPICS_LOAD}
   }
@@ -75,5 +78,19 @@ export class UIAction {
 
   public endLogin(): Action {
     return {type: UIAction.END_LOGIN}
+  }
+
+  public startRegister(user, account): Action {
+    return {
+      type: UIAction.START_REGISTER,
+      payload: {
+        user: user,
+        account: account
+      }
+    }
+  }
+
+  public endRegister(): Action {
+    return {type: UIAction.END_REGISTER}
   }
 }

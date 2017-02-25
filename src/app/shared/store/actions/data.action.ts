@@ -14,8 +14,11 @@ export class DataAction {
   static LOAD_THREAD = '[DATA ACTION] LOAD_THREAD';
 
   static LOAD_USER = '[DATA ACTION] LOAD_USER';
+
   static LOGIN = '[DATA ACTION] LOGIN';
   static LOGOUT = '[DATA ACTION] LOGOUT';
+
+  static REGISTER = '[DATA ACTION] REGISTER';
 
   public loadTopics(topics: Topic[]): Action {
     return {
@@ -54,6 +57,13 @@ export class DataAction {
 
   public logout(): Action {
     return {type: DataAction.LOGOUT}
+  }
+
+  public register(msg): Action {
+    return {
+      type: DataAction.REGISTER,
+      payload: {msg: msg}
+    }
   }
 
 }

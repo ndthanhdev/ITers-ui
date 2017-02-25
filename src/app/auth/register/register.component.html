@@ -4,39 +4,53 @@
       <h2>Register</h2>
     </div>
     <div class="card-block">
-      <form>
 
+      <form #registerForm="ngForm" (ngSubmit)="onSubmit()" (keyup.enter)="onSubmit()">
         <!--START USER INFORMATION-->
         <h3 class="mb-1">User Information</h3>
         <hr class="mt-0">
-        <div class="form-group">
+
+        <div class="form-group" [ngClass]="{'has-danger': !(full_name_input.valid || full_name_input.untouched)}">
           <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-            <input type="text" class="form-control" aria-describedby="school-id" placeholder="Full Name*">
-            <!--<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> VALIDATION-->
+            <input required type="text" class="form-control" aria-describedby="school-id" placeholder="Full Name*"
+                   name="full_name_input" [(ngModel)]="user.full_name" #full_name_input="ngModel"
+                   [ngClass]="{'form-control-danger': !(full_name_input.valid || full_name_input.untouched)}">
           </div>
+          <small [hidden]="full_name_input.valid || full_name_input.untouched" class="form-text text-danger">Full Name is required
+          </small>
         </div>
-        <div class="form-group">
+
+        <div class="form-group" [ngClass]="{'has-danger': !(email_input.valid || email_input.untouched)}">
           <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-envelope-square" aria-hidden="true"></i></span>
-            <input type="email" class="form-control" placeholder="Email*">
+            <input required type="email" class="form-control" placeholder="Email*"
+                   name="email" [(ngModel)]="user.email" #email_input="ngModel"
+                   [ngClass]="{'form-control-danger': !(email_input.valid || email_input.untouched)}">
           </div>
+          <small [hidden]="email_input.valid || email_input.untouched" class="form-text text-danger">Email is required
+          </small>
         </div>
-        <div class="form-group">
+
+        <div class="form-group" [ngClass]="{'has-danger': !(start_year_input.valid || start_year_input.untouched)}">
           <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-book" aria-hidden="true"></i></span>
-            <input type="number" class="form-control" placeholder="Start Year">
+            <input required type="number" class="form-control" placeholder="Start Year*"
+                   name="start_year_input" [(ngModel)]="user.start_year"  #start_year_input="ngModel"
+                   [ngClass]="{'form-control-danger': !(start_year_input.valid || start_year_input.untouched)}">
           </div>
+          <small [hidden]="start_year_input.valid || start_year_input.untouched" class="form-text text-danger">Start year is required
+          </small>
         </div>
+
         <div class="form-group">
           <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"
                                                (click)="d.toggle()"></i></span>
             <input class="form-control" placeholder="Birthday (yyyy-mm-dd)"
-                   name="dp" [(ngModel)]="birthdayDatePickerModel" ngbDatepicker #d="ngbDatepicker"
+                   name="dp" [(ngModel)]="datePickerModel" ngbDatepicker #d="ngbDatepicker"
                    [maxDate]="maxDate"
                    [minDate]="minDate">
-            <!--<input type="datetime" class="form-control" placeholder="Birthday (yyyy-mm-dd)">-->
           </div>
         </div>
         <!--END USER INFORMATION-->
@@ -45,24 +59,33 @@
         <!--START ACCOUNT INFORMATION-->
         <h3 class="mb-1">Account Information</h3>
         <hr class="mt-0">
+
         <div class="form-group">
-          <div class="input-group">
-              <span class="input-group-addon">
-                  <i class="fa fa-id-badge" aria-hidden="true"></i>
-              </span>
-            <input type="text" class="form-control" aria-describedby="school-id" placeholder="School ID*">
-            <!--<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> VALIDATION-->
+          <div class="input-group" [ngClass]="{'has-danger': !(school_id.valid || school_id.untouched)}">
+            <span class="input-group-addon"><i class="fa fa-id-badge" aria-hidden="true"></i></span>
+            <input required type="text" class="form-control" aria-describedby="school-id" placeholder="School ID*"
+                   name="school_id_input" [(ngModel)]="account.school_id" #school_id="ngModel"
+                   [ngClass]="{'form-control-danger': !(school_id.valid || school_id.untouched)}">
           </div>
+          <small [hidden]="school_id.valid || school_id.untouched" class="form-text text-danger">School ID is required
+          </small>
         </div>
-        <div class="form-group">
+
+        <div class="form-group" [ngClass]="{'has-danger': !(password.valid || password.untouched)}">
           <div class="input-group">
-              <span class="input-group-addon">
-                  <i class="fa fa-lock" aria-hidden="true"></i>
-              </span>
-            <input type="password" class="form-control" placeholder="Password*">
+            <span class="input-group-addon"><i class="fa fa-lock" aria-hidden="true"></i></span>
+            <input required type="password" class="form-control" placeholder="Password*"
+                   name="password_input" [(ngModel)]="account.password" #password="ngModel"
+                   [ngClass]="{'form-control-danger': !(password.valid || password.untouched)}">
           </div>
+          <small [hidden]="password.valid || password.untouched" class="form-text text-danger">Password is required
+          </small>
         </div>
+
+
         <!--END ACCOUNT INFORMATION-->
+
+        <!--TODO: Make password confirmation input here-->
 
         <!--START ROLE INFORMATION-->
         <h3 class="mb-1">Role Information</h3>
@@ -70,19 +93,16 @@
         <div class="form-group">
           <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-key" aria-hidden="true"></i></span>
-            <input type="text" class="form-control" aria-describedby="school-id" value="User" readonly>
-            <!--<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> VALIDATION-->
+            <input readonly type="text" class="form-control" aria-describedby="school-id" value="User">
           </div>
         </div>
         <!--END ROLE INFORMATION-->
-
-
       </form>
     </div>
     <div class="card-footer d-flex justify-content-end">
       <button type="button" class="btn btn-link mr-auto pl-0" (click)="navigateToLogin()">Login</button>
-      <button type="button" class="btn btn-link">Clear</button>
-      <button type="button" class="btn btn-primary">Register</button>
+      <button type="button" class="btn btn-link" (click)="registerForm.reset()">Clear</button>
+      <button type="button" class="btn btn-primary" [disabled]="!registerForm.form.valid" (click)="onSubmit()">Register <i class="fa fa-spinner fa-pulse fa-fw" *ngIf="registering | async"></i></button>
     </div>
   </div>
 </div>

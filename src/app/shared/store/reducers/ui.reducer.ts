@@ -9,7 +9,8 @@ export const initialState: UIState = {
   loadingTopic: false,
   loadingThread: false,
   loadingUser: false,
-  loggingIn : false
+  loggingIn : false,
+  registering: false
 };
 
 export interface UIState {
@@ -18,6 +19,7 @@ export interface UIState {
   loadingThread: boolean;
   loadingUser: boolean;
   loggingIn : boolean;
+  registering: boolean;
 }
 
 export function reducer(state: UIState = initialState, action: Action): UIState {
@@ -51,6 +53,12 @@ export function reducer(state: UIState = initialState, action: Action): UIState 
 
     case UIAction.END_LOGIN:
       return Object.assign({}, state, {loggingIn: false});
+
+    case UIAction.START_REGISTER:
+      return Object.assign({}, state, {registering: true});
+
+    case UIAction.END_REGISTER:
+      return Object.assign({}, state, {registering: false});
 
     default:
       return state;

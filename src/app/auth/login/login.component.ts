@@ -36,7 +36,6 @@ export class LoginComponent implements OnInit{
     this.router.navigate(['/register']);
   }
 
-
   private onSubmit() {
     this.store.dispatch(this.uiAction.startLogin(this.school_id_input, this.password_input));
   }
