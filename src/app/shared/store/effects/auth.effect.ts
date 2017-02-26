@@ -26,10 +26,13 @@ export class AuthServiceEffect {
     .map(action => action.payload)
     .switchMap(payload =>
       this.authService.login(payload.school_id, payload.password)
-        .concatMap(account => Observable.from([
-          this.dataAction.login(account),
-          this.uiAction.endLogin()
-        ]))
+        .concatMap(account => {
+            this.notificationService.success('SUCCESS!', 'Login successfully!');
+            return Observable.from([
+              this.dataAction.login(account),
+              this.uiAction.endLogin()
+            ])}
+        )
         .catch((error: Response) => {
           let errMsg = this.getErrorMessage(error);
           this.notificationService.error('ERROR', errMsg);
@@ -44,10 +47,14 @@ export class AuthServiceEffect {
     .map(action => action.payload)
     .switchMap(payload =>
       this.authService.register(payload.user, payload.account)
-        .concatMap(msg => Observable.from([
-          this.dataAction.register(msg),
-          this.uiAction.endRegister()
-        ]))
+        .concatMap(msg => {
+            this.notificationService.success('SUCCESS', msg);
+            return Observable.from([
+              this.dataAction.register(msg),
+              this.uiAction.endRegister()
+            ])
+          }
+        )
         .catch((error: Response) => {
           let errMsg = this.getErrorMessage(error);
           this.notificationService.error('ERROR', errMsg);
@@ -61,11 +68,11 @@ export class AuthServiceEffect {
   //TODO: get message value
   private getErrorMessage(error: Response) {
     const body = error.json().msg || '';
-    if(typeof body == 'string')
+    if (typeof body == 'string')
       return body;
 
     let errorMessage: string = '';
-    for(let invalidField in body)
+    for (let invalidField in body)
       errorMessage += invalidField + ' is invalid!';
 
     console.error(errorMessage);

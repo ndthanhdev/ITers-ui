@@ -4,7 +4,6 @@ import {UIAction} from "../../shared/store/actions/ui.action";
 import {AppState} from "../../shared/store/reducers/app.reducer";
 import {Store} from "@ngrx/store";
 import {Observable} from "rxjs";
-import {NotificationsService} from "angular2-notifications";
 
 @Component({
   moduleId: module.id,
@@ -19,17 +18,13 @@ export class LoginComponent implements OnInit {
 
   constructor(private router: Router,
               private uiAction: UIAction,
-              private store: Store<AppState>,
-              private notificationService: NotificationsService) {
+              private store: Store<AppState>) {
   }
 
   ngOnInit() {
     this.loggingIn = this.store.select(state => state.uiState.loggingIn);
     this.store.select(state => state.dataState.loggedInAccount).subscribe(account => {
-      if (account) {
-        this.notificationService.success('SUCCESS!', 'Login successfully!');
-        this.navigateToHome();
-      }
+      if (account) this.navigateToHome();
     });
   }
 
