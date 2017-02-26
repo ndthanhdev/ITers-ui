@@ -1,4 +1,6 @@
-import {Component, OnInit, Input, Output, EventEmitter} from "@angular/core";
+import {Component, OnInit, Input, Output, EventEmitter, Inject} from "@angular/core";
+import {PageScrollService, PageScrollInstance} from "ng2-page-scroll";
+import {DOCUMENT} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-list-footer',
@@ -26,10 +28,9 @@ export class ListFooterComponent implements OnInit {
   @Input() collectionSize: number;
 
   @Output() pageChange: EventEmitter<number> = new EventEmitter();
-  @Output() scrollTopClicked = new EventEmitter();
 
-  constructor() {
-    this.collectionSize = 22; // TODO: remove this when got data from server
+  constructor(private pageScrollService: PageScrollService,
+              @Inject(DOCUMENT) private document: any) {
   }
 
   ngOnInit() {
@@ -40,7 +41,8 @@ export class ListFooterComponent implements OnInit {
   }
 
   private onScrollTopClicked() {
-    this.scrollTopClicked.emit();
+    let pageScrollInstance: PageScrollInstance = PageScrollInstance.simpleInstance(this.document, '#app-top');
+    this.pageScrollService.start(pageScrollInstance);
   }
 
 }

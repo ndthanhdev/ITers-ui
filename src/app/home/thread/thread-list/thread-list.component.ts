@@ -1,6 +1,4 @@
-import {Component, OnInit, Inject, Input} from "@angular/core";
-import {PageScrollService, PageScrollInstance} from "ng2-page-scroll";
-import {DOCUMENT} from "@angular/platform-browser";
+import {Component, OnInit, Input} from "@angular/core";
 import {Thread} from "../../../shared/models/thread.model";
 
 @Component({
@@ -26,7 +24,6 @@ import {Thread} from "../../../shared/models/thread.model";
   <app-list-footer
     [page]="currentPage"
     [collectionSize]="threads.length"
-    (scrollTopClicked)="onScrollTopClicked()" 
     (pageChange)="onPageChange($event)">
   </app-list-footer>
   `,
@@ -37,8 +34,7 @@ export class ThreadListComponent implements OnInit {
 
   private currentPage: number = 1;
 
-  constructor(private pageScrollService: PageScrollService,
-              @Inject(DOCUMENT) private document: any) { }
+  constructor() { }
 
   ngOnInit() {
   }
@@ -48,10 +44,5 @@ export class ThreadListComponent implements OnInit {
   }
 
   private onAddTopicButtonClicked() {
-  }
-
-  private onScrollTopClicked() {
-    let pageScrollInstance: PageScrollInstance = PageScrollInstance.simpleInstance(this.document, '#app-top');
-    this.pageScrollService.start(pageScrollInstance);
   }
 }

@@ -1,7 +1,5 @@
-import {Component, OnInit, Input, Inject} from "@angular/core";
+import {Component, OnInit, Input} from "@angular/core";
 import {Post} from "../../../shared/models/post.model";
-import {PageScrollService, PageScrollInstance} from "ng2-page-scroll";
-import {DOCUMENT} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-post-list',
@@ -32,8 +30,7 @@ export class PostListComponent implements OnInit {
   @Input() posts: Post[];
   private currentPage: number = 1;
 
-  constructor(private pageScrollService: PageScrollService,
-              @Inject(DOCUMENT) private document: any) {
+  constructor() {
   }
 
   ngOnInit() {
@@ -45,10 +42,5 @@ export class PostListComponent implements OnInit {
 
   onAddTopicButtonClicked() {
 
-  }
-
-  onScrollTopClicked() {
-    let pageScrollInstance: PageScrollInstance = PageScrollInstance.simpleInstance(this.document, '#app-top');
-    this.pageScrollService.start(pageScrollInstance);
   }
 }

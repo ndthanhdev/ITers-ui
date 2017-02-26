@@ -28,6 +28,7 @@
     "angular2-froala-wysiwyg": "^2.4.2-2",
     "angular2-jwt": "^0.1.28",
     "angular2-moment": "^1.2.0",
+    "angular2-notifications": "^0.4.53",
     "bootstrap": "^4.0.0-alpha.6",
     "core-js": "^2.4.1",
     "font-awesome": "^4.7.0",

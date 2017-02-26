@@ -17,6 +17,7 @@ import {ThreadServiceEffect} from "./shared/store/effects/thread.effect";
 import {UserModule} from "./user/user.module";
 import {UserServiceEffect} from "./shared/store/effects/user.effect";
 import {AuthServiceEffect} from "./shared/store/effects/auth.effect";
+import {SimpleNotificationsModule} from "angular2-notifications";
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,6 +26,7 @@ import {AuthServiceEffect} from "./shared/store/effects/auth.effect";
     Ng2PageScrollModule.forRoot(),
     FroalaEditorModule.forRoot(),
     FroalaViewModule.forRoot(),
+    SimpleNotificationsModule.forRoot(),
     StoreModule.provideStore(reducer, initialState),
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     EffectsModule.run(TopicServiceEffect),

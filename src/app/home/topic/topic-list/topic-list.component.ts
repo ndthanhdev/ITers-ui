@@ -1,6 +1,4 @@
-import {Component, Inject, Input} from "@angular/core";
-import {PageScrollService, PageScrollInstance} from "ng2-page-scroll";
-import {DOCUMENT} from "@angular/platform-browser";
+import {Component, Input} from "@angular/core";
 import {Topic} from "../../../shared/models/topic.model";
 
 @Component({
@@ -31,7 +29,6 @@ import {Topic} from "../../../shared/models/topic.model";
   <app-list-footer
     [page]="currentPage"
     [collectionSize]="topics.length"
-    (scrollTopClicked)="onScrollTopClicked()" 
     (pageChange)="onPageChange($event)">
   </app-list-footer>
   `,
@@ -43,8 +40,7 @@ export class TopicListComponent {
   private currentPage: number = 1;
   private isAdding: boolean;
 
-  constructor(private pageScrollService: PageScrollService,
-              @Inject(DOCUMENT) private document: any) {
+  constructor() {
   }
 
   private onPageChange($event) {
@@ -61,10 +57,5 @@ export class TopicListComponent {
 
   private onInputCanceled() {
     this.isAdding = false;
-  }
-
-  private onScrollTopClicked() {
-    let pageScrollInstance: PageScrollInstance = PageScrollInstance.simpleInstance(this.document, '#app-top');
-    this.pageScrollService.start(pageScrollInstance);
   }
 }
