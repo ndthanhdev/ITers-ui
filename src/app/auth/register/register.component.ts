@@ -36,8 +36,6 @@ export class RegisterComponent implements OnInit {
 
   private registering: Observable<boolean>;
 
-  private msg: string;
-
   constructor(private router: Router,
               private store: Store<AppState>,
               private uiAction: UIAction) {
@@ -47,10 +45,8 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.registering = this.store.select(state => state.uiState.registering);
-    // TODO: refactor this
     this.store.select(state => state.dataState.msg).subscribe(msg => {
-      this.msg = msg;
-      if (this.msg) this.navigateToLogin();
+      if (msg) this.navigateToLogin();
     })
   }
 
