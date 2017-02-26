@@ -16,7 +16,6 @@ export interface AccountInterface {
 }
 
 export class Account implements AccountInterface {
-
   id: number;
   school_id: string;
   confirmed: boolean;
@@ -40,5 +39,4 @@ export class Account implements AccountInterface {
     if (that.user)
       this.user = new User(that.user);
   }
-
 }

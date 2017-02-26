@@ -13,7 +13,8 @@ export const initialState = {
   topic: null,
   thread: null,
   user: null,
-  loggedInAccount: null
+  loggedInAccount: null,
+  msg : null,
 };
 
 export interface DataState {
@@ -22,6 +23,7 @@ export interface DataState {
   thread: Thread;
   user: User;
   loggedInAccount: Account;
+  msg: string;
 }
 
 export function reducer(state: DataState = initialState, action: Action): DataState {

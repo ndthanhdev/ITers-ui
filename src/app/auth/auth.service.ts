@@ -20,23 +20,22 @@ export class AuthService extends GenericService {
     }).map(this.extractToken)
       .do(token => localStorage.setItem('id_token', token))
       .map(this.extractAccount)
-      .catch(this.handleError)
   }
 
   public register(user: any, account: any): Observable<string> {
     return this.post(new RequestOptions({url: this.BASE_URL + '/register'}), {
-        user: {
-          full_name: user.full_name,
-          email: user.email,
-          start_year: user.start_year,
-          birthday: user.birthday
-        },
-        account: {
-          school_id: account.school_id,
-          password: account.password
-        },
-        role: {privilege_level: 1}
-      }).map(resp => resp.json().msg);
+      user: {
+        full_name: user.full_name,
+        email: user.email,
+        start_year: user.start_year,
+        birthday: user.birthday
+      },
+      account: {
+        school_id: account.school_id,
+        password: account.password
+      },
+      role: {privilege_level: 1}
+    }).map(resp => resp.json().msg);
   }
 
   private extractToken(response: Response) {
@@ -47,19 +46,6 @@ export class AuthService extends GenericService {
     let jwtHelper = new JwtHelper();
     let rawAccount = jwtHelper.decodeToken(token);
     return new Account(rawAccount);
-  }
-
-  private handleError(error: Response | any) {
-    let errMsg: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-    } else {
-      errMsg = error.message ? error.message : error.toString();
-    }
-    console.error(errMsg);
-    return Observable.throw(errMsg);
   }
 
 }

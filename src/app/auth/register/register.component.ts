@@ -36,6 +36,8 @@ export class RegisterComponent implements OnInit {
 
   private registering: Observable<boolean>;
 
+  private msg: string;
+
   constructor(private router: Router,
               private store: Store<AppState>,
               private uiAction: UIAction) {
@@ -45,6 +47,11 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.registering = this.store.select(state => state.uiState.registering);
+    // TODO: refactor this
+    this.store.select(state => state.dataState.msg).subscribe(msg => {
+      this.msg = msg;
+      if (this.msg) this.navigateToLogin();
+    })
   }
 
   private navigateToLogin() {
@@ -52,7 +59,8 @@ export class RegisterComponent implements OnInit {
   }
 
   private onSubmit() {
-    this.user.birthday = new Date(this.datePickerModel.year, this.datePickerModel.month - 1, this.datePickerModel.day + 1);
+    if (this.datePickerModel)
+      this.user.birthday = new Date(this.datePickerModel.year, this.datePickerModel.month - 1, this.datePickerModel.day + 1);
     this.store.dispatch(this.uiAction.startRegister(this.user, this.account));
   }
 }

@@ -19,8 +19,10 @@ export class UIAction {
 
   static START_LOGIN = '[UI ACTION] START_LOGIN';
   static END_LOGIN = '[UI ACTION] END_LOGIN';
+  static LOGIN_FAILED = '[UI ACTION] LOGIN_FAILED';
 
   static START_REGISTER = '[UI ACTION] START_REGISTER';
+  static REGISTER_FAILED = '[UI ACTION] REGISTER_FAILED';
   static END_REGISTER = '[UI ACTION] END_REGISTER';
 
   public startTopicsLoad(): Action {
@@ -92,5 +94,13 @@ export class UIAction {
 
   public endRegister(): Action {
     return {type: UIAction.END_REGISTER}
+  }
+
+  public registerFailed(): Action {
+    return {type: UIAction.REGISTER_FAILED}
+  }
+
+  public loginFailed(): Action {
+    return {type: UIAction.LOGIN_FAILED}
   }
 }

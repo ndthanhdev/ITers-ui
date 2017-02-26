@@ -17,10 +17,18 @@ import {Account} from "./shared/models/account.model";
     <router-outlet></router-outlet>
   </div>
   <app-footer></app-footer>
+  <simple-notifications [options]="notificationOptions"></simple-notifications>
   `,
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+
+  private notificationOptions = {
+    position: ["bottom", "right"],
+    timeOut: 2000,
+    showProgressBar: false,
+    preventDuplicates : true
+  };
 
   constructor(private router: Router,
               private store: Store<AppState>,

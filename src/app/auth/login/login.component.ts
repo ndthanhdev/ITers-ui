@@ -4,6 +4,7 @@ import {UIAction} from "../../shared/store/actions/ui.action";
 import {AppState} from "../../shared/store/reducers/app.reducer";
 import {Store} from "@ngrx/store";
 import {Observable} from "rxjs";
+import {NotificationsService} from "angular2-notifications";
 
 @Component({
   moduleId: module.id,
@@ -11,20 +12,24 @@ import {Observable} from "rxjs";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit{
+export class LoginComponent implements OnInit {
   private school_id_input: string;
   private password_input: string;
   private loggingIn: Observable<boolean>;
 
   constructor(private router: Router,
               private uiAction: UIAction,
-              private store: Store<AppState>) {
+              private store: Store<AppState>,
+              private notificationService: NotificationsService) {
   }
 
   ngOnInit() {
     this.loggingIn = this.store.select(state => state.uiState.loggingIn);
     this.store.select(state => state.dataState.loggedInAccount).subscribe(account => {
-      if (account) this.navigateToHome();
+      if (account) {
+        this.notificationService.success('SUCCESS!', 'Login successfully!');
+        this.navigateToHome();
+      }
     });
   }
 
