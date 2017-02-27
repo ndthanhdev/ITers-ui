@@ -4,13 +4,20 @@ import {Observable} from "rxjs";
 import {Account} from "../shared/models/account.model";
 import {JwtHelper} from "angular2-jwt";
 import {GenericService} from "../shared/services/generic.service";
+import {AppState} from "../shared/store/reducers/app.reducer";
+import {Store} from "@ngrx/store";
 
 @Injectable()
-export class AuthService extends GenericService {
+export class AuthService extends GenericService{
 
-  constructor(injector: Injector) {
+  private loggedInAccount : Account = null;
+
+  constructor(injector: Injector,
+              private store : Store<AppState>) {
     super(injector);
     this.BASE_URL += '/auth';
+    this.store.select(state => state.dataState.loggedInAccount)
+      .subscribe(loggedInAccount => this.loggedInAccount = loggedInAccount);
   }
 
   public login(schoolId: string, password: string): Observable<Account> {
@@ -46,6 +53,10 @@ export class AuthService extends GenericService {
     let jwtHelper = new JwtHelper();
     let rawAccount = jwtHelper.decodeToken(token);
     return new Account(rawAccount);
+  }
+
+  public getLoggedInAccount(): Account {
+    return this.loggedInAccount;
   }
 
 }

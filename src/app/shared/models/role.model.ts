@@ -9,6 +9,12 @@ export interface RoleInterface {
   valid_to: Date;
 }
 
+export enum RoleEnum{
+  USER = 1,
+  MOD = 2,
+  ADMIN = 3
+}
+
 export class Role implements RoleInterface {
   id: number;
   privilege_level: number;
@@ -35,8 +41,9 @@ export class Role implements RoleInterface {
     }
   }
 
-  public is(privilege_level : number): boolean {
+  public is(privilege_level : number | RoleEnum): boolean {
     return this.privilege_level === privilege_level;
   }
-
 }
+
+

@@ -5,6 +5,8 @@ import {Observable} from "rxjs";
 import {UIAction} from "../../../shared/store/actions/ui.action";
 import {Store} from "@ngrx/store";
 import {AppState} from "../../../shared/store/reducers/app.reducer";
+import {Account} from "../../../shared/models/account.model";
+import {User} from "../../../shared/models/user.model";
 
 @Component({
   template: `
@@ -22,6 +24,8 @@ import {AppState} from "../../../shared/store/reducers/app.reducer";
   </ol>
   <app-post-list
     [posts]="thread?.oldest_posts"
+    [loggedInAccount]="loggedInAccount | async"
+    [managingMods]="managingMods | async"
     *ngIf="!(loadingThread | async)">
   </app-post-list>
   <hr>
@@ -30,15 +34,17 @@ import {AppState} from "../../../shared/store/reducers/app.reducer";
   styleUrls: ['post.component.scss']
 })
 export class PostComponent implements OnInit {
-  private topicId : number;
+  private topicId: number;
   private threadId: number;
   private thread: Thread;
   private loadingThread: Observable<boolean>;
+  private loggedInAccount: Observable<Account>;
+  private managingMods: Observable<User[]>;
 
   constructor(private route: ActivatedRoute,
               private uiAction: UIAction,
               private store: Store<AppState>) {
-    this.topicId =route.snapshot.params['topicId'];
+    this.topicId = route.snapshot.params['topicId'];
     this.threadId = route.snapshot.params['threadId'];
     this.store.dispatch(uiAction.startThreadLoad(this.topicId, this.threadId));
   }
@@ -46,6 +52,11 @@ export class PostComponent implements OnInit {
   ngOnInit() {
     this.store.select(state => state.dataState.thread).subscribe(thread => this.thread = thread);
     this.loadingThread = this.store.select(state => state.uiState.loadingThread);
+    this.loggedInAccount = this.store.select(state => state.dataState.loggedInAccount);
+    this.managingMods = this.store.select(state => {
+      if (state.dataState.topic)
+        return state.dataState.topic.users
+    });
   }
 
 }
