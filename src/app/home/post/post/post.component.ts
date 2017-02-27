@@ -29,7 +29,7 @@ import {User} from "../../../shared/models/user.model";
     *ngIf="!(loadingThread | async)">
   </app-post-list>
   <hr>
-  <app-post-input *ngIf="!(loadingThread | async)"></app-post-input>
+  <app-post-input *ngIf="!(loadingThread | async) && (loggedInAccount | async) != null"></app-post-input>
   `,
   styleUrls: ['post.component.scss']
 })

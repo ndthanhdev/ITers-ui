@@ -18,6 +18,7 @@ import {Account} from "./shared/models/account.model";
   </div>
   <app-footer></app-footer>
   <simple-notifications [options]="notificationOptions"></simple-notifications>
+  <div id="app-bot"></div>
   `,
   styleUrls: ['app.component.scss']
 })

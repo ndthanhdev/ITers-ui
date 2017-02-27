@@ -5,6 +5,7 @@ import {AppState} from "../../../shared/store/reducers/app.reducer";
 import {Store} from "@ngrx/store";
 import {Topic} from "../../../shared/models/topic.model";
 import {Observable} from "rxjs";
+import {Account} from "../../../shared/models/account.model";
 
 @Component({
   template: `
@@ -26,6 +27,7 @@ import {Observable} from "rxjs";
   </ol>
   <app-thread-list
     *ngIf="!(loadingTopic | async)"
+    [loggedInAccount]="loggedInAccount | async"
     [threads]="topic.latest_threads">
   </app-thread-list>
   `,
@@ -35,6 +37,7 @@ export class ThreadComponent implements OnInit {
   private topicId: number;
   private topic: Topic;
   private loadingTopic : Observable<boolean>;
+  private loggedInAccount : Observable<Account>;
 
   constructor(private route: ActivatedRoute,
               private uiAction: UIAction,
@@ -46,6 +49,7 @@ export class ThreadComponent implements OnInit {
   ngOnInit() {
     this.store.select(state => state.dataState.topic).subscribe(topic => this.topic = topic);
     this.loadingTopic = this.store.select(state => state.uiState.loadingTopic);
+    this.loggedInAccount = this.store.select(state => state.dataState.loggedInAccount);
   }
 
 }

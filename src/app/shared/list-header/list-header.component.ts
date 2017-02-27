@@ -1,4 +1,4 @@
-import {Component, OnInit, Output, EventEmitter, Input} from "@angular/core";
+import {Component, Output, EventEmitter, Input} from "@angular/core";
 
 @Component({
   selector: 'app-list-header',
@@ -11,23 +11,18 @@ import {Component, OnInit, Output, EventEmitter, Input} from "@angular/core";
     [pageSize]="10" 
     [boundaryLinks]="true"
     [page]="page"></ngb-pagination>
-    <button (click)="onAddClicked()" type="button" class="btn btn-outline-primary align-self-start">+</button>
+    <button (click)="onAddClicked()" type="button" class="btn btn-outline-primary align-self-start" *ngIf="canShowAddButton">+</button>
   </div>
   `,
   styleUrls: ['./list-header.component.scss']
 })
-export class ListHeaderComponent implements OnInit {
+export class ListHeaderComponent{
   @Input() page: number;
   @Input() collectionSize: number;
+  @Input() canShowAddButton: boolean = true;
 
   @Output() pageChange: EventEmitter<number> = new EventEmitter();
   @Output() addClicked = new EventEmitter();
-
-  constructor() {
-  }
-
-  ngOnInit() {
-  }
 
   private onPageChange($event) {
     this.pageChange.emit($event);

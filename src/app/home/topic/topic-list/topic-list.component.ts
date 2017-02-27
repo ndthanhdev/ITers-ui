@@ -1,5 +1,7 @@
 import {Component, Input} from "@angular/core";
 import {Topic} from "../../../shared/models/topic.model";
+import {Account} from "../../../shared/models/account.model";
+import {RoleEnum} from "../../../shared/models/role.model";
 
 @Component({
   selector: 'app-topic-list',
@@ -7,6 +9,7 @@ import {Topic} from "../../../shared/models/topic.model";
   <app-list-header 
     [page]="currentPage"
     [collectionSize]="topics.length"
+    [canShowAddButton]="canShowAddButton()"
     (pageChange)="onPageChange($event)" 
     (addClicked)="onAddTopicButtonClicked()">
   </app-list-header>
@@ -36,6 +39,7 @@ import {Topic} from "../../../shared/models/topic.model";
 })
 export class TopicListComponent {
   @Input() topics: Topic[];
+  @Input() loggedInAccount: Account;
 
   private currentPage: number = 1;
   private isAdding: boolean;
@@ -57,5 +61,11 @@ export class TopicListComponent {
 
   private onInputCanceled() {
     this.isAdding = false;
+  }
+
+  private canShowAddButton(): boolean {
+    if(!this.loggedInAccount)
+      return false;
+    return this.loggedInAccount.current_role.is(RoleEnum.ADMIN);
   }
 }

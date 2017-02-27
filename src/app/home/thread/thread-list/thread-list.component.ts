@@ -1,5 +1,6 @@
 import {Component, OnInit, Input} from "@angular/core";
 import {Thread} from "../../../shared/models/thread.model";
+import {Account} from "../../../shared/models/account.model";
 
 @Component({
   selector: 'app-thread-list',
@@ -7,6 +8,7 @@ import {Thread} from "../../../shared/models/thread.model";
   <app-list-header 
     [page]="currentPage"
     [collectionSize]="threads.length"
+    [canShowAddButton]="canShowAddButton()"
     (pageChange)="onPageChange($event)" 
     (addClicked)="onAddTopicButtonClicked()">
   </app-list-header>
@@ -31,6 +33,7 @@ import {Thread} from "../../../shared/models/thread.model";
 })
 export class ThreadListComponent implements OnInit {
   @Input() threads : Thread[];
+  @Input() loggedInAccount : Account;
 
   private currentPage: number = 1;
 
@@ -44,5 +47,9 @@ export class ThreadListComponent implements OnInit {
   }
 
   private onAddTopicButtonClicked() {
+  }
+
+  private canShowAddButton() : boolean{
+    return this.loggedInAccount != null;
   }
 }
