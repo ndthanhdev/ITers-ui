@@ -1,4 +1,4 @@
-import {Component, Input, Inject} from "@angular/core";
+import {Component, Input, Inject, OnInit, OnChanges, SimpleChanges} from "@angular/core";
 import {Post} from "../../../shared/models/post.model";
 import {Account} from "../../../shared/models/account.model";
 import {RoleEnum} from "../../../shared/models/role.model";
@@ -11,7 +11,7 @@ import {DOCUMENT} from "@angular/platform-browser";
   template: `
   <app-list-header 
     [page]="currentPage"
-    [collectionSize]="posts?.length"
+    [collectionSize]="filteredPosts?.length"
     [canShowAddButton]="canShowAddButton()"
     (pageChange)="onPageChange($event)" 
     (addClicked)="onAddTopicButtonClicked()">
@@ -27,22 +27,32 @@ import {DOCUMENT} from "@angular/platform-browser";
   </template>
   <app-list-footer
     [page]="currentPage"
-    [collectionSize]="posts?.length"
+    [collectionSize]="filteredPosts?.length"
     (scrollTopClicked)="onScrollTopClicked()" 
     (pageChange)="onPageChange($event)">
   </app-list-footer>
   `,
   styleUrls: ['./post-list.component.scss']
 })
-export class PostListComponent {
+export class PostListComponent implements OnInit, OnChanges{
+
   @Input() posts: Post[];
   @Input() loggedInAccount: Account;
   @Input() managingMods: User[];
 
   private currentPage: number = 1;
+  private filteredPosts : Post[];
 
   constructor(private pageScrollService: PageScrollService,
               @Inject(DOCUMENT) private document: any) {
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('called on changes on post list comp');
+  }
+
+  ngOnInit(): void {
+    this.filteredPosts = this.posts.filter(post => this.isCurrentAccountCanViewUnconfirmedPost(post));
   }
 
   onPageChange($event) {

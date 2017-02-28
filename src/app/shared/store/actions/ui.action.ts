@@ -25,6 +25,12 @@ export class UIAction {
   static REGISTER_FAILED = '[UI ACTION] REGISTER_FAILED';
   static END_REGISTER = '[UI ACTION] END_REGISTER';
 
+  static START_POST_CREATE = '[UI ACTION] START_POST_CREATE';
+  static END_POST_CREATE = '[UI ACTION] END_POST_CREATE';
+  static CREATE_POST_FAILED = '[UI ACTION] CREATE_POST_FAILED';
+
+  static START_POST_ADD = '[UI ACTION] START_POST_ADD';
+
   public startTopicsLoad(): Action {
     return {type: UIAction.START_TOPICS_LOAD}
   }
@@ -102,5 +108,29 @@ export class UIAction {
 
   public loginFailed(): Action {
     return {type: UIAction.LOGIN_FAILED}
+  }
+
+  public startPostCreate(topicId: number, threadId: number, postContent: string): Action {
+    return {
+      type: UIAction.START_POST_CREATE,
+      payload: {
+        topicId: topicId,
+        threadId: threadId,
+        postContent: postContent
+      }
+    }
+  }
+
+  public endPostCreate(): Action {
+    return {type: UIAction.END_POST_CREATE}
+  }
+
+
+  public createPostFailed() {
+    return {type: UIAction.CREATE_POST_FAILED}
+  }
+
+  public startPostAdd(url: string) {
+    return {type: UIAction.START_POST_ADD, payload: {url: url}}
   }
 }

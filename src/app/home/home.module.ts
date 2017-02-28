@@ -3,6 +3,7 @@ import {CommonModule} from "@angular/common";
 import {HomeRoutingModule} from "./home-routing.module";
 import {TopicModule} from "./topic/topic.module";
 import {ThreadModule} from "./thread/thread.module";
+import {PostModule} from "./post/post.module";
 
 @NgModule({
   imports: [
@@ -10,6 +11,7 @@ import {ThreadModule} from "./thread/thread.module";
     HomeRoutingModule,
     ThreadModule,
     TopicModule,
+    PostModule,
   ],
   declarations: []
 })

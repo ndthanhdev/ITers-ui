@@ -20,7 +20,6 @@ import {RoleEnum} from "../../../shared/models/role.model";
       (saved)="onInputSaved()"
       (canceled)="onInputCanceled()">
     </app-topic-detail-input>
-      
     <template ngFor let-topic [ngForOf]="topics" let-i="index">
       <app-topic-detail
         *ngIf="i < (currentPage * 10) && i >= ((currentPage-1) * 10)"

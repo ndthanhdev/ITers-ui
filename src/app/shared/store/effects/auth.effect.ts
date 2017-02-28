@@ -53,8 +53,7 @@ export class AuthServiceEffect {
               this.dataAction.register(msg),
               this.uiAction.endRegister()
             ])
-          }
-        )
+          })
         .catch((error: Response) => {
           let errMsg = this.getErrorMessage(error);
           this.notificationService.error('ERROR', errMsg);

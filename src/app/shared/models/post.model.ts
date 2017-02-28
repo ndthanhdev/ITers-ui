@@ -10,8 +10,8 @@ export interface PostInterface {
   user: UserInterface;
   thread_id: number;
   created_at: Date;
-  updated_at: Date;
-  interacted_users: UserInterface[];
+  updated_at?: Date;
+  interacted_users?: UserInterface[];
 }
 
 export class Post implements PostInterface {
@@ -21,8 +21,8 @@ export class Post implements PostInterface {
   user: User;
   thread_id: number;
   created_at: Date;
-  updated_at: Date;
-  interacted_users: User[] = [];
+  updated_at?: Date;
+  interacted_users?: User[] = [];
 
   public constructor(that: PostInterface) {
     this.id = that.id;

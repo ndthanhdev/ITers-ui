@@ -7,6 +7,8 @@ import {Action} from "@ngrx/store";
 import {Thread} from "../../models/thread.model";
 import {User} from "../../models/user.model";
 import {Account} from "../../models/account.model";
+import {ResponseMessage} from "../../models/response-message.model";
+import {Post} from "../../models/post.model";
 @Injectable()
 export class DataAction {
   static LOAD_TOPICS = '[DATA ACTION] LOAD_TOPICS';
@@ -19,6 +21,9 @@ export class DataAction {
   static LOGOUT = '[DATA ACTION] LOGOUT';
 
   static REGISTER = '[DATA ACTION] REGISTER';
+
+  static CREATE_POST = '[DATA ACTION] CREATE POST';
+  static ADD_POST = '[DATA ACTION] ADD POST';
 
   public loadTopics(topics: Topic[]): Action {
     return {
@@ -63,6 +68,20 @@ export class DataAction {
     return {
       type: DataAction.REGISTER,
       payload: {msg: msg}
+    }
+  }
+
+  public createPost(responseMessage: ResponseMessage): Action {
+    return {
+      type: DataAction.CREATE_POST,
+      payload: {responseMessage: responseMessage}
+    }
+  }
+
+  public addPost(post: Post): Action {
+    return {
+      type: DataAction.ADD_POST,
+      payload: {post: post}
     }
   }
 

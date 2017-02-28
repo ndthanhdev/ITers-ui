@@ -11,7 +11,7 @@ import {RoleEnum} from "../../../shared/models/role.model";
     <div class="card ">
       <div class="card-header d-flex justify-content-end">
           <span class="lead mr-auto">
-            #{{index+1}} <a [routerLink]="['/users', post.user.id]" class="mr-2">{{post.user.full_name}}</a><small class="text-muted">{{post.created_at | amTimeAgo}}</small>
+            #{{index+1}} <a [routerLink]="['/users', post.user.id]" class="mr-2">{{post.user.full_name}}</a><small class="text-muted">{{post.created_at | amUTCOffset:7 | amTimeAgo}}</small>
           </span>
           <!--IF MANAGING MOD OR ADMIN-->
           <button type="button" class="btn btn-sm btn-outline-success" *ngIf="canShowConfirmButton()">Confirm</button>
@@ -27,7 +27,7 @@ import {RoleEnum} from "../../../shared/models/role.model";
             <i class="fa fa-caret-down fa-3x" aria-hidden="true"></i>
           </div>
           <div class="col-11">
-            <p class="card-text">{{post.content}}</p>
+            <p class="card-text" [froalaView]="post.content"></p>
           </div>
         </div>
       </div>
@@ -63,7 +63,6 @@ export class PostDetailComponent implements OnInit {
     return !this.post.confirmed && this.loggedInAccount.user.id === this.post.user.id
   }
 
-  //TODO: refactor this
   private canShowConfirmButton(): boolean {
     if (this.post.confirmed)
       return false;

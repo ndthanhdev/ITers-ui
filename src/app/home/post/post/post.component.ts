@@ -7,6 +7,7 @@ import {Store} from "@ngrx/store";
 import {AppState} from "../../../shared/store/reducers/app.reducer";
 import {Account} from "../../../shared/models/account.model";
 import {User} from "../../../shared/models/user.model";
+import {Post} from "../../../shared/models/post.model";
 
 @Component({
   template: `
@@ -15,7 +16,7 @@ import {User} from "../../../shared/models/user.model";
   </div>
   <div class="jumbotron mb-3" *ngIf="!(loadingThread | async)">
     <h1 class="display-4">{{thread?.title}}</h1>
-    <span class="lead text-muted">Created by <a [routerLink]="['/users', thread?.user.id]" class="mr-2">{{thread?.user.full_name}}</a><small class="text-muted">{{thread?.created_at | amTimeAgo}}</small></span>
+    <span class="lead text-muted">Created by <a [routerLink]="['/users', thread?.user.id]" class="mr-2">{{thread?.user.full_name}}</a><small class="text-muted">{{thread?.created_at | amUTCOffset:7 | amTimeAgo}}</small></span>
   </div>
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a [routerLink]="['/topics']">Topic</a></li>
@@ -23,23 +24,30 @@ import {User} from "../../../shared/models/user.model";
     <li class="breadcrumb-item active">Post</li>
   </ol>
   <app-post-list
-    [posts]="thread?.oldest_posts"
+    [posts]="posts | async"
     [loggedInAccount]="loggedInAccount | async"
     [managingMods]="managingMods | async"
     *ngIf="!(loadingThread | async)">
   </app-post-list>
   <hr>
-  <app-post-input *ngIf="!(loadingThread | async) && (loggedInAccount | async) != null"></app-post-input>
+  <app-post-input 
+    *ngIf="!(loadingThread | async) && (loggedInAccount | async) != null"
+    [creatingPost]="creatingPost| async"
+    (newPost)="onNewPost($event)">
+  </app-post-input>
   `,
   styleUrls: ['post.component.scss']
 })
-export class PostComponent implements OnInit {
+export class PostComponent implements OnInit{
+
   private topicId: number;
   private threadId: number;
   private thread: Thread;
   private loadingThread: Observable<boolean>;
   private loggedInAccount: Observable<Account>;
   private managingMods: Observable<User[]>;
+  private creatingPost: Observable<boolean>;
+  private posts: Observable<Post[]>;
 
   constructor(private route: ActivatedRoute,
               private uiAction: UIAction,
@@ -51,12 +59,18 @@ export class PostComponent implements OnInit {
 
   ngOnInit() {
     this.store.select(state => state.dataState.thread).subscribe(thread => this.thread = thread);
+    this.posts = this.store.select(state => state.dataState.thread.oldest_posts);
     this.loadingThread = this.store.select(state => state.uiState.loadingThread);
     this.loggedInAccount = this.store.select(state => state.dataState.loggedInAccount);
     this.managingMods = this.store.select(state => {
       if (state.dataState.topic)
         return state.dataState.topic.users
     });
+    this.creatingPost = this.store.select(state => state.uiState.creatingPost);
+  }
+
+  private onNewPost($event) {
+    this.store.dispatch(this.uiAction.startPostCreate(this.topicId, this.threadId, $event));
   }
 
 }

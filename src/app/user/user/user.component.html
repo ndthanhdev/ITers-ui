@@ -8,7 +8,7 @@
     <button class="btn btn-sm btn-success rounded-circle" *ngIf="user?.account?.confirmed"><i class="fa fa-check"></i></button>
     <button class="btn btn-sm btn-secondary rounded-circle bg-faded" *ngIf="!user?.account?.confirmed"><i class="fa fa-minus"></i></button>
   </div>
-  <div class="lead text-muted">{{user?.account.current_role.role()}} since {{user?.account.current_role.valid_from | amTimeAgo}}</div>
+  <div class="lead text-muted">{{user?.account.current_role.role()}} since {{user?.account.current_role.valid_from | amUTCOffset:7 | amTimeAgo}}</div>
 </div>
 <!--NG2 - USER HEADER COMPONENT-->
 

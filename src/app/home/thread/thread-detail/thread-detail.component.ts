@@ -9,9 +9,9 @@ import {Thread} from "../../../shared/models/thread.model";
       <h4 class="mr-auto"><span class="lead">#{{thread.id}}</span><a [routerLink]="['/topics', thread.topic_id, 'threads', thread.id]" class="ml-2">{{thread.title}}</a></h4>
       <span class="badge badge-pill badge-default align-self-center ml-1 mr-1">Post: {{thread.latest_posts.length}}</span>
     </div>
-    <p class="mb-0">By <a [routerLink]="['/users', thread.user.id]" class="mr-1">{{thread.user.full_name}}</a>{{thread.created_at | amTimeAgo}}</p>
+    <p class="mb-0">By <a [routerLink]="['/users', thread.user.id]" class="mr-1">{{thread.user.full_name}}</a>{{thread.created_at | amUTCOffset:7 | amTimeAgo}}</p>
     <div class="d-flex w-100 justify-content-end">
-      <small class="align-self-center mr-auto">Last post by <a [routerLink]="['/users', thread.latest_posts[0]?.user.id]" class="mr-1">{{thread.latest_posts[0]?.user.full_name}}</a>{{thread.latest_posts[0]?.created_at | amTimeAgo}}</small>
+      <small class="align-self-center mr-auto">Last post by <a [routerLink]="['/users', thread.latest_posts[0]?.user.id]" class="mr-1">{{thread.latest_posts[0]?.user.full_name}}</a>{{thread.latest_posts[0]?.created_at | amUTCOffset:7 | amTimeAgo}}</small>
     </div>
   </div>
   `,

@@ -18,6 +18,13 @@ import {UserModule} from "./user/user.module";
 import {UserServiceEffect} from "./shared/store/effects/user.effect";
 import {AuthServiceEffect} from "./shared/store/effects/auth.effect";
 import {SimpleNotificationsModule} from "angular2-notifications";
+import {AuthHttp, AuthConfig} from "angular2-jwt";
+import {Http, RequestOptions} from "@angular/http";
+import {PostServiceEffect} from "./shared/store/effects/post.effect";
+
+export function authHttpServiceFactory(http: Http, options: RequestOptions) {
+  return new AuthHttp(new AuthConfig(), http, options);
+}
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,6 +38,7 @@ import {SimpleNotificationsModule} from "angular2-notifications";
     StoreDevtoolsModule.instrumentOnlyWithExtension(),
     EffectsModule.run(TopicServiceEffect),
     EffectsModule.run(ThreadServiceEffect),
+    EffectsModule.run(PostServiceEffect),
     EffectsModule.run(UserServiceEffect),
     EffectsModule.run(AuthServiceEffect),
     BrowserModule,
@@ -40,7 +48,11 @@ import {SimpleNotificationsModule} from "angular2-notifications";
     UserModule,
     CoreModule,
   ],
-  providers: [],
+  providers: [{
+    provide: AuthHttp,
+    useFactory: authHttpServiceFactory,
+    deps: [Http, RequestOptions]
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule {

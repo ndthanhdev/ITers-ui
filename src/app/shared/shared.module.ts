@@ -6,6 +6,7 @@ import {ListFooterComponent} from "./list-footer/list-footer.component";
 import {DataAction} from "./store/actions/data.action";
 import {UIAction} from "./store/actions/ui.action";
 import {MomentModule} from "angular2-moment";
+import {AmUTCOffsetPipe} from "./pipes/amUTCOffsetPipe";
 
 @NgModule({
   imports: [
@@ -13,8 +14,8 @@ import {MomentModule} from "angular2-moment";
     MomentModule,
     CommonModule
   ],
-  declarations: [ListHeaderComponent, ListFooterComponent],
-  exports: [ListHeaderComponent, ListFooterComponent, MomentModule],
+  declarations: [ListHeaderComponent, ListFooterComponent, AmUTCOffsetPipe],
+  exports: [ListHeaderComponent, ListFooterComponent, MomentModule, AmUTCOffsetPipe],
   providers: [DataAction, UIAction]
 })
 export class SharedModule {

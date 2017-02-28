@@ -7,6 +7,7 @@ import {PostListComponent} from "./post-list/post-list.component";
 import {PostDetailComponent} from "./post-detail/post-detail.component";
 import {FroalaEditorModule, FroalaViewModule} from "angular2-froala-wysiwyg";
 import {PostInputComponent} from "./post-input/post-input.component";
+import {PostService} from "./post.service";
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import {PostInputComponent} from "./post-input/post-input.component";
     FroalaViewModule,
     PostRoutingModule
   ],
-  declarations: [PostComponent, PostListComponent, PostDetailComponent, PostInputComponent]
+  declarations: [PostComponent, PostListComponent, PostDetailComponent, PostInputComponent],
+  providers: [PostService]
 })
 export class PostModule { }

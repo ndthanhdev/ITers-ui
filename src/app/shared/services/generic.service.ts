@@ -1,6 +1,7 @@
 import {Injector} from "@angular/core";
 import {Http, RequestOptions, Response, Headers} from "@angular/http";
 import {Observable} from "rxjs";
+import {AuthHttp} from "angular2-jwt";
 /**
  * Created by vunguyenhung on 2/20/17.
  */
@@ -8,11 +9,17 @@ import {Observable} from "rxjs";
 export class GenericService {
 
   protected http;
+  protected authHttp;
 
   protected BASE_URL: string = 'http://homestead.app/api';
 
   constructor(injector: Injector) {
     this.http = injector.get(Http);
+    this.authHttp = injector.get(AuthHttp);
+  }
+
+  protected postWithAuth(options?: RequestOptions, data?: Object|string): Observable<any> {
+    return this.authHttp.post(this.BASE_URL, data, this.defaultRequestOptions().merge(options));
   }
 
   protected post(options?: RequestOptions, data?: Object|string): Observable<any> {

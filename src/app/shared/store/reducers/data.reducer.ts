@@ -4,6 +4,7 @@ import {DataAction} from "../actions/data.action";
 import {Thread} from "../../models/thread.model";
 import {User} from "../../models/user.model";
 import {Account} from "../../models/account.model";
+import {ResponseMessage} from "../../models/response-message.model";
 /**
  * Created by vunguyenhung on 2/20/17.
  */
@@ -14,7 +15,8 @@ export const initialState = {
   thread: null,
   user: null,
   loggedInAccount: null,
-  msg : null,
+  msg: null,
+  responseMessage: null
 };
 
 export interface DataState {
@@ -24,6 +26,7 @@ export interface DataState {
   user: User;
   loggedInAccount: Account;
   msg: string;
+  responseMessage: ResponseMessage
 }
 
 export function reducer(state: DataState = initialState, action: Action): DataState {
@@ -48,6 +51,19 @@ export function reducer(state: DataState = initialState, action: Action): DataSt
 
     case DataAction.REGISTER:
       return Object.assign({}, state, {msg: action.payload.msg});
+
+    case DataAction.CREATE_POST:
+      return Object.assign({}, state, {responseMessage: action.payload.responseMessage});
+
+    case DataAction.ADD_POST:
+      let target = Object.assign({}, state, {
+          thread: Object.assign({}, state.thread, {
+            oldest_posts: state.thread.oldest_posts.concat(action.payload.post)
+          })
+        }
+      );
+      console.log(target);
+      return target;
 
     default:
       return state;
