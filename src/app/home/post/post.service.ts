@@ -14,22 +14,30 @@ export class PostService extends GenericService {
   }
 
   public createPost(topicId: number, threadId: number, postContent: string): Observable<ResponseMessage> {
-    return this.postWithAuth(new RequestOptions({url: `${this.BASE_URL}/${topicId}/threads/${threadId}/posts`}),{
+    return this.postWithAuth(new RequestOptions({url: `${this.BASE_URL}/${topicId}/threads/${threadId}/posts`}), {
       content: postContent
     }).map(this.extractResponseMessage);
   }
 
-  public loadPost(url: string): Observable<Post>{
+  public loadPost(url: string): Observable<Post> {
     return this.get(new RequestOptions({
       url: url
     }));
   }
 
-  private extractResponseMessage(resp: Response) : ResponseMessage{
+  public votePost(postId: number, liked: boolean): Observable<ResponseMessage> {
+    return this.putWithAuth(new RequestOptions({
+      url: `http://homestead.app/api/posts/${postId}/vote`
+    }), {
+      liked: liked
+    }).map(this.extractResponseMessage);
+  }
+
+  private extractResponseMessage(resp: Response): ResponseMessage {
     return new ResponseMessage(resp.json());
   }
 
-  protected extractData(resp: Response) : Post {
+  protected extractData(resp: Response): Post {
     return new Post(resp.json());
   }
 

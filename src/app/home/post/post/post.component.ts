@@ -24,10 +24,12 @@ import {Post} from "../../../shared/models/post.model";
     <li class="breadcrumb-item active">Post</li>
   </ol>
   <app-post-list
+    *ngIf="!(loadingThread | async)"
     [posts]="posts | async"
     [loggedInAccount]="loggedInAccount | async"
     [managingMods]="managingMods | async"
-    *ngIf="!(loadingThread | async)">
+    (postVoted)="onPostVote($event)"
+    >
   </app-post-list>
   <hr>
   <app-post-input 
@@ -73,4 +75,7 @@ export class PostComponent implements OnInit{
     this.store.dispatch(this.uiAction.startPostCreate(this.topicId, this.threadId, $event));
   }
 
+  private onPostVote($event){
+    this.store.dispatch(this.uiAction.startPostVote($event.postId, $event.liked));
+  }
 }

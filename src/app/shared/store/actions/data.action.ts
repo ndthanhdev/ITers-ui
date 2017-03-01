@@ -25,6 +25,10 @@ export class DataAction {
   static CREATE_POST = '[DATA ACTION] CREATE POST';
   static ADD_POST = '[DATA ACTION] ADD POST';
 
+  static VOTE_POST = '[DATA ACTION] VOTE POST';
+
+  static ADD_VOTE_POST = '[DATA ACTION] ADD VOTE POST';
+
   public loadTopics(topics: Topic[]): Action {
     return {
       type: DataAction.LOAD_TOPICS,
@@ -82,6 +86,20 @@ export class DataAction {
     return {
       type: DataAction.ADD_POST,
       payload: {post: post}
+    }
+  }
+
+  public votePost(responseMessage: ResponseMessage): Action {
+    return {
+      type: DataAction.VOTE_POST,
+      payload: {responseMessage: responseMessage}
+    }
+  }
+
+  public addVotePost(postId: number, liked: boolean, loggedInAccount : Account): Action {
+    return {
+      type: DataAction.ADD_VOTE_POST,
+      payload: {postId: postId, liked: liked, loggedInAccount: loggedInAccount}
     }
   }
 

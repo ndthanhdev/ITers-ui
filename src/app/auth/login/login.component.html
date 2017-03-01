@@ -37,7 +37,7 @@
       <div class="d-flex flex-row justify-content-end">
         <button type="button" class="btn btn-link mr-auto pl-0" (click)="navigateToRegister()">Register</button>
         <button type="button" class="btn btn-link" (click)="navigateToHome()">Continue as Guest</button>
-        <button type="button" class="btn btn-primary" (click)="onSubmit()" [disabled]="!loginForm.form.valid || (loggingIn | async)">Login <i class="fa fa-spinner fa-pulse fa-fw" *ngIf="loggingIn | async"></i></button>
+        <button type="button" class="btn btn-primary" (click)="onSubmit()" [disabled]="!loginForm.form.valid || (loggingIn | async)"><span *ngIf="!(loggingIn | async)">Login</span> <i class="fa fa-spinner fa-pulse fa-fw" *ngIf="loggingIn | async"></i></button>
       </div>
     </div>
   </div>

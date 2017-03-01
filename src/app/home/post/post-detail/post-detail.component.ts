@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from "@angular/core";
+import {Component, Input, Output, EventEmitter, OnChanges} from "@angular/core";
 import {Post} from "../../../shared/models/post.model";
 import {Account} from "../../../shared/models/account.model";
 import {User} from "../../../shared/models/user.model";
@@ -22,12 +22,18 @@ import {RoleEnum} from "../../../shared/models/role.model";
       <div class="card-block" [ngClass]="{'bg-faded': !post.confirmed}">
         <div class="row">
           <div class="col-1 d-flex align-items-center flex-column">
-            <i class="fa fa-caret-up fa-3x" aria-hidden="true"></i>
+            <i class="fa fa-caret-up fa-3x vote-caret" aria-hidden="true" 
+              (click)="onUpVote(post.id)"
+              [ngClass]="{'text-primary': isCurrentAccountInteracted() === 1}">
+            </i>
             <span class="lead">{{calculateVotes()}}</span>
-            <i class="fa fa-caret-down fa-3x" aria-hidden="true"></i>
+            <i class="fa fa-caret-down fa-3x vote-caret" aria-hidden="true" 
+              (click)="onDownVote(post.id)"
+              [ngClass]="{'text-primary': isCurrentAccountInteracted() === -1}">
+            </i>
           </div>
           <div class="col-11">
-            <p class="card-text" [froalaView]="post.content"></p>
+            <div class="card-text" [froalaView]="post.content"></div>
           </div>
         </div>
       </div>
@@ -36,16 +42,19 @@ import {RoleEnum} from "../../../shared/models/role.model";
   `,
   styleUrls: ['./post-detail.component.scss']
 })
-export class PostDetailComponent implements OnInit {
+export class PostDetailComponent implements OnChanges {
   @Input() post: Post;
   @Input() managingMods: User[];
   @Input() loggedInAccount: Account;
   @Input() index: number;
 
+  @Output() upVoted: EventEmitter<number> = new EventEmitter();
+  @Output() downVoted: EventEmitter<number> = new EventEmitter();
+
   constructor() {
   }
 
-  ngOnInit() {
+  ngOnChanges(): void {
   }
 
   private calculateVotes(): number {
@@ -58,7 +67,6 @@ export class PostDetailComponent implements OnInit {
     return votes;
   }
 
-
   private canShowEditButton(): boolean {
     return !this.post.confirmed && this.loggedInAccount.user.id === this.post.user.id
   }
@@ -68,7 +76,26 @@ export class PostDetailComponent implements OnInit {
       return false;
     else if (this.loggedInAccount.current_role.is(RoleEnum.ADMIN))
       return true;
-    else if(this.loggedInAccount.current_role.is(RoleEnum.MOD))
+    else if (this.loggedInAccount.current_role.is(RoleEnum.MOD))
       return this.managingMods.some(mod => mod.id === this.loggedInAccount.user.id);
+  }
+
+  //like : 1, dislike: -1, none: 0
+  private isCurrentAccountInteracted(): number {
+    if(!this.loggedInAccount) return 0;
+    let interactedUser = this.post.interacted_users.find(user => {
+      return user.id === this.loggedInAccount.user.id
+    });
+    if (!interactedUser) return 0;
+    else if (interactedUser.pivot.liked) return 1;
+    else return -1;
+  }
+
+  private onUpVote($event){
+    this.upVoted.emit($event)
+  }
+
+  private onDownVote($event){
+    this.downVoted.emit($event)
   }
 }

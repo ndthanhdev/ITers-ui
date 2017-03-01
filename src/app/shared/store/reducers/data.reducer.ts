@@ -56,14 +56,33 @@ export function reducer(state: DataState = initialState, action: Action): DataSt
       return Object.assign({}, state, {responseMessage: action.payload.responseMessage});
 
     case DataAction.ADD_POST:
-      let target = Object.assign({}, state, {
-          thread: Object.assign({}, state.thread, {
-            oldest_posts: state.thread.oldest_posts.concat(action.payload.post)
-          })
-        }
-      );
-      console.log(target);
-      return target;
+      return Object.assign({}, state, {
+        thread: Object.assign({}, state.thread, {oldest_posts: state.thread.oldest_posts.concat(action.payload.post)})
+      });
+
+    case DataAction.VOTE_POST:
+      return Object.assign({}, state, {responseMessage: action.payload.responseMessage});
+
+    //TODO: refactor this
+    case DataAction.ADD_VOTE_POST:
+      let clonedPosts = Object.assign([], state.thread.oldest_posts);
+      let votedPostIndex = clonedPosts.findIndex(post => post.id === action.payload.postId);
+      let votedUserIndex = clonedPosts[votedPostIndex].interacted_users.findIndex(user => user.id === action.payload.loggedInAccount.user.id);
+      let votedUser = Object.assign({}, action.payload.loggedInAccount.user);
+      votedUser.pivot = {
+        post_id: action.payload.postId,
+        liked: action.payload.liked
+      };
+      if (votedUserIndex > -1)
+        clonedPosts[votedPostIndex].interacted_users[votedUserIndex].pivot.liked = action.payload.liked;
+      else
+        clonedPosts[votedPostIndex].interacted_users.push(votedUser);
+
+      return Object.assign({}, state, {
+        thread: Object.assign({}, state.thread, {
+          oldest_posts: clonedPosts
+        })
+      });
 
     default:
       return state;

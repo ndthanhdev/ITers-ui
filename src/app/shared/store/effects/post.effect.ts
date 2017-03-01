@@ -7,9 +7,11 @@ import {UIAction} from "../actions/ui.action";
 import {DataAction} from "../actions/data.action";
 import {Actions, Effect} from "@ngrx/effects";
 import {Observable} from "rxjs";
-import {Action} from "@ngrx/store";
+import {Action, Store} from "@ngrx/store";
 import {NotificationsService} from "angular2-notifications";
 import {Response} from "@angular/http";
+import {AppState} from "../reducers/app.reducer";
+import {Account} from "../../models/account.model";
 @Injectable()
 export class PostServiceEffect {
 
@@ -17,7 +19,8 @@ export class PostServiceEffect {
               private dataAction: DataAction,
               private uiAction: UIAction,
               private postService: PostService,
-              private notificationService: NotificationsService) {
+              private notificationService: NotificationsService,
+              private store: Store<AppState>) {
   }
 
   @Effect() postCreate$: Observable<Action> = this.actions
@@ -50,6 +53,26 @@ export class PostServiceEffect {
         .concatMap(post => {
           return Observable.from([this.dataAction.addPost(post)])
         }));
+
+  @Effect() postVote$: Observable<Action> = this.actions
+    .ofType(UIAction.START_POST_VOTE)
+    .map(action => action.payload)
+    .switchMap(payload =>
+      this.postService.votePost(payload.postId, payload.liked)
+        .concatMap(responseMessage => {
+          let loggedInAccount: Account;
+          this.store.select(state => state.dataState.loggedInAccount)
+            .subscribe(account => loggedInAccount = account);
+
+          this.notificationService.success('SUCCESS!', responseMessage.msg); // TODO: can be removed
+          return Observable.from([
+            this.dataAction.votePost(responseMessage),
+            //TODO: start ADD VOTE POST here
+            this.dataAction.addVotePost(payload.postId, payload.liked, loggedInAccount)
+          ])
+        })
+    );
+
 
   private getErrorMessage(error: Response) {
     const body = error.json().msg || '';

@@ -1,4 +1,4 @@
-import {Component, Input, Inject, OnInit, OnChanges, SimpleChanges} from "@angular/core";
+import {Component, Input, Inject, OnInit, Output, EventEmitter} from "@angular/core";
 import {Post} from "../../../shared/models/post.model";
 import {Account} from "../../../shared/models/account.model";
 import {RoleEnum} from "../../../shared/models/role.model";
@@ -22,7 +22,15 @@ import {DOCUMENT} from "@angular/platform-browser";
       [loggedInAccount]="loggedInAccount"
       [managingMods]="managingMods"
       [post]="post"
-      [index]="i">
+      [index]="i"
+      (upVoted)="onVoted({
+          postId: $event,
+          liked: true
+      })"
+      (downVoted)="onVoted({
+          postId: $event,
+          liked:false 
+      })">
     </app-post-detail>
   </template>
   <app-list-footer
@@ -34,21 +42,18 @@ import {DOCUMENT} from "@angular/platform-browser";
   `,
   styleUrls: ['./post-list.component.scss']
 })
-export class PostListComponent implements OnInit, OnChanges{
-
+export class PostListComponent implements OnInit {
   @Input() posts: Post[];
   @Input() loggedInAccount: Account;
   @Input() managingMods: User[];
 
+  @Output() postVoted = new EventEmitter();
+
   private currentPage: number = 1;
-  private filteredPosts : Post[];
+  private filteredPosts: Post[];
 
   constructor(private pageScrollService: PageScrollService,
               @Inject(DOCUMENT) private document: any) {
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log('called on changes on post list comp');
   }
 
   ngOnInit(): void {
@@ -86,8 +91,11 @@ export class PostListComponent implements OnInit, OnChanges{
     }
   }
 
-
   private canShowAddButton(): boolean {
     return this.loggedInAccount != null;
+  }
+
+  private onVoted($event) {
+    this.postVoted.emit($event);
   }
 }
