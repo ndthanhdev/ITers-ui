@@ -24,10 +24,12 @@ import {RoleEnum} from "../../../shared/models/role.model";
           <div class="col-1 d-flex align-items-center flex-column">
             <i class="fa fa-caret-up fa-3x vote-caret" aria-hidden="true" 
               (click)="onUpVote(post.id)"
+              [hidden]="!loggedInAccount"
               [ngClass]="{'text-primary': isCurrentAccountInteracted() === 1}">
             </i>
             <span class="lead">{{calculateVotes()}}</span>
-            <i class="fa fa-caret-down fa-3x vote-caret" aria-hidden="true" 
+            <i class="fa fa-caret-down fa-3x vote-caret" aria-hidden="true"
+              [hidden]="!loggedInAccount"
               (click)="onDownVote(post.id)"
               [ngClass]="{'text-primary': isCurrentAccountInteracted() === -1}">
             </i>
@@ -82,7 +84,7 @@ export class PostDetailComponent implements OnChanges {
 
   //like : 1, dislike: -1, none: 0
   private isCurrentAccountInteracted(): number {
-    if(!this.loggedInAccount) return 0;
+    if (!this.loggedInAccount) return 0;
     let interactedUser = this.post.interacted_users.find(user => {
       return user.id === this.loggedInAccount.user.id
     });
@@ -91,11 +93,11 @@ export class PostDetailComponent implements OnChanges {
     else return -1;
   }
 
-  private onUpVote($event){
+  private onUpVote($event) {
     this.upVoted.emit($event)
   }
 
-  private onDownVote($event){
+  private onDownVote($event) {
     this.downVoted.emit($event)
   }
 }
