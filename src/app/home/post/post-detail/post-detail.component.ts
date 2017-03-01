@@ -21,12 +21,13 @@ import {RoleEnum} from "../../../shared/models/role.model";
       </div>
       <div class="card-block" [ngClass]="{'bg-faded': !post.confirmed}">
         <div class="row">
-          <div class="col-1 d-flex align-items-center flex-column">
+          <div class="col-1 d-flex align-items-center justify-content-center flex-column text-center">
             <i class="fa fa-caret-up fa-3x vote-caret" aria-hidden="true" 
               (click)="onUpVote(post.id)"
               [hidden]="!loggedInAccount"
               [ngClass]="{'text-primary': isCurrentAccountInteracted() === 1}">
             </i>
+            <span class="lead align-self-center" *ngIf="!loggedInAccount">Votes:</span>
             <span class="lead">{{calculateVotes()}}</span>
             <i class="fa fa-caret-down fa-3x vote-caret" aria-hidden="true"
               [hidden]="!loggedInAccount"
