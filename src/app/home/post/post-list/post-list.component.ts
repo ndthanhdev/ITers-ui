@@ -78,10 +78,10 @@ export class PostListComponent implements OnInit {
       return true;
     else if (!this.loggedInAccount)
       return false;
+    else if(post.user.id == this.loggedInAccount.user.id)
+      return true;
 
     switch (this.loggedInAccount.current_role.privilege_level) {
-      case RoleEnum.USER:
-        return post.user.id == this.loggedInAccount.user.id;
       case RoleEnum.MOD:
         if (this.managingMods)
           return this.managingMods.some(mod => mod.id === this.loggedInAccount.user.id);

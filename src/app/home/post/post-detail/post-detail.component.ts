@@ -80,7 +80,9 @@ export class PostDetailComponent implements OnChanges {
     else if (this.loggedInAccount.current_role.is(RoleEnum.ADMIN))
       return true;
     else if (this.loggedInAccount.current_role.is(RoleEnum.MOD))
-      return this.managingMods.some(mod => mod.id === this.loggedInAccount.user.id);
+      if (this.managingMods)
+        return this.managingMods.some(mod => mod.id === this.loggedInAccount.user.id);
+      else return false;
   }
 
   //like : 1, dislike: -1, none: 0
