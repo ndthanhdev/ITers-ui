@@ -30,7 +30,8 @@ import {DOCUMENT} from "@angular/platform-browser";
       (downVoted)="onVoted({
           postId: $event,
           liked:false 
-      })">
+      })"
+      (editPost)="onEditPost($event)">
     </app-post-detail>
   </template>
   <app-list-footer
@@ -48,6 +49,7 @@ export class PostListComponent implements OnInit {
   @Input() managingMods: User[];
 
   @Output() postVoted = new EventEmitter();
+  @Output() postEdited = new EventEmitter();
 
   private currentPage: number = 1;
   private filteredPosts: Post[];
@@ -97,5 +99,9 @@ export class PostListComponent implements OnInit {
 
   private onVoted($event) {
     this.postVoted.emit($event);
+  }
+
+  private onEditPost($event){
+    this.postEdited.emit($event);
   }
 }

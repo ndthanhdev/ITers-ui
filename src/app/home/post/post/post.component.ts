@@ -29,11 +29,13 @@ import {Post} from "../../../shared/models/post.model";
     [loggedInAccount]="loggedInAccount | async"
     [managingMods]="managingMods | async"
     (postVoted)="onPostVote($event)"
+    (postEdited)="onPostEdited($event)"
     >
   </app-post-list>
   <hr>
   <app-post-input 
     *ngIf="!(loadingThread | async) && (loggedInAccount | async) != null"
+    [isNewPost]="true"
     [creatingPost]="creatingPost| async"
     (newPost)="onNewPost($event)">
   </app-post-input>
@@ -41,7 +43,6 @@ import {Post} from "../../../shared/models/post.model";
   styleUrls: ['post.component.scss']
 })
 export class PostComponent implements OnInit{
-
   private topicId: number;
   private threadId: number;
   private thread: Thread;
@@ -77,5 +78,9 @@ export class PostComponent implements OnInit{
 
   private onPostVote($event){
     this.store.dispatch(this.uiAction.startPostVote($event.postId, $event.liked));
+  }
+
+  private onPostEdited($event){
+
   }
 }

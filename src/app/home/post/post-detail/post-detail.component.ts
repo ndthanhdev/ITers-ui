@@ -7,7 +7,7 @@ import {RoleEnum} from "../../../shared/models/role.model";
 @Component({
   selector: 'app-post-detail',
   template: `
-  <div class="post-list mb-3">
+  <div class="post-list mb-3" *ngIf="!isEditPost">
     <div class="card ">
       <div class="card-header d-flex justify-content-end">
           <span class="lead mr-auto">
@@ -17,7 +17,7 @@ import {RoleEnum} from "../../../shared/models/role.model";
           <button type="button" class="btn btn-sm btn-outline-success" *ngIf="canShowConfirmButton()">Confirm</button>
           
           <!--IF OWNER && !POST.CONFIRMED-->
-          <button type="button" class="btn btn-sm btn-outline-primary ml-2" *ngIf="canShowEditButton()">Edit</button>
+          <button type="button" class="btn btn-sm btn-outline-primary ml-2" *ngIf="canShowEditButton()" (click)="onEditPostButtonClicked()">Edit</button>
       </div>
       <div class="card-block" [ngClass]="{'bg-faded': !post.confirmed}">
         <div class="row">
@@ -42,6 +42,16 @@ import {RoleEnum} from "../../../shared/models/role.model";
       </div>
     </div>
   </div>
+  <app-post-input
+      *ngIf="isEditPost"
+      [isEditPost]="isEditPost"
+      [initialContent]="post.content"
+      (editPost)="onEditPost({
+          postId: post.id,
+          content: $event
+      })"
+      (cancelEditPost)="onCancelEditPost()">
+  </app-post-input>
   `,
   styleUrls: ['./post-detail.component.scss']
 })
@@ -53,6 +63,9 @@ export class PostDetailComponent implements OnChanges {
 
   @Output() upVoted: EventEmitter<number> = new EventEmitter();
   @Output() downVoted: EventEmitter<number> = new EventEmitter();
+  @Output() editPost = new EventEmitter();
+
+  private isEditPost: boolean = false;
 
   constructor() {
   }
@@ -103,4 +116,20 @@ export class PostDetailComponent implements OnChanges {
   private onDownVote($event) {
     this.downVoted.emit($event)
   }
+
+  private onEditPost($event) {
+    this.editPost.emit($event);
+    this.isEditPost = false;
+  }
+
+  private onCancelEditPost(){
+    this.isEditPost = false;
+  }
+
+
+  private onEditPostButtonClicked() {
+    this.isEditPost = true;
+  }
+
+
 }
