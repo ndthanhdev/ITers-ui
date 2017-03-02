@@ -73,8 +73,8 @@ export function reducer(state: DataState = initialState, action: Action): DataSt
         post_id: action.payload.postId,
         liked: action.payload.liked
       };
-      if (votedUserIndex > -1){
-        if(clonedPosts[votedPostIndex].interacted_users[votedUserIndex].pivot.liked === action.payload.liked)
+      if (votedUserIndex > -1) {
+        if (clonedPosts[votedPostIndex].interacted_users[votedUserIndex].pivot.liked === action.payload.liked)
           clonedPosts[votedPostIndex].interacted_users = [
             ...clonedPosts[votedPostIndex].interacted_users.slice(0, votedUserIndex),
             ...clonedPosts[votedPostIndex].interacted_users.slice(votedUserIndex + 1),
@@ -88,6 +88,20 @@ export function reducer(state: DataState = initialState, action: Action): DataSt
       return Object.assign({}, state, {
         thread: Object.assign({}, state.thread, {
           oldest_posts: clonedPosts
+        })
+      });
+
+    case DataAction.EDIT_POST:
+      return Object.assign({}, state, {responseMessage: action.payload.responseMessage});
+
+
+    case DataAction.ADD_EDIT_POST:
+      let clonedToBeEditedPosts = Object.assign([], state, state.thread.oldest_posts);
+      let editedPostIndex = clonedToBeEditedPosts.findIndex(post => post.id === action.payload.postId);
+      clonedToBeEditedPosts[editedPostIndex].content = action.payload.postContent;
+      return Object.assign({}, state, {
+        thread: Object.assign({}, state.thread, {
+          oldest_posts: clonedToBeEditedPosts
         })
       });
 

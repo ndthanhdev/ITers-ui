@@ -18,6 +18,10 @@ export class GenericService {
     this.authHttp = injector.get(AuthHttp);
   }
 
+  protected patchWithAuth(options?: RequestOptions, data?: Object|string): Observable<any> {
+    return this.authHttp.patch(this.BASE_URL, data, this.defaultRequestOptions().merge(options));
+  }
+
   protected postWithAuth(options?: RequestOptions, data?: Object|string): Observable<any> {
     return this.authHttp.post(this.BASE_URL, data, this.defaultRequestOptions().merge(options));
   }

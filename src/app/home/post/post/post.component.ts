@@ -29,8 +29,7 @@ import {Post} from "../../../shared/models/post.model";
     [loggedInAccount]="loggedInAccount | async"
     [managingMods]="managingMods | async"
     (postVoted)="onPostVote($event)"
-    (postEdited)="onPostEdited($event)"
-    >
+    (postEdited)="onPostEdited($event)">
   </app-post-list>
   <hr>
   <app-post-input 
@@ -46,11 +45,11 @@ export class PostComponent implements OnInit{
   private topicId: number;
   private threadId: number;
   private thread: Thread;
+  private posts: Observable<Post[]>;
   private loadingThread: Observable<boolean>;
   private loggedInAccount: Observable<Account>;
   private managingMods: Observable<User[]>;
   private creatingPost: Observable<boolean>;
-  private posts: Observable<Post[]>;
 
   constructor(private route: ActivatedRoute,
               private uiAction: UIAction,
@@ -63,13 +62,13 @@ export class PostComponent implements OnInit{
   ngOnInit() {
     this.store.select(state => state.dataState.thread).subscribe(thread => this.thread = thread);
     this.posts = this.store.select(state => state.dataState.thread.oldest_posts);
-    this.loadingThread = this.store.select(state => state.uiState.loadingThread);
     this.loggedInAccount = this.store.select(state => state.dataState.loggedInAccount);
     this.managingMods = this.store.select(state => {
       if (state.dataState.topic)
         return state.dataState.topic.users
     });
     this.creatingPost = this.store.select(state => state.uiState.creatingPost);
+    this.loadingThread = this.store.select(state => state.uiState.loadingThread);
   }
 
   private onNewPost($event) {
@@ -80,7 +79,8 @@ export class PostComponent implements OnInit{
     this.store.dispatch(this.uiAction.startPostVote($event.postId, $event.liked));
   }
 
+  //$event = {postId, postContent}
   private onPostEdited($event){
-
+    this.store.dispatch(this.uiAction.startPostEdit(this.topicId, this.threadId, $event.postId, $event.postContent));
   }
 }

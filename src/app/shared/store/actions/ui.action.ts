@@ -33,6 +33,8 @@ export class UIAction {
 
   static START_POST_VOTE = '[UI ACTION] START_POST_VOTE';
 
+  static START_POST_EDIT = '[UI ACTION] START_POST_EDIT';
+
   public startTopicsLoad(): Action {
     return {type: UIAction.START_TOPICS_LOAD}
   }
@@ -138,11 +140,19 @@ export class UIAction {
   public startPostVote(postId: number, liked: boolean) {
     return {
       type: UIAction.START_POST_VOTE,
-      payload: {
-        postId: postId,
-        liked: liked
-      }
+      payload: {postId: postId, liked: liked}
     }
   }
 
+  public startPostEdit(topicId: number, threadId: number, postId: number, postContent: string) {
+    return {
+      type: UIAction.START_POST_EDIT,
+      payload: {
+        topicId: topicId,
+        threadId: threadId,
+        postId: postId,
+        postContent: postContent
+      }
+    }
+  }
 }

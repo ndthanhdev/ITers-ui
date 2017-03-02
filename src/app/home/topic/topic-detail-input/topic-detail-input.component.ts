@@ -9,7 +9,7 @@ import {Component, OnInit, Input, Output, EventEmitter} from "@angular/core";
       <button (click)="onSaved()" type="button" class="btn btn-outline-success ml-2"><i class="fa fa-check" aria-hidden="true"></i>
       </button>
       <button (click)="onCanceled()" *ngIf="isAdding" type="button" class="btn btn-outline-danger ml-2"><i class="fa fa-times" aria-hidden="true"></i></button>
-      <button (click)="onDeleted()" *ngIf="isEditing" type="button" class="btn btn-outline-danger ml-2">Delete</button>
+      <button (click)="onDeleted()" *ngIf="isEditing" type="button" class="btn btn-outline-danger ml-2"><i class="fa fa-trash" aria-hidden="true"></i></button>
     </div>
   </div>
   `,

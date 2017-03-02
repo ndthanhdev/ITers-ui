@@ -5,7 +5,7 @@ import {Component, OnInit, Output, EventEmitter, Input} from "@angular/core";
   template: `
   <div class="mb-3" [froalaEditor] [(froalaModel)]="postContent"></div>
   <div class="d-flex justify-content-end mb-4">
-    <button type="button" class="btn btn-primary mr-2" 
+    <button type="button" class="btn btn-primary" 
       *ngIf="isNewPost"
       (click)="onNewPost()" 
       [disabled]="!postContent">New Post <i class="fa fa-spinner fa-pulse fa-fw" *ngIf="creatingPost"></i>

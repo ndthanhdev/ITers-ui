@@ -11,7 +11,7 @@ export const initialState: UIState = {
   loadingUser: false,
   loggingIn : false,
   registering: false,
-  creatingPost: false
+  creatingPost: false,
 };
 
 export interface UIState {

@@ -45,6 +45,20 @@ export class PostServiceEffect {
       ])
     });
 
+  @Effect() postEdit$: Observable<Action> = this.actions
+    .ofType(UIAction.START_POST_EDIT)
+    .map(action => action.payload)
+    .switchMap(payload =>
+      this.postService.editPost(payload.topicId, payload.threadId, payload.postId, payload.postContent)
+        .concatMap(responseMessage => {
+          this.notificationService.success('SUCCESS!', responseMessage.msg);
+          return Observable.from([
+            this.dataAction.editPost(responseMessage),
+            this.dataAction.addEditPost(payload.postId, payload.postContent)
+          ])
+        })
+    );
+
   @Effect() postAdd$: Observable<Action> = this.actions
     .ofType(UIAction.START_POST_ADD)
     .map(action => action.payload)
@@ -67,7 +81,6 @@ export class PostServiceEffect {
           this.notificationService.success('SUCCESS!', responseMessage.msg); // TODO: can be removed
           return Observable.from([
             this.dataAction.votePost(responseMessage),
-            //TODO: start ADD VOTE POST here
             this.dataAction.addVotePost(payload.postId, payload.liked, loggedInAccount)
           ])
         })

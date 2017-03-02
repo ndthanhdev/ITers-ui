@@ -33,6 +33,12 @@ export class PostService extends GenericService {
     }).map(this.extractResponseMessage);
   }
 
+  public editPost(topicId: number, threadId: number, postId: number, postContent: string) {
+    return this.patchWithAuth(new RequestOptions({url: `${this.BASE_URL}/${topicId}/threads/${threadId}/posts/${postId}`}), {
+      content: postContent
+    }).map(this.extractResponseMessage);
+  }
+
   private extractResponseMessage(resp: Response): ResponseMessage {
     return new ResponseMessage(resp.json());
   }
@@ -40,5 +46,6 @@ export class PostService extends GenericService {
   protected extractData(resp: Response): Post {
     return new Post(resp.json());
   }
+
 
 }

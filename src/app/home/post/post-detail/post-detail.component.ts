@@ -48,7 +48,7 @@ import {RoleEnum} from "../../../shared/models/role.model";
       [initialContent]="post.content"
       (editPost)="onEditPost({
           postId: post.id,
-          content: $event
+          postContent: $event
       })"
       (cancelEditPost)="onCancelEditPost()">
   </app-post-input>
@@ -119,6 +119,7 @@ export class PostDetailComponent implements OnChanges {
 
   private onEditPost($event) {
     this.editPost.emit($event);
+    this.post.content = $event.postContent;
     this.isEditPost = false;
   }
 

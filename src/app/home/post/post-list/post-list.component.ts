@@ -29,7 +29,7 @@ import {DOCUMENT} from "@angular/platform-browser";
       })"
       (downVoted)="onVoted({
           postId: $event,
-          liked:false 
+          liked: false 
       })"
       (editPost)="onEditPost($event)">
     </app-post-detail>
@@ -47,6 +47,7 @@ export class PostListComponent implements OnInit {
   @Input() posts: Post[];
   @Input() loggedInAccount: Account;
   @Input() managingMods: User[];
+  @Input() editingPost: boolean;
 
   @Output() postVoted = new EventEmitter();
   @Output() postEdited = new EventEmitter();
@@ -80,7 +81,7 @@ export class PostListComponent implements OnInit {
       return true;
     else if (!this.loggedInAccount)
       return false;
-    else if(post.user.id == this.loggedInAccount.user.id)
+    else if (post.user.id == this.loggedInAccount.user.id)
       return true;
 
     switch (this.loggedInAccount.current_role.privilege_level) {
@@ -101,7 +102,7 @@ export class PostListComponent implements OnInit {
     this.postVoted.emit($event);
   }
 
-  private onEditPost($event){
+  private onEditPost($event) {
     this.postEdited.emit($event);
   }
 }
