@@ -10,12 +10,14 @@ import {Account} from "../../../shared/models/account.model";
     [collectionSize]="threads.length"
     [canShowAddButton]="canShowAddButton()"
     (pageChange)="onPageChange($event)" 
-    (addClicked)="onAddTopicButtonClicked()">
+    (addClicked)="onAddThreadButtonClicked()">
   </app-list-header>
-  <div *ngIf="threads.length == 0" class="d-flex justify-content-center">
-    <span class="lead">This topic doesn't have any thread right now. <a href="#">Create one</a></span>
+  <div *ngIf="threads.length == 0 && !isAdding" class="d-flex justify-content-center">
+    <span class="lead">This topic doesn't have any thread right now. 
+      <button *ngIf="loggedInAccount" type="button" class="btn btn-outline-primary" (click)="onAddThreadButtonClicked()">Create one</button>
+    </span>
   </div>
-  <div class="list-group mb-3" *ngIf="threads.length > 0">
+  <div class="list-group mb-3" *ngIf="threads.length > 0 || isAdding">
     <app-thread-detail-input
         *ngIf="isAdding"
         [creatingThread]="creatingThread"
@@ -63,7 +65,7 @@ export class ThreadListComponent implements OnChanges{
     return this.loggedInAccount != null;
   }
 
-  private onAddTopicButtonClicked() {
+  private onAddThreadButtonClicked() {
     this.isAdding = true;
   }
 

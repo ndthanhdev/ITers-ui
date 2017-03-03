@@ -14,8 +14,13 @@ import {DOCUMENT} from "@angular/platform-browser";
     [collectionSize]="filteredPosts?.length"
     [canShowAddButton]="canShowAddButton()"
     (pageChange)="onPageChange($event)" 
-    (addClicked)="onAddTopicButtonClicked()">
+    (addClicked)="onAddPostButtonClicked()">
   </app-list-header>
+  <div *ngIf="filteredPosts.length == 0" class="d-flex justify-content-center">
+    <span class="lead">This thread doesn't have any post or those posts haven't confirmed yet. Please comeback later.
+      <button type="button" class="btn btn-outline-primary" (click)="onAddPostButtonClicked()" *ngIf="loggedInAccount">Create one</button>
+    </span>
+  </div>
   <template ngFor let-post [ngForOf]="posts" let-i="index">
     <app-post-detail
       *ngIf="isIndexInCurrentPage(i) && isCurrentAccountCanViewUnconfirmedPost(post)"
@@ -67,7 +72,7 @@ export class PostListComponent implements OnInit {
     this.currentPage = $event;
   }
 
-  onAddTopicButtonClicked() {
+  private onAddPostButtonClicked() {
     let pageScrollInstance: PageScrollInstance = PageScrollInstance.simpleInstance(this.document, '#app-bot');
     this.pageScrollService.start(pageScrollInstance);
   }
