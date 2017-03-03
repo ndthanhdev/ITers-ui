@@ -52,7 +52,6 @@ export class PostListComponent implements OnInit {
   @Input() posts: Post[];
   @Input() loggedInAccount: Account;
   @Input() managingMods: User[];
-  @Input() editingPost: boolean;
 
   @Output() postVoted = new EventEmitter();
   @Output() postEdited = new EventEmitter();

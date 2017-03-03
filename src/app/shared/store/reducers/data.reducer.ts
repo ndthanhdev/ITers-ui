@@ -98,9 +98,12 @@ export function reducer(state: DataState = initialState, action: Action): DataSt
 
 
     case DataAction.ADD_EDIT_POST:
+      let editedTime = new Date();
+      editedTime.setHours(editedTime.getHours() - 7);
       let clonedToBeEditedPosts = Object.assign([], state, state.thread.oldest_posts);
       let editedPostIndex = clonedToBeEditedPosts.findIndex(post => post.id === action.payload.postId);
       clonedToBeEditedPosts[editedPostIndex].content = action.payload.postContent;
+      clonedToBeEditedPosts[editedPostIndex].updated_at = editedTime;
       return Object.assign({}, state, {
         thread: Object.assign({}, state.thread, {
           oldest_posts: clonedToBeEditedPosts

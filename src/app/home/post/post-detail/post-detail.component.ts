@@ -11,7 +11,9 @@ import {RoleEnum} from "../../../shared/models/role.model";
     <div class="card ">
       <div class="card-header d-flex justify-content-end">
           <span class="lead mr-auto">
-            #{{index+1}} <a [routerLink]="['/users', post.user.id]" class="mr-2">{{post.user.full_name}}</a><small class="text-muted">{{post.created_at | amUTCOffset:7 | amTimeAgo}}</small>
+            #{{index+1}} <a [routerLink]="['/users', post.user.id]" class="mr-2">{{post.user.full_name}}</a>
+            <small class="text-muted">Created {{post.created_at | amUTCOffset:7 | amTimeAgo}}.</small>
+            <small class="text-muted" *ngIf="post.updated_at != post.created_at">Last updated {{post.updated_at | amUTCOffset:7 | amTimeAgo}}.</small>
           </span>
           <!--IF MANAGING MOD OR ADMIN-->
           <button type="button" class="btn btn-sm btn-outline-success" *ngIf="canShowConfirmButton()">Confirm</button>
