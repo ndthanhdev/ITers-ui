@@ -5,6 +5,7 @@ import {Thread} from "../../models/thread.model";
 import {User} from "../../models/user.model";
 import {Account} from "../../models/account.model";
 import {ResponseMessage} from "../../models/response-message.model";
+import {Post} from "../../models/post.model";
 /**
  * Created by vunguyenhung on 2/20/17.
  */
@@ -102,6 +103,38 @@ export function reducer(state: DataState = initialState, action: Action): DataSt
       return Object.assign({}, state, {
         thread: Object.assign({}, state.thread, {
           oldest_posts: clonedToBeEditedPosts
+        })
+      });
+
+    case DataAction.CREATE_THREAD:
+      return Object.assign({}, state, {responseMessage: action.payload.responseMessage});
+
+    case DataAction.ADD_THREAD:
+      console.log(action.payload.thread);
+
+      let currentTime = new Date();
+      currentTime.setHours(currentTime.getHours() - 7);
+      //NOTICE: this is just a walkaround
+      let clonedThread: Thread = Object.assign({}, action.payload.thread);
+
+      clonedThread.latest_posts = [new Post({
+        user: new User({
+          id: action.payload.loggedInAccount.user.id,
+          full_name: action.payload.loggedInAccount.user.full_name,
+        }),
+        created_at: currentTime
+      })];
+
+      clonedThread.oldest_posts = [new Post({
+        user: new User({
+          id: action.payload.loggedInAccount.user.id,
+          full_name: action.payload.loggedInAccount.user.full_name
+        })
+      })];
+
+      return Object.assign({}, state, {
+        topic: Object.assign({}, state.topic, {
+          latest_threads: [clonedThread, ...state.topic.latest_threads]
         })
       });
 

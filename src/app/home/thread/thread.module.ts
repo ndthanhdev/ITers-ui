@@ -6,17 +6,23 @@ import {ThreadListComponent} from "./thread-list/thread-list.component";
 import {SharedModule} from "../../shared/shared.module";
 import {ThreadDetailComponent} from "./thread-detail/thread-detail.component";
 import {ThreadService} from "./thread.service";
+import {ThreadDetailInputComponent} from "./thread-detail-input/thread-detail-input.component";
+import {FroalaEditorModule} from "angular2-froala-wysiwyg";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
+    FormsModule,
+    FroalaEditorModule,
     ThreadRoutingModule
   ],
   declarations: [
     ThreadComponent,
     ThreadListComponent,
-    ThreadDetailComponent
+    ThreadDetailComponent,
+    ThreadDetailInputComponent
   ],
   providers: [ThreadService]
 })

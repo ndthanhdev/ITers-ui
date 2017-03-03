@@ -31,6 +31,9 @@ export class DataAction {
   static EDIT_POST = '[DATA ACTION] EDIT POST';
   static ADD_EDIT_POST = '[DATA ACTION] ADD EDIT POST';
 
+  static CREATE_THREAD = '[DATA ACTION] CREATE THREAD';
+  static ADD_THREAD = '[DATA ACTION] ADD THREAD';
+
 
   public loadTopics(topics: Topic[]): Action {
     return {
@@ -99,7 +102,7 @@ export class DataAction {
     }
   }
 
-  public addVotePost(postId: number, liked: boolean, loggedInAccount : Account): Action {
+  public addVotePost(postId: number, liked: boolean, loggedInAccount: Account): Action {
     return {
       type: DataAction.ADD_VOTE_POST,
       payload: {postId: postId, liked: liked, loggedInAccount: loggedInAccount}
@@ -113,10 +116,24 @@ export class DataAction {
     }
   }
 
-  public addEditPost(postId : number, postContent: string){
+  public addEditPost(postId: number, postContent: string) {
     return {
       type: DataAction.ADD_EDIT_POST,
       payload: {postId: postId, postContent: postContent}
+    }
+  }
+
+  public createThread(responseMessage: ResponseMessage) {
+    return {
+      type: DataAction.CREATE_THREAD,
+      payload: {responseMessage: responseMessage}
+    }
+  }
+
+  public addThread(thread: Thread, loggedInAccount): Action {
+    return {
+      type: DataAction.ADD_THREAD,
+      payload: {thread: thread, loggedInAccount: loggedInAccount}
     }
   }
 

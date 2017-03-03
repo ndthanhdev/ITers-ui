@@ -35,6 +35,11 @@ export class UIAction {
 
   static START_POST_EDIT = '[UI ACTION] START_POST_EDIT';
 
+  static START_THREAD_CREATE = '[UI ACTION] START_THREAD_CREATE';
+  static END_THREAD_CREATE = '[UI ACTION] END_THREAD_CREATE';
+
+  static START_THREAD_ADD = '[UI ACTION] START_THREAD_ADD';
+
   public startTopicsLoad(): Action {
     return {type: UIAction.START_TOPICS_LOAD}
   }
@@ -155,4 +160,24 @@ export class UIAction {
       }
     }
   }
+
+  public startThreadCreate(threadTitle: string, postContent: string, topicId: number) {
+    return {
+      type: UIAction.START_THREAD_CREATE,
+      payload: {
+        threadTitle: threadTitle,
+        postContent: postContent,
+        topicId: topicId
+      }
+    }
+  }
+
+  public endThreadCreate(): Action {
+    return {type: UIAction.END_THREAD_CREATE}
+  }
+
+  public startThreadAdd(topicId: number, threadId: number): Action {
+    return {type: UIAction.START_THREAD_ADD, payload: {topicId: topicId, threadId: threadId}}
+  }
+
 }

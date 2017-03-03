@@ -27,8 +27,10 @@ import {Account} from "../../../shared/models/account.model";
   </ol>
   <app-thread-list
     *ngIf="!(loadingTopic | async)"
+    [creatingThread]="creatingThread"
     [loggedInAccount]="loggedInAccount | async"
-    [threads]="topic.latest_threads">
+    [threads]="topic.latest_threads"
+    (threadSaved)="onThreadSave($event)">
   </app-thread-list>
   `,
   styleUrls: ['thread.component.scss']
@@ -38,6 +40,7 @@ export class ThreadComponent implements OnInit {
   private topic: Topic;
   private loadingTopic : Observable<boolean>;
   private loggedInAccount : Observable<Account>;
+  private creatingThread: boolean;
 
   constructor(private route: ActivatedRoute,
               private uiAction: UIAction,
@@ -50,6 +53,12 @@ export class ThreadComponent implements OnInit {
     this.store.select(state => state.dataState.topic).subscribe(topic => this.topic = topic);
     this.loadingTopic = this.store.select(state => state.uiState.loadingTopic);
     this.loggedInAccount = this.store.select(state => state.dataState.loggedInAccount);
+    this.store.select(state => state.uiState.creatingThread).subscribe(creatingThread => this.creatingThread = creatingThread);
   }
 
+  // $event: threadTitle, postContent
+  // topicId
+  private onThreadSave($event){
+    this.store.dispatch(this.uiAction.startThreadCreate($event.threadTitle, $event.postContent, this.topicId));
+  }
 }

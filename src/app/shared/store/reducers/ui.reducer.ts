@@ -12,6 +12,7 @@ export const initialState: UIState = {
   loggingIn : false,
   registering: false,
   creatingPost: false,
+  creatingThread: false,
 };
 
 export interface UIState {
@@ -22,6 +23,7 @@ export interface UIState {
   loggingIn : boolean;
   registering: boolean;
   creatingPost: boolean;
+  creatingThread: boolean;
 }
 
 export function reducer(state: UIState = initialState, action: Action): UIState {
@@ -67,6 +69,12 @@ export function reducer(state: UIState = initialState, action: Action): UIState 
 
     case UIAction.END_POST_CREATE:
       return Object.assign({}, state, {creatingPost : false});
+
+    case UIAction.START_THREAD_CREATE:
+      return Object.assign({}, state, {creatingThread : true});
+
+    case UIAction.END_THREAD_CREATE:
+      return Object.assign({}, state, {creatingThread : false});
 
     default:
       return state;

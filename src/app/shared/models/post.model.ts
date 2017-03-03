@@ -4,12 +4,12 @@ import {UserInterface, User} from "./user.model";
  */
 
 export interface PostInterface {
-  id: number;
-  content: string;
-  confirmed: boolean;
-  user: UserInterface;
-  thread_id: number;
-  created_at: Date;
+  id?: number;
+  content?: string;
+  confirmed?: boolean;
+  user?: UserInterface;
+  thread_id?: number;
+  created_at?: Date;
   updated_at?: Date;
   interacted_users?: UserInterface[];
 }
@@ -21,8 +21,8 @@ export class Post implements PostInterface {
   user: User;
   thread_id: number;
   created_at: Date;
-  updated_at?: Date;
-  interacted_users?: User[] = [];
+  updated_at: Date;
+  interacted_users: User[] = [];
 
   public constructor(that: PostInterface) {
     this.id = that.id;

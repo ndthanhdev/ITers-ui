@@ -29,7 +29,7 @@ export class PostServiceEffect {
     .switchMap(payload =>
       this.postService.createPost(payload.topicId, payload.threadId, payload.postContent)
         .concatMap(responseMessage => {
-          this.notificationService.success('SUCCESS!', responseMessage.msg);
+          // this.notificationService.success('SUCCESS!', responseMessage.msg);
           return Observable.from([
             this.dataAction.createPost(responseMessage),
             this.uiAction.startPostAdd(responseMessage.link.url),
@@ -51,7 +51,7 @@ export class PostServiceEffect {
     .switchMap(payload =>
       this.postService.editPost(payload.topicId, payload.threadId, payload.postId, payload.postContent)
         .concatMap(responseMessage => {
-          this.notificationService.success('SUCCESS!', responseMessage.msg);
+          // this.notificationService.success('SUCCESS!', responseMessage.msg);
           return Observable.from([
             this.dataAction.editPost(responseMessage),
             this.dataAction.addEditPost(payload.postId, payload.postContent)
@@ -77,11 +77,10 @@ export class PostServiceEffect {
           let loggedInAccount: Account;
           this.store.select(state => state.dataState.loggedInAccount)
             .subscribe(account => loggedInAccount = account);
-
-          this.notificationService.success('SUCCESS!', responseMessage.msg); // TODO: can be removed
+          // this.notificationService.success('SUCCESS!', responseMessage.msg); // TODO: can be removed
           return Observable.from([
-            this.dataAction.votePost(responseMessage),
-            this.dataAction.addVotePost(payload.postId, payload.liked, loggedInAccount)
+            this.dataAction.addVotePost(payload.postId, payload.liked, loggedInAccount),
+            this.dataAction.votePost(responseMessage)
           ])
         })
     );
