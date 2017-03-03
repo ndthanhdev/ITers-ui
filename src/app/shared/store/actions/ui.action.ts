@@ -39,6 +39,7 @@ export class UIAction {
   static END_THREAD_CREATE = '[UI ACTION] END_THREAD_CREATE';
 
   static START_THREAD_ADD = '[UI ACTION] START_THREAD_ADD';
+  static CREATE_THREAD_FAILED = '[UI ACTION] CREATE_THREAD_FAILED';
 
   public startTopicsLoad(): Action {
     return {type: UIAction.START_TOPICS_LOAD}
@@ -178,6 +179,10 @@ export class UIAction {
 
   public startThreadAdd(topicId: number, threadId: number): Action {
     return {type: UIAction.START_THREAD_ADD, payload: {topicId: topicId, threadId: threadId}}
+  }
+
+  public createThreadFailed(): Action {
+    return {type: UIAction.CREATE_THREAD_FAILED}
   }
 
 }

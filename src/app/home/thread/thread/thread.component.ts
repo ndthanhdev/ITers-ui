@@ -56,8 +56,6 @@ export class ThreadComponent implements OnInit {
     this.store.select(state => state.uiState.creatingThread).subscribe(creatingThread => this.creatingThread = creatingThread);
   }
 
-  // $event: threadTitle, postContent
-  // topicId
   private onThreadSave($event){
     this.store.dispatch(this.uiAction.startThreadCreate($event.threadTitle, $event.postContent, this.topicId));
   }

@@ -9,6 +9,8 @@ import {ThreadService} from "../../../home/thread/thread.service";
 import {Observable} from "rxjs";
 import {Action, Store} from "@ngrx/store";
 import {AppState} from "../reducers/app.reducer";
+import {Response} from "@angular/http";
+import {NotificationsService} from "angular2-notifications";
 @Injectable()
 export class ThreadServiceEffect {
 
@@ -16,7 +18,8 @@ export class ThreadServiceEffect {
               private dataAction: DataAction,
               private uiAction: UIAction,
               private store: Store<AppState>,
-              private threadService: ThreadService) {
+              private threadService: ThreadService,
+  private notificationService: NotificationsService) {
   }
 
   @Effect() threadLoad$: Observable<Action> = this.actions
@@ -46,7 +49,14 @@ export class ThreadServiceEffect {
             this.uiAction.endThreadCreate()
           ])
         })
-    );
+    ).catch((error: Response) => {
+      let errorMessage = this.getErrorMessage(error);
+      this.notificationService.error('ERROR!', errorMessage);
+      return Observable.from([
+        this.uiAction.createThreadFailed(),
+        this.uiAction.endThreadCreate()
+      ])
+    });
 
   @Effect() threadAdd$: Observable<Action> = this.actions
     .ofType(UIAction.START_THREAD_ADD)
@@ -60,4 +70,17 @@ export class ThreadServiceEffect {
             this.dataAction.addThread(thread, loggedInAccount)
           ])
         }));
+
+  private getErrorMessage(error: Response) {
+    const body = error.json().msg || '';
+    if (typeof body == 'string')
+      return body;
+
+    let errorMessage: string = '';
+    for (let invalidField in body)
+      errorMessage += invalidField + ' is invalid!';
+
+    console.error(errorMessage);
+    return errorMessage;
+  }
 }
