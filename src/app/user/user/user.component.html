@@ -5,10 +5,14 @@
 <div class="jumbotron mb-3" *ngIf="!(loadingUser | async)">
   <div class="d-flex align-items-start">
     <h1 class="display-4 mr-2">{{user?.full_name}}</h1>
-    <button class="btn btn-sm btn-success rounded-circle" *ngIf="user?.account?.confirmed"><i class="fa fa-check"></i></button>
-    <button class="btn btn-sm btn-secondary rounded-circle bg-faded" *ngIf="!user?.account?.confirmed"><i class="fa fa-minus"></i></button>
+    <button class="btn btn-sm btn-success rounded-circle" *ngIf="user?.account?.confirmed"><i class="fa fa-check"></i>
+    </button>
+    <button class="btn btn-sm btn-secondary rounded-circle bg-faded" *ngIf="!user?.account?.confirmed"><i
+      class="fa fa-minus"></i></button>
   </div>
-  <div class="lead text-muted">{{user?.account.current_role.role()}} since {{user?.account.current_role.valid_from | amUTCOffset:7 | amTimeAgo}}</div>
+  <div class="lead text-muted">{{user?.account.current_role.role()}} since {{user?.account.current_role.valid_from |
+    amUTCOffset:7 | amTimeAgo}}
+  </div>
 </div>
 <!--NG2 - USER HEADER COMPONENT-->
 
@@ -17,43 +21,71 @@
     <div class="card-block">
       <div class="d-flex align-items-center">
         <h1 class="card-title mr-2">User Information</h1>
-        <button type="button" class="btn btn-outline-danger btn-sm mr-1">Cancel</button>
-        <button type="button" class="btn btn-outline-success btn-sm mr-1">Save</button>
-        <button type="button" class="btn btn-outline-primary btn-sm"><span class="fa fa-pencil"></span></button>
+        <button type="button" class="btn btn-outline-danger btn-sm mr-1" (click)="onCancelUserButtonClick()"
+                *ngIf="isEditingUser">Cancel
+        </button>
+        <button type="button" class="btn btn-outline-success btn-sm mr-1"
+                *ngIf="isEditingUser"
+                [disabled]="!userForm.form.valid"
+                (click)="onUserFormSubmit()">Save
+        </button>
+        <button type="button" class="btn btn-outline-primary btn-sm"
+                *ngIf="!isEditingUser && canShowEditUserButton()"
+                (click)="onEditUserButtonClick()"><span class="fa fa-pencil"></span></button>
       </div>
       <hr class="mt-0">
 
       <div class="row d-flex justify-content-center mb-3">
-        <form class="col-6">
+        <form class="col-6" #userForm="ngForm" (ngSubmit)="onUserFormSubmit()">
           <!--START USER INFORMATION-->
-          <div class="form-group">
-            <label for="input-fullname">Full name:</label>
+          <div class="form-group" [ngClass]="{'has-danger': !(full_name_input.valid || full_name_input.untouched)}">
+            <label for="input-fullname" [ngClass]="{'text-danger': !(full_name_input.valid || full_name_input.untouched)}">Full name:</label>
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-              <input type="text" class="form-control" aria-describedby="school-id" id="input-fullname"
-                     [value]="user?.full_name">
+              <input required type="text" class="form-control" aria-describedby="school-id" id="input-fullname"
+                     [ngClass]="{'form-control-danger': !(full_name_input.valid || full_name_input.untouched)}"
+                     name="fullName"
+                     #full_name_input="ngModel"
+                     [(ngModel)]="user.full_name"
+                     [readonly]="!isEditingUser">
             </div>
+            <small [hidden]="full_name_input.valid || full_name_input.untouched" class="form-text text-danger">Full name
+              is required
+            </small>
           </div>
           <div class="form-group">
             <label for="input-email">Email:</label>
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-envelope-square" aria-hidden="true"></i></span>
-              <input type="email" class="form-control" id="input-email" readonly [value]="user?.email">
+              <input type="email" class="form-control" id="input-email" readonly
+                     [value]="user?.email">
             </div>
           </div>
-          <div class="form-group">
-            <label for="input-startyear">Start year:</label>
+          <div class="form-group" [ngClass]="{'has-danger': !(start_year_input.valid || start_year_input.untouched)}">
+            <label for="input-startyear" [ngClass]="{'text-danger': !(start_year_input.valid || start_year_input.untouched)}">Start year:</label>
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-book" aria-hidden="true"></i></span>
-              <input type="number" class="form-control" id="input-startyear" [value]="user?.start_year">
+              <input required type="number" class="form-control" id="input-startyear"
+                     [ngClass]="{'form-control-danger': !(start_year_input.valid || start_year_input.untouched)}"
+                     name="startYear"
+                     #start_year_input="ngModel"
+                     [(ngModel)]="user.start_year"
+                     [readonly]="!isEditingUser">
             </div>
+            <small [hidden]="start_year_input.valid || start_year_input.untouched" class="form-text text-danger">Start
+              year is required
+            </small>
           </div>
           <div class="form-group">
             <label for="input-birthday">Birthday:</label>
             <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+              <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true" (click)="d.toggle()"></i></span>
               <input type="datetime" class="form-control" placeholder="(yyyy-mm-dd)" id="input-birthday"
-                     [value]="user?.birthday">
+                     ngbDatepicker
+                     name="dp"
+                     #d="ngbDatepicker"
+                     [(ngModel)]="datePickerModel"
+                     [readonly]="!isEditingUser">
             </div>
           </div>
           <!--END USER INFORMATION-->

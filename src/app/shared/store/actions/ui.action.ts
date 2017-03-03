@@ -3,6 +3,7 @@
  */
 import {Injectable} from "@angular/core";
 import {Action} from "@ngrx/store";
+import {User} from "../../models/user.model";
 @Injectable()
 export class UIAction {
   static START_TOPICS_LOAD = '[UI ACTION] START_TOPICS_LOAD';
@@ -40,6 +41,8 @@ export class UIAction {
 
   static START_THREAD_ADD = '[UI ACTION] START_THREAD_ADD';
   static CREATE_THREAD_FAILED = '[UI ACTION] CREATE_THREAD_FAILED';
+
+  static START_USER_EDIT = '[UI ACTION] START_USER_EDIT';
 
   public startTopicsLoad(): Action {
     return {type: UIAction.START_TOPICS_LOAD}
@@ -183,6 +186,10 @@ export class UIAction {
 
   public createThreadFailed(): Action {
     return {type: UIAction.CREATE_THREAD_FAILED}
+  }
+
+  public startUserEdit(user: User): Action {
+    return {type: UIAction.START_USER_EDIT, payload: {user: user}}
   }
 
 }

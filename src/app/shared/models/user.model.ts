@@ -33,7 +33,7 @@ export class User implements UserInterface {
     this.full_name = that.full_name;
     this.start_year = that.start_year;
     this.email = that.email;
-    this.birthday = that.birthday;
+    this.birthday = new Date(that.birthday);
     this.pivot = that.pivot;
     if (that.account)
       this.account = new Account(that.account);

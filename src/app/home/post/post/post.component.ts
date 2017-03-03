@@ -79,7 +79,6 @@ export class PostComponent implements OnInit{
     this.store.dispatch(this.uiAction.startPostVote($event.postId, $event.liked));
   }
 
-  //$event = {postId, postContent}
   private onPostEdited($event){
     this.store.dispatch(this.uiAction.startPostEdit(this.topicId, this.threadId, $event.postId, $event.postContent));
   }

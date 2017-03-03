@@ -34,6 +34,9 @@ export class DataAction {
   static CREATE_THREAD = '[DATA ACTION] CREATE THREAD';
   static ADD_THREAD = '[DATA ACTION] ADD THREAD';
 
+  static EDIT_USER = '[DATA ACTION] EDIT_USER';
+  static ADD_EDIT_USER = '[DATA ACTION] ADD_EDIT_USER';
+
 
   public loadTopics(topics: Topic[]): Action {
     return {
@@ -134,6 +137,20 @@ export class DataAction {
     return {
       type: DataAction.ADD_THREAD,
       payload: {thread: thread, loggedInAccount: loggedInAccount}
+    }
+  }
+
+  public editUser(responseMessage: ResponseMessage): Action {
+    return {
+      type: DataAction.EDIT_USER,
+      payload: {responseMessage: responseMessage}
+    }
+  }
+
+  public addEditUser(user: User): Action {
+    return {
+      type: DataAction.ADD_EDIT_USER,
+      payload: {user: user}
     }
   }
 

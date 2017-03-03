@@ -10,7 +10,7 @@ import {Observable} from "rxjs";
 import {Action} from "@ngrx/store";
 
 @Injectable()
-export class UserServiceEffect{
+export class UserServiceEffect {
   constructor(private actions: Actions,
               private dataAction: DataAction,
               private uiAction: UIAction,
@@ -25,4 +25,14 @@ export class UserServiceEffect{
       this.dataAction.loadUser(user),
       this.uiAction.endUserLoad()
     ]));
+
+  @Effect() userEdit$: Observable<Action> = this.actions
+    .ofType(UIAction.START_USER_EDIT)
+    .map(action => action.payload)
+    .switchMap(payload => this.userService.editUser(payload.user)
+      .concatMap(responseMessage => Observable.from([
+      this.dataAction.editUser(responseMessage),
+      this.dataAction.addEditUser(payload.user)
+    ])))
+    ;
 }

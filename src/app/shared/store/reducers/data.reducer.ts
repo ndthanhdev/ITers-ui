@@ -142,6 +142,19 @@ export function reducer(state: DataState = initialState, action: Action): DataSt
         })
       });
 
+    case DataAction.EDIT_USER:
+      return Object.assign({}, state, {responseMessage: action.payload.responseMessage});
+
+    case DataAction.ADD_EDIT_USER:
+      console.log(action.payload.user.full_name);
+      return Object.assign({}, state, {
+        loggedInAccount: Object.assign({}, state.loggedInAccount, {
+          user: Object.assign({}, state.loggedInAccount.user, {
+            full_name: action.payload.user.full_name
+          })
+        })
+      });
+
     default:
       return state;
   }
