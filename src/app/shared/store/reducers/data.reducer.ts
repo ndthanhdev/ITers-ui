@@ -13,7 +13,7 @@ import {Post} from "../../models/post.model";
 export const initialState = {
   topics: [],
   topic: null,
-  thread: null,
+  thread: {},
   user: null,
   loggedInAccount: null,
   msg: null,
@@ -57,9 +57,10 @@ export function reducer(state: DataState = initialState, action: Action): DataSt
       return Object.assign({}, state, {responseMessage: action.payload.responseMessage});
 
     case DataAction.ADD_POST:
-      return Object.assign({}, state, {
-        thread: Object.assign({}, state.thread, {oldest_posts: state.thread.oldest_posts.concat(action.payload.post)})
-      });
+      if (state.thread.oldest_posts)
+        return Object.assign({}, state, {
+          thread: Object.assign({}, state.thread, {oldest_posts: state.thread.oldest_posts.concat(action.payload.post)})
+        });
 
     case DataAction.VOTE_POST:
       return Object.assign({}, state, {responseMessage: action.payload.responseMessage});
