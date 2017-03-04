@@ -27,6 +27,12 @@ export class UserService extends GenericService {
     });
   }
 
+  public updateRole(userId: number, privilege_level: number): Observable<ResponseMessage> {
+    return this.patchWithAuth(new RequestOptions({url: this.BASE_URL + '/' + userId + '/accounts/roles'}), {
+      privilege_level: privilege_level
+    });
+  }
+
   protected extractData(resp: Response): User {
     return new User(resp.json());
   }

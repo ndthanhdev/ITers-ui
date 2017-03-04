@@ -33,6 +33,14 @@ export class UserServiceEffect {
       .concatMap(responseMessage => Observable.from([
       this.dataAction.editUser(responseMessage),
       this.dataAction.addEditUser(payload.user)
-    ])))
-    ;
+    ])));
+
+
+  @Effect() updateRole$: Observable<Action> = this.actions
+    .ofType(UIAction.START_ROLE_UPDATE)
+    .map(action => action.payload)
+    .switchMap(payload => this.userService.updateRole(payload.userId, payload.privilege_level)
+      .concatMap(responseMessage => Observable.from([
+        this.dataAction.updateRole(payload.privilege_level)
+      ])));
 }

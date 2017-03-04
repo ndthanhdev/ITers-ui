@@ -39,7 +39,8 @@
         <form class="col-6" #userForm="ngForm" (ngSubmit)="onUserFormSubmit()">
           <!--START USER INFORMATION-->
           <div class="form-group" [ngClass]="{'has-danger': !(full_name_input.valid || full_name_input.untouched)}">
-            <label for="input-fullname" [ngClass]="{'text-danger': !(full_name_input.valid || full_name_input.untouched)}">Full name:</label>
+            <label for="input-fullname"
+                   [ngClass]="{'text-danger': !(full_name_input.valid || full_name_input.untouched)}">Full name:</label>
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
               <input required type="text" class="form-control" aria-describedby="school-id" id="input-fullname"
@@ -62,7 +63,9 @@
             </div>
           </div>
           <div class="form-group" [ngClass]="{'has-danger': !(start_year_input.valid || start_year_input.untouched)}">
-            <label for="input-startyear" [ngClass]="{'text-danger': !(start_year_input.valid || start_year_input.untouched)}">Start year:</label>
+            <label for="input-startyear"
+                   [ngClass]="{'text-danger': !(start_year_input.valid || start_year_input.untouched)}">Start
+              year:</label>
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-book" aria-hidden="true"></i></span>
               <input required type="number" class="form-control" id="input-startyear"
@@ -79,7 +82,8 @@
           <div class="form-group">
             <label for="input-birthday">Birthday:</label>
             <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true" (click)="d.toggle()"></i></span>
+              <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"
+                                                 (click)="d.toggle()"></i></span>
               <input type="datetime" class="form-control" placeholder="(yyyy-mm-dd)" id="input-birthday"
                      ngbDatepicker
                      name="dp"
@@ -92,6 +96,8 @@
         </form>
       </div>
 
+
+      <!--START ACCOUNT INFORMATION-->
       <div class="d-flex align-items-center">
         <h1 class="card-title mr-2">Account Information</h1>
       </div>
@@ -108,41 +114,53 @@
               </span>
               <input type="text" class="form-control" aria-describedby="school-id" readonly id="input-schoolid"
                      [value]="user?.account.school_id">
-              <!--<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> VALIDATION-->
             </div>
           </div>
-          <!--END ACCOUNT INFORMATION-->
+
         </form>
       </div>
+      <!--END ACCOUNT INFORMATION-->
 
       <!--START ROLE INFORMATION-->
       <div class="d-flex align-items-center">
         <h1 class="card-title mr-2">Role Information</h1>
 
         <!--ADMIN ONLY-->
-        <button type="button" class="btn btn-outline-danger btn-sm mr-1">Cancel</button>
-        <button type="button" class="btn btn-outline-success btn-sm mr-1">Save</button>
-        <button type="button" class="btn btn-outline-primary btn-sm"><span class="fa fa-pencil"></span></button>
+        <button *ngIf="isEditingRole" (click)="onCancelEditRoleButtonClick()" type="button" class="btn btn-outline-danger btn-sm mr-1">Cancel</button>
+        <button *ngIf="isEditingRole" (click)="onRoleFormSubmit()" type="button" class="btn btn-outline-success btn-sm mr-1">Save</button>
+        <button *ngIf="canShowEditRoleButton() && !isEditingRole" (click)="onEditRoleButtonClick()" type="button"
+                class="btn btn-outline-primary btn-sm"><span class="fa fa-pencil"></span></button>
         <!--ADMIN ONLY-->
-
       </div>
       <hr class="mt-0">
       <div class="row d-flex justify-content-center">
         <form class="col-6">
           <!--IF ROLE BELOW ADMIN-->
           <div class="form-group">
-            <label for="input-role1">Role:</label>
-            <div class="input-group">
-              <span class="input-group-addon"><i class="fa fa-key" aria-hidden="true"></i></span>
-              <input type="text" class="form-control" aria-describedby="school-id" value="User" id="input-role1"
-                     readonly [value]="user?.account.current_role.role()">
-            </div>
+            <label for="input-role" class="mr-2">Role:</label>
+            <select class="form-control mr-2" id="input-role" [disabled]="!isEditingRole" name="roleModel"
+                    [(ngModel)]="roleModel">
+              <option *ngFor="let role of roles" [value]="role">{{role}}</option>
+            </select>
           </div>
           <!--IF ROLE BELOW ADMIN-->
 
+          <div class="form-group" *ngIf="roleModel === 'Mod'">
+            <label class="mr-2" *ngIf="optionsModel.length > 0 || isEditingRole">Manages:</label>
+            <template ngFor let-id [ngForOf]="optionsModel" let-i="index">
+              <span *ngIf="!isEditingRole" class="badge badge-primary mr-2" (click)="navigateToTopic(id)">{{findTopicName(id)}}</span>
+            </template>
+            <ss-multiselect-dropdown class="mr-2" name="topicPicker"
+                                     *ngIf="isEditingRole"
+                                     [options]="topicPickerOptions"
+                                     [settings]="topicPickerSetting"
+                                     [(ngModel)]="optionsModel"
+                                     (ngModelChange)="onChange($event)"></ss-multiselect-dropdown>
+          </div>
         </form>
       </div>
       <!--END ROLE INFORMATION-->
+
     </div>
   </div>
 </div>

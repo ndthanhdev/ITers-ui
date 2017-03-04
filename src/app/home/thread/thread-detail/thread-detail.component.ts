@@ -11,7 +11,7 @@ import {Thread} from "../../../shared/models/thread.model";
     </div>
     <p class="mb-0">By <a [routerLink]="['/users', thread.user.id]" class="mr-1">{{thread.user.full_name}}</a>{{thread.created_at | amUTCOffset:7 | amTimeAgo}}</p>
     <div class="d-flex w-100 justify-content-end">
-      <small class="align-self-center mr-auto">Last post by <a [routerLink]="['/users', thread.latest_posts[0]?.user.id]" class="mr-1">{{thread.latest_posts[0]?.user.full_name}}</a>{{thread.latest_posts[0]?.created_at | amUTCOffset:7 | amTimeAgo}}</small>
+      <small class="align-self-center mr-auto">Last post by <a  class="mr-1">{{thread.latest_posts[0]?.user.full_name}}</a>{{thread.latest_posts[0]?.created_at | amUTCOffset:7 | amTimeAgo}}</small>
     </div>
   </div>
   `,

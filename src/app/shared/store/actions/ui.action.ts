@@ -43,6 +43,7 @@ export class UIAction {
   static CREATE_THREAD_FAILED = '[UI ACTION] CREATE_THREAD_FAILED';
 
   static START_USER_EDIT = '[UI ACTION] START_USER_EDIT';
+  static START_ROLE_UPDATE = '[UI ACTION] START_ROLE_UPDATE';
 
   public startTopicsLoad(): Action {
     return {type: UIAction.START_TOPICS_LOAD}
@@ -190,6 +191,16 @@ export class UIAction {
 
   public startUserEdit(user: User): Action {
     return {type: UIAction.START_USER_EDIT, payload: {user: user}}
+  }
+
+  //    /api/users/:id/accounts/roles
+  public startRoleUpdate(userId: number, privilege_level: number): Action {
+    return {
+      type: UIAction.START_ROLE_UPDATE, payload: {
+        privilege_level: privilege_level,
+        userId: userId
+      }
+    }
   }
 
 }

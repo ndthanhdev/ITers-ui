@@ -1,7 +1,6 @@
 import {Component, OnInit, Input} from "@angular/core";
 import {Topic} from "../../../shared/models/topic.model";
 import {Thread} from "../../../shared/models/thread.model";
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-topic-detail',
@@ -33,7 +32,7 @@ export class TopicDetailComponent implements OnInit {
   private latestThread: Thread;
   private isEditing: boolean = false;
 
-  constructor(private router: Router) {
+  constructor() {
   }
 
   ngOnInit() {
@@ -49,9 +48,4 @@ export class TopicDetailComponent implements OnInit {
   private onInputSaved() {
     this.isEditing = false;
   }
-
-  private goToTopic($topidId){
-    this.router.navigate(['/topics', $topidId])
-  }
-
 }

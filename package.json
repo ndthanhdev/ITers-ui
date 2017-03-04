@@ -25,6 +25,7 @@
     "@ngrx/effects": "^2.0.0",
     "@ngrx/store": "^2.2.1",
     "@ngrx/store-devtools": "^3.2.3",
+    "angular-2-dropdown-multiselect": "^1.0.2",
     "angular2-froala-wysiwyg": "^2.4.2-2",
     "angular2-jwt": "^0.1.28",
     "angular2-moment": "^1.2.0",

@@ -22,10 +22,12 @@ export class Role implements RoleInterface {
   valid_to: Date;
 
   public constructor(that?: RoleInterface) {
-    this.id = that.id;
-    this.privilege_level = that.privilege_level;
-    this.valid_from = that.valid_from;
-    this.valid_to = that.valid_to;
+    if (that) {
+      this.id = that.id;
+      this.privilege_level = that.privilege_level;
+      this.valid_from = that.valid_from;
+      this.valid_to = that.valid_to;
+    }
   }
 
   public role(): string {
@@ -41,7 +43,7 @@ export class Role implements RoleInterface {
     }
   }
 
-  public is(privilege_level : number | RoleEnum): boolean {
+  public is(privilege_level: number | RoleEnum): boolean {
     return this.privilege_level === privilege_level;
   }
 }

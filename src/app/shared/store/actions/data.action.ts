@@ -37,6 +37,8 @@ export class DataAction {
   static EDIT_USER = '[DATA ACTION] EDIT_USER';
   static ADD_EDIT_USER = '[DATA ACTION] ADD_EDIT_USER';
 
+  static UPDATE_ROLE = '[DATA ACTION] UPDATE_ROLE';
+
 
   public loadTopics(topics: Topic[]): Action {
     return {
@@ -151,6 +153,13 @@ export class DataAction {
     return {
       type: DataAction.ADD_EDIT_USER,
       payload: {user: user}
+    }
+  }
+
+  public updateRole(privilege_level: number): Action {
+    return {
+      type: DataAction.UPDATE_ROLE,
+      payload: {privilege_level: privilege_level}
     }
   }
 
