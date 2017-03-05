@@ -62,7 +62,7 @@ export function reducer(state: DataState = initialState, action: Action): DataSt
         return Object.assign({}, state, {
           thread: Object.assign({}, state.thread, {oldest_posts: state.thread.oldest_posts.concat(action.payload.post)})
         });
-      else break;
+      else return state;
 
     case DataAction.VOTE_POST:
       return Object.assign({}, state, {responseMessage: action.payload.responseMessage});
