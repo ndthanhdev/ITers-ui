@@ -50,6 +50,8 @@ export class UIAction {
 
   static START_POST_STATE_CHANGE = '[UI ACTION] START_POST_STATE_CHANGE';
 
+  static START_ACCOUNT_CONFIRM = '[UI ACTION] START_ACCOUNT_CONFIRM';
+
   public startTopicsLoad(): Action {
     return {type: UIAction.START_TOPICS_LOAD}
   }
@@ -224,6 +226,13 @@ export class UIAction {
     return {
       type: UIAction.START_POST_STATE_CHANGE,
       payload: {postId: postId, confirmation: confirmation}
+    }
+  }
+
+  public startAccountConfirm(userId: number): Action {
+    return {
+      type: UIAction.START_ACCOUNT_CONFIRM,
+      payload: {userId: userId}
     }
   }
 

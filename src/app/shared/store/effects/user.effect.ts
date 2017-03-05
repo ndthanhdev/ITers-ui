@@ -54,4 +54,13 @@ export class UserServiceEffect {
         this.dataAction.syncUserTopic(payload.topics),
         this.uiAction.endUserTopicSync()
       ])));
+
+
+  @Effect() confirmAccount$: Observable<Action> = this.actions
+    .ofType(UIAction.START_ACCOUNT_CONFIRM)
+    .map(action => action.payload)
+    .switchMap(payload => this.userService.confirmAccount(payload.userId)
+      .concatMap(responseMessage => Observable.from([
+        this.dataAction.confirmAccount(responseMessage)
+      ])));
 }

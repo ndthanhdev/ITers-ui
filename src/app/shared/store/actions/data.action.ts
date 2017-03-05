@@ -42,6 +42,7 @@ export class DataAction {
 
   static CHANGE_POST_STATE = '[DATA ACTION] CHANGE_POST_STATE';
 
+  static CONFIRM_ACCOUNT = '[DATA ACTION] CONFIRM_ACCOUNT';
 
   public loadTopics(topics: Topic[]): Action {
     return {
@@ -178,6 +179,13 @@ export class DataAction {
     return {
       type: DataAction.CHANGE_POST_STATE,
       payload: {postId: postId, confirmation: confirmation}
+    }
+  }
+
+  public confirmAccount(responseMessage: ResponseMessage){
+    return {
+      type: DataAction.CONFIRM_ACCOUNT,
+      payload: {responseMessage: responseMessage}
     }
   }
 }

@@ -39,6 +39,12 @@ export class UserService extends GenericService {
     })
   }
 
+  public confirmAccount(userId: number): Observable<ResponseMessage> {
+    return this.patchWithAuth(new RequestOptions({url: this.BASE_URL + '/' + userId + '/accounts/'}), {
+      confirmation: true
+    });
+  }
+
   protected extractData(resp: Response): User {
     return new User(resp.json());
   }

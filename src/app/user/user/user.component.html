@@ -7,6 +7,7 @@
     <h1 class="display-4 mr-2">{{user?.full_name}}</h1>
     <button class="btn btn-sm btn-success rounded-circle" *ngIf="user?.account?.confirmed"><i class="fa fa-check"></i>
     </button>
+    <button class="btn btn-sm btn-outline-success" *ngIf="canShowConfirmUserButton()" (click)="onConfirmUserButtonClick()">confirm</button>
   </div>
   <div class="lead text-muted">Joined {{user?.account.created_at | amUTCOffset:7 | amTimeAgo}}
   </div>

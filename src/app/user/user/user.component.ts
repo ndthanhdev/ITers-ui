@@ -153,6 +153,18 @@ export class UserComponent implements OnInit {
     this.roleModel = this.roleModelBackup;
   }
 
+  private onConfirmUserButtonClick(){
+    this.store.dispatch(this.uiAction.startAccountConfirm(this.user.id));
+  }
+
+  private canShowConfirmUserButton() :boolean{
+    if(!this.loggedInAccount)
+      return false;
+    else if(this.loggedInAccount.current_role.is(RoleEnum.ADMIN))
+      return !this.user.account.confirmed;
+    return false;
+  }
+
   private findTopicName(topicId: number): string {
     if (this.optionsModel.length > 0 && this.topicPickerOptions.length > 0 && topicId)
       return this.topicPickerOptions.find(option => option.id === topicId).name;

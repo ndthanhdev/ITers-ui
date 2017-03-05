@@ -188,7 +188,7 @@ export function reducer(state: DataState = initialState, action: Action): DataSt
       if (action.payload.confirmation)
         clonedToBeChangedStatePosts[changedStatePostIndex].confirmed = action.payload.confirmation;
       else
-        clonedToBeChangedStatePosts.splice(changedStatePostIndex,1);
+        clonedToBeChangedStatePosts.splice(changedStatePostIndex, 1);
 
       return Object.assign({}, state, {
         thread: Object.assign({}, state.thread, {
@@ -196,6 +196,15 @@ export function reducer(state: DataState = initialState, action: Action): DataSt
         })
       });
 
+    case DataAction.CONFIRM_ACCOUNT:
+      return Object.assign({}, state, {
+        responseMessage: action.payload.responseMessage,
+        user: Object.assign({}, state.user, {
+          account: Object.assign({}, state.user.account, {
+            confirmed: true
+          })
+        })
+      });
 
     default:
       return state;
