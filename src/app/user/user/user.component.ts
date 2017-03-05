@@ -64,7 +64,10 @@ export class UserComponent implements OnInit {
       }
     });
     this.loadingUser = this.store.select(state => state.uiState.loadingUser);
-    this.store.select(state => state.uiState.syncingUserTopic).subscribe(syncingUserTopic => this.syncingUserTopic = syncingUserTopic);
+    this.store.select(state => state.uiState.syncingUserTopic).subscribe(syncingUserTopic => {
+      this.syncingUserTopic = syncingUserTopic;
+      this.isEditingRole = syncingUserTopic;
+    });
     this.store.select(state => state.dataState.loggedInAccount).subscribe(account => this.loggedInAccount = account);
     this.store.select(state => state.dataState.topics).subscribe(topics => {
       this.topics = topics;
@@ -125,8 +128,6 @@ export class UserComponent implements OnInit {
         this.optionsModel = [];
       this.store.dispatch(this.uiAction.startRoleUpdate(this.user.id, this.roleToNumber(this.roleModel), this.optionsModel));
     }
-
-    this.isEditingRole = false;
   }
 
   private onCancelUserButtonClick() {

@@ -126,7 +126,9 @@
 
         <!--ADMIN ONLY-->
         <button *ngIf="isEditingRole" (click)="onCancelEditRoleButtonClick()" type="button" class="btn btn-outline-danger btn-sm mr-1">Cancel</button>
-        <button *ngIf="isEditingRole" (click)="onRoleFormSubmit()" type="button" class="btn btn-outline-success btn-sm mr-1">Save</button>
+        <button *ngIf="isEditingRole"  type="button" class="btn btn-outline-success btn-sm mr-1"
+                (click)="onRoleFormSubmit()"
+                [disabled]="syncingUserTopic">Save</button>
         <button *ngIf="canShowEditRoleButton() && !isEditingRole" (click)="onEditRoleButtonClick()" type="button"
                 class="btn btn-outline-primary btn-sm"><span class="fa fa-pencil"></span></button>
         <i *ngIf="syncingUserTopic" class="fa fa-spinner fa-pulse fa-fw"></i>
@@ -148,10 +150,10 @@
           <div class="form-group" *ngIf="roleModel === 'Mod'">
             <label class="mr-2" *ngIf="optionsModel.length > 0 || isEditingRole">Manages:</label>
             <template ngFor let-id [ngForOf]="optionsModel" let-i="index">
-              <span *ngIf="!isEditingRole && !syncingUserTopic" class="badge badge-primary mr-2" (click)="navigateToTopic(id)">{{findTopicName(id)}}</span>
+              <span *ngIf="!isEditingRole " class="badge badge-primary mr-2" (click)="navigateToTopic(id)">{{findTopicName(id)}}</span>
             </template>
             <ss-multiselect-dropdown class="mr-2" name="topicPicker"
-                                     *ngIf="isEditingRole || syncingUserTopic"
+                                     *ngIf="isEditingRole"
                                      [options]="topicPickerOptions"
                                      [settings]="topicPickerSetting"
                                      [(ngModel)]="optionsModel"
