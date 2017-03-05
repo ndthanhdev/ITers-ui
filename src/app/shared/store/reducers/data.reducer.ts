@@ -159,6 +159,7 @@ export function reducer(state: DataState = initialState, action: Action): DataSt
     case DataAction.UPDATE_ROLE:
       let clonedRole = new Role(state.user.account.current_role);
       clonedRole.privilege_level = action.payload.privilege_level;
+      clonedRole.valid_from = new Date();
       return Object.assign({}, state,
         {
           user: Object.assign({}, state.user, {
