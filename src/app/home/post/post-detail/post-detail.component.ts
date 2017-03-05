@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter, OnChanges} from "@angular/core";
+import {Component, Input, Output, EventEmitter} from "@angular/core";
 import {Post} from "../../../shared/models/post.model";
 import {Account} from "../../../shared/models/account.model";
 import {User} from "../../../shared/models/user.model";
@@ -16,7 +16,9 @@ import {RoleEnum} from "../../../shared/models/role.model";
             <small class="text-muted" *ngIf="post.updated_at != post.created_at">Last updated {{post.updated_at | amUTCOffset:7 | amTimeAgo}}.</small>
           </span>
           <!--IF MANAGING MOD OR ADMIN-->
-          <button type="button" class="btn btn-sm btn-outline-success" *ngIf="canShowConfirmButton()">Confirm</button>
+          <button type="button" class="btn btn-sm btn-outline-danger" *ngIf="post.confirmed && canShowConfirmOrBlockButton()" (click)="onBlockButtonClick()">Delete</button>
+          <button type="button" class="btn btn-sm btn-outline-success ml-2" *ngIf="!post.confirmed && canShowConfirmOrBlockButton()" (click)="onConfirmButtonClick()">Confirm</button>
+          
           
           <!--IF OWNER && !POST.CONFIRMED-->
           <button type="button" class="btn btn-sm btn-outline-primary ml-2" *ngIf="canShowEditButton()" (click)="onEditPostButtonClicked()">Edit</button>
@@ -57,7 +59,7 @@ import {RoleEnum} from "../../../shared/models/role.model";
   `,
   styleUrls: ['./post-detail.component.scss']
 })
-export class PostDetailComponent implements OnChanges {
+export class PostDetailComponent {
   @Input() post: Post;
   @Input() managingMods: User[];
   @Input() loggedInAccount: Account;
@@ -66,13 +68,12 @@ export class PostDetailComponent implements OnChanges {
   @Output() upVoted: EventEmitter<number> = new EventEmitter();
   @Output() downVoted: EventEmitter<number> = new EventEmitter();
   @Output() editPost = new EventEmitter();
+  @Output() confirmPost = new EventEmitter();
+  @Output() blockPost = new EventEmitter();
 
   private isEditPost: boolean = false;
 
   constructor() {
-  }
-
-  ngOnChanges(): void {
   }
 
   private calculateVotes(): number {
@@ -89,10 +90,10 @@ export class PostDetailComponent implements OnChanges {
     return !this.post.confirmed && this.loggedInAccount.user.id === this.post.user.id
   }
 
-  private canShowConfirmButton(): boolean {
-    if (this.post.confirmed)
+  private canShowConfirmOrBlockButton(): boolean {
+    if(!this.loggedInAccount)
       return false;
-    else if (this.loggedInAccount.current_role.is(RoleEnum.ADMIN))
+    if (this.loggedInAccount.current_role.is(RoleEnum.ADMIN))
       return true;
     else if (this.loggedInAccount.current_role.is(RoleEnum.MOD))
       if (this.managingMods)
@@ -132,6 +133,21 @@ export class PostDetailComponent implements OnChanges {
 
   private onEditPostButtonClicked() {
     this.isEditPost = true;
+  }
+
+  //postId, confirmation
+  private onConfirmButtonClick(){
+    this.confirmPost.emit({
+      postId: this.post.id,
+      confirmation: true
+    });
+  }
+
+  private onBlockButtonClick(){
+    this.blockPost.emit({
+      postId: this.post.id,
+      confirmation: false
+    });
   }
 
 

@@ -185,6 +185,22 @@ export function reducer(state: DataState = initialState, action: Action): DataSt
         })
       });
 
+    case DataAction.CHANGE_POST_STATE:
+      let clonedToBeChangedStatePosts = Object.assign([], state, state.thread.oldest_posts);
+      let changedStatePostIndex = clonedToBeChangedStatePosts.findIndex(post => post.id === action.payload.postId);
+      if (action.payload.confirmation)
+        clonedToBeChangedStatePosts[changedStatePostIndex].confirmed = action.payload.confirmation;
+      else
+        clonedToBeChangedStatePosts = Object.assign([], clonedToBeChangedStatePosts, [
+          ...clonedToBeChangedStatePosts.slice(0, changedStatePostIndex),
+          ...clonedToBeChangedStatePosts.slice(changedStatePostIndex + 1)
+        ]);
+      return Object.assign({}, state, {
+        thread: Object.assign({}, state.thread, {
+          oldest_posts: clonedToBeChangedStatePosts
+        })
+      });
+
 
     default:
       return state;

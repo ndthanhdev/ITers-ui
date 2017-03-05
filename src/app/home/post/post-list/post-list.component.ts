@@ -36,7 +36,9 @@ import {DOCUMENT} from "@angular/platform-browser";
           postId: $event,
           liked: false 
       })"
-      (editPost)="onEditPost($event)">
+      (editPost)="onEditPost($event)"
+      (confirmPost)="onChangePostState($event)"
+      (blockPost)="onChangePostState($event)">
     </app-post-detail>
   </template>
   <app-list-footer
@@ -55,6 +57,7 @@ export class PostListComponent implements OnInit {
 
   @Output() postVoted = new EventEmitter();
   @Output() postEdited = new EventEmitter();
+  @Output() postStateChanged = new EventEmitter();
 
   private currentPage: number = 1;
   private filteredPosts: Post[];
@@ -108,5 +111,9 @@ export class PostListComponent implements OnInit {
 
   private onEditPost($event) {
     this.postEdited.emit($event);
+  }
+
+  private onChangePostState($event){
+    this.postStateChanged.emit($event);
   }
 }

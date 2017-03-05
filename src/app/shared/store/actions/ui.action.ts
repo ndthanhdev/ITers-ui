@@ -48,6 +48,8 @@ export class UIAction {
   static START_USER_TOPIC_SYNC = '[UI ACTION] START_USER_TOPIC_SYNC';
   static END_USER_TOPIC_SYNC = '[UI ACTION] END_USER_TOPIC_SYNC';
 
+  static START_POST_STATE_CHANGE = '[UI ACTION] START_POST_STATE_CHANGE';
+
   public startTopicsLoad(): Action {
     return {type: UIAction.START_TOPICS_LOAD}
   }
@@ -216,6 +218,13 @@ export class UIAction {
 
   public endUserTopicSync(): Action {
     return {type: UIAction.END_USER_TOPIC_SYNC}
+  }
+
+  public startPostStateChange(postId: number, confirmation: boolean): Action {
+    return {
+      type: UIAction.START_POST_STATE_CHANGE,
+      payload: {postId: postId, confirmation: confirmation}
+    }
   }
 
 }

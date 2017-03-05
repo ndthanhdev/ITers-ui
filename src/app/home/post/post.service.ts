@@ -39,6 +39,12 @@ export class PostService extends GenericService {
     }).map(this.extractResponseMessage);
   }
 
+  public changePostState(postId: number, confirmation: boolean) {
+    return this.patchWithAuth(new RequestOptions({url: `http://homestead.app/api/posts/${postId}/confirm`}), {
+      confirmation: confirmation
+    }).map(this.extractResponseMessage);
+  }
+
   private extractResponseMessage(resp: Response): ResponseMessage {
     return new ResponseMessage(resp.json());
   }

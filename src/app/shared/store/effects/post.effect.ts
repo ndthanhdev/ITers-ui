@@ -56,8 +56,17 @@ export class PostServiceEffect {
             this.dataAction.editPost(responseMessage),
             this.dataAction.addEditPost(payload.postId, payload.postContent)
           ])
-        })
-    );
+        }));
+
+  @Effect() postStateChange$: Observable<Action> = this.actions
+    .ofType(UIAction.START_POST_STATE_CHANGE)
+    .map(action => action.payload)
+    .switchMap(payload =>
+      this.postService.changePostState(payload.postId, payload.confirmation)
+        .concatMap(responseMessage => Observable.from([
+            this.dataAction.changePostState(payload.postId, payload.confirmation)
+          ])
+        ));
 
   @Effect() postAdd$: Observable<Action> = this.actions
     .ofType(UIAction.START_POST_ADD)

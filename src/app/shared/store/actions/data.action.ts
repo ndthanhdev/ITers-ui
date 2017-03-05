@@ -40,6 +40,8 @@ export class DataAction {
   static UPDATE_ROLE = '[DATA ACTION] UPDATE_ROLE';
   static SYNC_USER_TOPIC = '[DATA ACTION] SYNC_USER_TOPIC';
 
+  static CHANGE_POST_STATE = '[DATA ACTION] CHANGE_POST_STATE';
+
 
   public loadTopics(topics: Topic[]): Action {
     return {
@@ -167,10 +169,15 @@ export class DataAction {
   public syncUserTopic(topics: number[]): Action {
     return {
       type: DataAction.SYNC_USER_TOPIC,
-      payload: {
-        topics: topics
-      }
+      payload: {topics: topics}
     }
   }
 
+
+  public changePostState(postId: number, confirmation: boolean) {
+    return {
+      type: DataAction.CHANGE_POST_STATE,
+      payload: {postId: postId, confirmation: confirmation}
+    }
+  }
 }

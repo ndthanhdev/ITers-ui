@@ -29,7 +29,8 @@ import {Post} from "../../../shared/models/post.model";
     [loggedInAccount]="loggedInAccount | async"
     [managingMods]="managingMods | async"
     (postVoted)="onPostVote($event)"
-    (postEdited)="onPostEdited($event)">
+    (postEdited)="onPostEdited($event)"
+    (postStateChanged)="onPostStateChanged($event)">
   </app-post-list>
   <hr>
   <app-post-input 
@@ -81,5 +82,9 @@ export class PostComponent implements OnInit{
 
   private onPostEdited($event){
     this.store.dispatch(this.uiAction.startPostEdit(this.topicId, this.threadId, $event.postId, $event.postContent));
+  }
+
+  private onPostStateChanged($event){
+    this.store.dispatch(this.uiAction.startPostStateChange($event.postId, $event.confirmation));
   }
 }
