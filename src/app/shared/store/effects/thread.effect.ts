@@ -46,7 +46,6 @@ export class ThreadServiceEffect {
             this.dataAction.createThread(responseMessage),
             this.uiAction.startPostCreate(topicId, threadId, payload.postContent),
             this.uiAction.startThreadAdd(topicId, threadId),
-            this.uiAction.endThreadCreate()
           ])
         })
     ).catch((error: Response) => {
@@ -67,7 +66,8 @@ export class ThreadServiceEffect {
           let loggedInAccount;
           this.store.select(state => state.dataState.loggedInAccount).subscribe(account => loggedInAccount = account);
           return Observable.from([
-            this.dataAction.addThread(thread, loggedInAccount)
+            this.dataAction.addThread(thread, loggedInAccount),
+            this.uiAction.endThreadCreate()
           ])
         }));
 
