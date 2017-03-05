@@ -26,9 +26,7 @@ export class PostService extends GenericService {
   }
 
   public votePost(postId: number, liked: boolean): Observable<ResponseMessage> {
-    return this.putWithAuth(new RequestOptions({
-      url: `http://homestead.app/api/posts/${postId}/vote`
-    }), {
+    return this.putWithAuth(new RequestOptions({url: `http://homestead.app/api/posts/${postId}/vote`}), {
       liked: liked
     }).map(this.extractResponseMessage);
   }

@@ -8,12 +8,14 @@ import {TopicService} from "./topic.service";
 import {HttpModule} from "@angular/http";
 import {TopicComponent} from "./topic/topic.component";
 import {SharedModule} from "../../shared/shared.module";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
     HttpModule,
+    FormsModule,
     TopicRoutingModule
   ],
   declarations: [

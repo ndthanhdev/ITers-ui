@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, Output, EventEmitter, OnChanges} from "@angular/core";
 import {Topic} from "../../../shared/models/topic.model";
 import {Account} from "../../../shared/models/account.model";
 import {RoleEnum} from "../../../shared/models/role.model";
@@ -17,7 +17,8 @@ import {RoleEnum} from "../../../shared/models/role.model";
     <app-topic-detail-input
       *ngIf="isAdding"
       [isAdding]="isAdding"
-      (saved)="onInputSaved()"
+      [creatingTopic]="creatingTopic"
+      (saved)="onInputSaved($event)"
       (canceled)="onInputCanceled()">
     </app-topic-detail-input>
     <template ngFor let-topic [ngForOf]="topics" let-i="index">
@@ -26,7 +27,6 @@ import {RoleEnum} from "../../../shared/models/role.model";
         [topic]="topic">
       </app-topic-detail>
     </template>
-    
   </div>
   <app-list-footer
     [page]="currentPage"
@@ -36,14 +36,20 @@ import {RoleEnum} from "../../../shared/models/role.model";
   `,
   styleUrls: ['topic-list.component.scss']
 })
-export class TopicListComponent {
+export class TopicListComponent implements OnChanges{
   @Input() topics: Topic[];
   @Input() loggedInAccount: Account;
+  @Input() creatingTopic: boolean;
 
+  @Output() topicSaved = new EventEmitter();
   private currentPage: number = 1;
   private isAdding: boolean;
 
   constructor() {
+  }
+
+  ngOnChanges(): void {
+    this.isAdding = this.creatingTopic;
   }
 
   private onPageChange($event) {
@@ -54,7 +60,8 @@ export class TopicListComponent {
     this.isAdding = true;
   }
 
-  private onInputSaved() {
+  private onInputSaved($event) {
+    this.topicSaved.emit($event);
     this.isAdding = false;
   }
 

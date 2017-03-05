@@ -44,6 +44,10 @@ export class DataAction {
 
   static CONFIRM_ACCOUNT = '[DATA ACTION] CONFIRM_ACCOUNT';
 
+  static CREATE_TOPIC = '[DATA ACTION] CREATE_TOPIC';
+
+  static ADD_TOPIC = '[DATA ACTION] ADD_TOPIC';
+
   public loadTopics(topics: Topic[]): Action {
     return {
       type: DataAction.LOAD_TOPICS,
@@ -186,6 +190,20 @@ export class DataAction {
     return {
       type: DataAction.CONFIRM_ACCOUNT,
       payload: {responseMessage: responseMessage}
+    }
+  }
+
+  public createTopic(responseMessage: ResponseMessage){
+    return {
+      type: DataAction.CREATE_TOPIC,
+      payload: {responseMessage: responseMessage}
+    }
+  }
+
+  public addTopic(topic: Topic): Action{
+    return {
+      type: DataAction.ADD_TOPIC,
+      payload: {topic: topic}
     }
   }
 }

@@ -52,6 +52,12 @@ export class UIAction {
 
   static START_ACCOUNT_CONFIRM = '[UI ACTION] START_ACCOUNT_CONFIRM';
 
+  static START_TOPIC_CREATE = '[UI ACTION] START_TOPIC_CREATE';
+  static END_TOPIC_CREATE = '[UI ACTION] END_TOPIC_CREATE';
+  static CREATE_TOPIC_FAILED = '[UI ACTION] CREATE_TOPIC_FAILED';
+
+  static START_TOPIC_ADD = '[UI ACTION] START_TOPIC_ADD';
+
   public startTopicsLoad(): Action {
     return {type: UIAction.START_TOPICS_LOAD}
   }
@@ -233,6 +239,28 @@ export class UIAction {
     return {
       type: UIAction.START_ACCOUNT_CONFIRM,
       payload: {userId: userId}
+    }
+  }
+
+  public startTopicCreate(topicTitle: string): Action {
+    return {
+      type: UIAction.START_TOPIC_CREATE,
+      payload: {topicTitle: topicTitle}
+    }
+  }
+
+  public endTopicCreate(): Action {
+    return {type: UIAction.END_TOPIC_CREATE}
+  }
+
+  public createTopicFailed(): Action {
+    return {type: UIAction.CREATE_TOPIC_FAILED}
+  }
+
+  public startTopicAdd(url: string): Action {
+    return {
+      type: UIAction.START_TOPIC_ADD,
+      payload: {url: url}
     }
   }
 

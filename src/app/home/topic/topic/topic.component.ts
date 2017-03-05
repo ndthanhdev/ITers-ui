@@ -20,8 +20,10 @@ import {Account} from "../../../shared/models/account.model";
   </div>
   <app-topic-list 
     *ngIf="!(loadingTopics | async)"
-     [loggedInAccount]="loggedInAccount | async"
-    [topics]="topics | async">
+    [creatingTopic]="creatingTopic | async"
+    [loggedInAccount]="loggedInAccount | async"
+    [topics]="topics | async"
+    (topicSaved)="onTopicSave($event)">
   </app-topic-list>
   `,
   styleUrls: ['topic.component.scss']
@@ -30,6 +32,7 @@ export class TopicComponent implements OnInit {
   private topics: Observable<Topic[]>;
   private loadingTopics: Observable<boolean>;
   private loggedInAccount: Observable<Account>;
+  private creatingTopic: Observable<boolean>;
 
   constructor(private uiAction: UIAction,
               private store: Store<AppState>) {
@@ -40,6 +43,11 @@ export class TopicComponent implements OnInit {
     this.topics = this.store.select(state => state.dataState.topics);
     this.loadingTopics = this.store.select(state => state.uiState.loadingTopics);
     this.loggedInAccount = this.store.select(state => state.dataState.loggedInAccount);
+    this.creatingTopic = this.store.select(state => state.uiState.creatingTopic);
+  }
+
+  private onTopicSave($event){
+    this.store.dispatch(this.uiAction.startTopicCreate($event));
   }
 
 }

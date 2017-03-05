@@ -206,6 +206,19 @@ export function reducer(state: DataState = initialState, action: Action): DataSt
         })
       });
 
+    case DataAction.CREATE_TOPIC:
+      return Object.assign({}, state, {responseMessage: action.payload.responseMessage});
+
+    case DataAction.ADD_TOPIC:
+      let clonedTopics: Topic[] = Object.assign([], state.topics);
+      // let newTopic = Object.assign({}, action.payload.topic,{
+      //
+      // });
+      clonedTopics.push(action.payload.topic);
+      return Object.assign({}, state, {
+        topics: clonedTopics
+      });
+
     default:
       return state;
   }
