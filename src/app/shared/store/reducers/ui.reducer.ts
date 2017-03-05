@@ -13,6 +13,7 @@ export const initialState: UIState = {
   registering: false,
   creatingPost: false,
   creatingThread: false,
+  syncingUserTopic: false
 };
 
 export interface UIState {
@@ -24,6 +25,7 @@ export interface UIState {
   registering: boolean;
   creatingPost: boolean;
   creatingThread: boolean;
+  syncingUserTopic: boolean;
 }
 
 export function reducer(state: UIState = initialState, action: Action): UIState {
@@ -75,6 +77,12 @@ export function reducer(state: UIState = initialState, action: Action): UIState 
 
     case UIAction.END_THREAD_CREATE:
       return Object.assign({}, state, {creatingThread : false});
+
+    case UIAction.START_ROLE_UPDATE:
+      return Object.assign({}, state, {syncingUserTopic: true});
+
+    case UIAction.END_USER_TOPIC_SYNC:
+      return Object.assign({}, state, {syncingUserTopic: false});
 
     default:
       return state;

@@ -33,6 +33,12 @@ export class UserService extends GenericService {
     });
   }
 
+  public syncUserTopic(userId: number, topics: number[]): Observable<ResponseMessage> {
+    return this.putWithAuth(new RequestOptions({url: this.BASE_URL + '/' + userId + '/topics'}), {
+      topics: topics
+    })
+  }
+
   protected extractData(resp: Response): User {
     return new User(resp.json());
   }

@@ -45,6 +45,9 @@ export class UIAction {
   static START_USER_EDIT = '[UI ACTION] START_USER_EDIT';
   static START_ROLE_UPDATE = '[UI ACTION] START_ROLE_UPDATE';
 
+  static START_USER_TOPIC_SYNC = '[UI ACTION] START_USER_TOPIC_SYNC';
+  static END_USER_TOPIC_SYNC = '[UI ACTION] END_USER_TOPIC_SYNC';
+
   public startTopicsLoad(): Action {
     return {type: UIAction.START_TOPICS_LOAD}
   }
@@ -194,13 +197,25 @@ export class UIAction {
   }
 
   //    /api/users/:id/accounts/roles
-  public startRoleUpdate(userId: number, privilege_level: number): Action {
+  public startRoleUpdate(userId: number, privilege_level: number, topics: number[]): Action {
     return {
       type: UIAction.START_ROLE_UPDATE, payload: {
         privilege_level: privilege_level,
-        userId: userId
+        userId: userId,
+        topics: topics
       }
     }
+  }
+
+  public startUserTopicSync(userId: number, topics: number[]): Action {
+    return {
+      type: UIAction.START_USER_TOPIC_SYNC,
+      payload: {userId: userId, topics: topics}
+    }
+  }
+
+  public endUserTopicSync(): Action {
+    return {type: UIAction.END_USER_TOPIC_SYNC}
   }
 
 }

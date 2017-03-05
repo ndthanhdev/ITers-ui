@@ -38,6 +38,7 @@ export class DataAction {
   static ADD_EDIT_USER = '[DATA ACTION] ADD_EDIT_USER';
 
   static UPDATE_ROLE = '[DATA ACTION] UPDATE_ROLE';
+  static SYNC_USER_TOPIC = '[DATA ACTION] SYNC_USER_TOPIC';
 
 
   public loadTopics(topics: Topic[]): Action {
@@ -160,6 +161,15 @@ export class DataAction {
     return {
       type: DataAction.UPDATE_ROLE,
       payload: {privilege_level: privilege_level}
+    }
+  }
+
+  public syncUserTopic(topics: number[]): Action {
+    return {
+      type: DataAction.SYNC_USER_TOPIC,
+      payload: {
+        topics: topics
+      }
     }
   }
 

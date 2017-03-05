@@ -31,9 +31,9 @@ export class UserServiceEffect {
     .map(action => action.payload)
     .switchMap(payload => this.userService.editUser(payload.user)
       .concatMap(responseMessage => Observable.from([
-      this.dataAction.editUser(responseMessage),
-      this.dataAction.addEditUser(payload.user)
-    ])));
+        this.dataAction.editUser(responseMessage),
+        this.dataAction.addEditUser(payload.user)
+      ])));
 
 
   @Effect() updateRole$: Observable<Action> = this.actions
@@ -41,6 +41,17 @@ export class UserServiceEffect {
     .map(action => action.payload)
     .switchMap(payload => this.userService.updateRole(payload.userId, payload.privilege_level)
       .concatMap(responseMessage => Observable.from([
-        this.dataAction.updateRole(payload.privilege_level)
+        this.dataAction.updateRole(payload.privilege_level),
+        this.uiAction.startUserTopicSync(payload.userId, payload.topics)
+      ])));
+
+
+  @Effect() syncUserTopic$: Observable<Action> = this.actions
+    .ofType(UIAction.START_USER_TOPIC_SYNC)
+    .map(action => action.payload)
+    .switchMap(payload => this.userService.syncUserTopic(payload.userId, payload.topics)
+      .concatMap(responseMessage => Observable.from([
+        this.dataAction.syncUserTopic(payload.topics),
+        this.uiAction.endUserTopicSync()
       ])));
 }

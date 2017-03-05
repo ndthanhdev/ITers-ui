@@ -62,6 +62,7 @@ export function reducer(state: DataState = initialState, action: Action): DataSt
         return Object.assign({}, state, {
           thread: Object.assign({}, state.thread, {oldest_posts: state.thread.oldest_posts.concat(action.payload.post)})
         });
+      else break;
 
     case DataAction.VOTE_POST:
       return Object.assign({}, state, {responseMessage: action.payload.responseMessage});
@@ -169,6 +170,21 @@ export function reducer(state: DataState = initialState, action: Action): DataSt
           })
         }
       );
+
+    case DataAction.SYNC_USER_TOPIC:
+      let newTopics: Topic[] = [];
+      action.payload.topics.forEach(id => {
+        let newTopic = new Topic();
+        newTopic.id = id;
+        newTopics.push(newTopic);
+      });
+
+      return Object.assign({}, state, {
+        user: Object.assign({}, state.user, {
+          topics: newTopics
+        })
+      });
+
 
     default:
       return state;

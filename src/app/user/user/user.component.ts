@@ -20,6 +20,7 @@ import {Topic} from "../../shared/models/topic.model";
 export class UserComponent implements OnInit {
   private user: User;
   private loadingUser: Observable<boolean>;
+  private syncingUserTopic: boolean = true;
   private isEditingUser: boolean = false;
   private isEditingRole: boolean = false;
   private loggedInAccount: Account;
@@ -63,12 +64,13 @@ export class UserComponent implements OnInit {
       }
     });
     this.loadingUser = this.store.select(state => state.uiState.loadingUser);
+    this.store.select(state => state.uiState.syncingUserTopic).subscribe(syncingUserTopic => this.syncingUserTopic = syncingUserTopic);
     this.store.select(state => state.dataState.loggedInAccount).subscribe(account => this.loggedInAccount = account);
     this.store.select(state => state.dataState.topics).subscribe(topics => {
       this.topics = topics;
       this.initTopicPickerOptions(this.topics);
     });
-    if(this.topics.length <= 0)
+    if (this.topics.length <= 0)
       this.store.dispatch(this.uiAction.startTopicsLoad());
   }
 
@@ -82,7 +84,7 @@ export class UserComponent implements OnInit {
       this.roleModel = this.user.account.current_role.role();
   }
 
-  private initOptionsModel(user : User) {
+  private initOptionsModel(user: User) {
     if (user.topics) {
       this.optionsModel = [];
       this.user.topics.forEach((topic) => this.optionsModel.push(topic.id));
@@ -118,9 +120,13 @@ export class UserComponent implements OnInit {
   }
 
   private onRoleFormSubmit() {
+    if (this.roleModel !== this.roleModelBackup || this.roleModel == 'Mod'){
+      if(this.roleModel == 'User')
+        this.optionsModel = [];
+      this.store.dispatch(this.uiAction.startRoleUpdate(this.user.id, this.roleToNumber(this.roleModel), this.optionsModel));
+    }
+
     this.isEditingRole = false;
-    if (this.roleModel !== this.roleModelBackup)
-      this.store.dispatch(this.uiAction.startRoleUpdate(this.user.id, this.roleToNumber(this.roleModel)));
   }
 
   private onCancelUserButtonClick() {
