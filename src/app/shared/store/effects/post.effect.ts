@@ -86,7 +86,6 @@ export class PostServiceEffect {
           let loggedInAccount: Account;
           this.store.select(state => state.dataState.loggedInAccount)
             .subscribe(account => loggedInAccount = account);
-          // this.notificationService.success('SUCCESS!', responseMessage.msg); // TODO: can be removed
           return Observable.from([
             this.dataAction.addVotePost(payload.postId, payload.liked, loggedInAccount),
             this.dataAction.votePost(responseMessage)

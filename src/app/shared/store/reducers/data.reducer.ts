@@ -79,10 +79,7 @@ export function reducer(state: DataState = initialState, action: Action): DataSt
       };
       if (votedUserIndex > -1) {
         if (clonedPosts[votedPostIndex].interacted_users[votedUserIndex].pivot.liked === action.payload.liked)
-          clonedPosts[votedPostIndex].interacted_users = [
-            ...clonedPosts[votedPostIndex].interacted_users.slice(0, votedUserIndex),
-            ...clonedPosts[votedPostIndex].interacted_users.slice(votedUserIndex + 1),
-          ];
+          clonedPosts[votedPostIndex].interacted_users.splice(votedUserIndex, 1);
         else
           clonedPosts[votedPostIndex].interacted_users[votedUserIndex].pivot.liked = action.payload.liked;
       }
@@ -191,10 +188,8 @@ export function reducer(state: DataState = initialState, action: Action): DataSt
       if (action.payload.confirmation)
         clonedToBeChangedStatePosts[changedStatePostIndex].confirmed = action.payload.confirmation;
       else
-        clonedToBeChangedStatePosts = Object.assign([], clonedToBeChangedStatePosts, [
-          ...clonedToBeChangedStatePosts.slice(0, changedStatePostIndex),
-          ...clonedToBeChangedStatePosts.slice(changedStatePostIndex + 1)
-        ]);
+        clonedToBeChangedStatePosts.splice(changedStatePostIndex,1);
+
       return Object.assign({}, state, {
         thread: Object.assign({}, state.thread, {
           oldest_posts: clonedToBeChangedStatePosts
