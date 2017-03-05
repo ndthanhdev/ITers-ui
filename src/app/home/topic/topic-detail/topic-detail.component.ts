@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from "@angular/core";
+import {Component, OnInit, Input, Output, EventEmitter} from "@angular/core";
 import {Topic} from "../../../shared/models/topic.model";
 import {Thread} from "../../../shared/models/thread.model";
 
@@ -9,7 +9,8 @@ import {Thread} from "../../../shared/models/thread.model";
     *ngIf="isEditing"
     [topicTitle]="topic.title"
     [isEditing]="isEditing" 
-    (saved)="onInputSaved()">
+    (canceled)="onInputCanceled()"
+    (saved)="onInputSaved($event)">
   </app-topic-detail-input>
   <div class="list-group-item list-group-item-action flex-column align-items-start" *ngIf="!isEditing">
     <div class="d-flex w-100 justify-content-end">
@@ -21,7 +22,7 @@ import {Thread} from "../../../shared/models/thread.model";
     <p *ngIf="latestThread" class="mb-0"><a [routerLink]="['/topics', topic.id, 'threads', latestThread.id]">{{latestThread.title}}</a></p>
     <div class="d-flex w-100 justify-content-end">
       <small *ngIf="latestThread" class="align-self-center mr-auto"><a [routerLink]="['/users', latestThread.user.id]" class="mr-2">{{latestThread.user.full_name}}</a>{{latestThread.created_at | amUTCOffset:7 | amTimeAgo}}</small>
-      <button (click)="handleEdit()" type="button" class="btn btn-sm btn-outline-primary"><i class="fa fa-pencil"></i></button>
+      <!--<button (click)="handleEdit()" type="button" class="btn btn-sm btn-outline-primary"><i class="fa fa-pencil"></i></button>-->
     </div>
   </div>
   `,
@@ -29,6 +30,9 @@ import {Thread} from "../../../shared/models/thread.model";
 })
 export class TopicDetailComponent implements OnInit {
   @Input() topic: Topic;
+
+  @Output() topicEdited = new EventEmitter();
+
   private latestThread: Thread;
   private isEditing: boolean = false;
 
@@ -37,7 +41,6 @@ export class TopicDetailComponent implements OnInit {
 
   ngOnInit() {
     this.latestThread = this.topic.latest_threads[0];
-
   }
 
   private handleEdit() {
@@ -45,7 +48,15 @@ export class TopicDetailComponent implements OnInit {
     //dispatch ngrx store action
   }
 
-  private onInputSaved() {
+  private onInputSaved($event) {
+    this.topicEdited.emit({
+      topicId: this.topic.id,
+      topicTitle: $event
+    });
+    this.isEditing = false;
+  }
+
+  private onInputCanceled(){
     this.isEditing = false;
   }
 }

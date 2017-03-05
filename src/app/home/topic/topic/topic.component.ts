@@ -23,7 +23,8 @@ import {Account} from "../../../shared/models/account.model";
     [creatingTopic]="creatingTopic | async"
     [loggedInAccount]="loggedInAccount | async"
     [topics]="topics | async"
-    (topicSaved)="onTopicSave($event)">
+    (topicSaved)="onTopicSave($event)"
+    (topicEdited)="onTopicEdit($event)">
   </app-topic-list>
   `,
   styleUrls: ['topic.component.scss']
@@ -46,8 +47,12 @@ export class TopicComponent implements OnInit {
     this.creatingTopic = this.store.select(state => state.uiState.creatingTopic);
   }
 
-  private onTopicSave($event){
+  private onTopicSave($event) {
     this.store.dispatch(this.uiAction.startTopicCreate($event));
+  }
+
+  private onTopicEdit($event) {
+    this.store.dispatch(this.uiAction.startTopicEdit($event.topicId, $event.topicTitle));
   }
 
 }

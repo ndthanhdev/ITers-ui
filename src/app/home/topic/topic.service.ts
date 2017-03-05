@@ -19,6 +19,12 @@ export class TopicService extends GenericService {
     }).map(this.extractResponseMessage);
   }
 
+  public editTopic(topicId: number, topicTitle: string): Observable<ResponseMessage> {
+    return this.patchWithAuth(new RequestOptions({url: this.BASE_URL + '/' + topicId}), {
+      title: topicTitle
+    }).map(this.extractResponseMessage);
+  }
+
   public loadTopics(): Observable<Topic[]> {
     return this.getList();
   }

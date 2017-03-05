@@ -211,12 +211,17 @@ export function reducer(state: DataState = initialState, action: Action): DataSt
 
     case DataAction.ADD_TOPIC:
       let clonedTopics: Topic[] = Object.assign([], state.topics);
-      // let newTopic = Object.assign({}, action.payload.topic,{
-      //
-      // });
       clonedTopics.push(action.payload.topic);
       return Object.assign({}, state, {
         topics: clonedTopics
+      });
+
+    case DataAction.EDIT_TOPIC:
+      let tobeEditedClonedTopic: Topic[] = Object.assign([], state.topics);
+      let tobeEditedTopic : Topic = tobeEditedClonedTopic.find(topic => topic.id === action.payload.topicId);
+      tobeEditedTopic.title = action.payload.topicTitle;
+      return Object.assign({}, state, {
+        topics: tobeEditedClonedTopic
       });
 
     default:

@@ -48,6 +48,8 @@ export class DataAction {
 
   static ADD_TOPIC = '[DATA ACTION] ADD_TOPIC';
 
+  static EDIT_TOPIC = '[DATA ACTION] EDIT_TOPIC';
+
   public loadTopics(topics: Topic[]): Action {
     return {
       type: DataAction.LOAD_TOPICS,
@@ -186,24 +188,34 @@ export class DataAction {
     }
   }
 
-  public confirmAccount(responseMessage: ResponseMessage){
+  public confirmAccount(responseMessage: ResponseMessage) {
     return {
       type: DataAction.CONFIRM_ACCOUNT,
       payload: {responseMessage: responseMessage}
     }
   }
 
-  public createTopic(responseMessage: ResponseMessage){
+  public createTopic(responseMessage: ResponseMessage) {
     return {
       type: DataAction.CREATE_TOPIC,
       payload: {responseMessage: responseMessage}
     }
   }
 
-  public addTopic(topic: Topic): Action{
+  public addTopic(topic: Topic): Action {
     return {
       type: DataAction.ADD_TOPIC,
       payload: {topic: topic}
+    }
+  }
+
+  public editTopic(topicId: number, topicTitle: string): Action {
+    return {
+      type: DataAction.EDIT_TOPIC,
+      payload: {
+        topicId: topicId,
+        topicTitle: topicTitle
+      }
     }
   }
 }

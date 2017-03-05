@@ -3,7 +3,7 @@ import {Component, Input, Output, EventEmitter, OnChanges} from "@angular/core";
 @Component({
   selector: 'app-topic-detail-input',
   template: `
-  <div class="list-group-item flex-column align-items-start">
+  <div class="list-group-item flex-column align-items-start" (keyup.esc)="onCanceled()">
     <div class="input-group">
       <input type="text" class="form-control" placeholder="Add Topic Title" name="topicTitleInput" [(ngModel)]="topicTitleModel" aria-describedby="basic-addon1">
       <button type="button" class="btn btn-outline-success ml-2" 

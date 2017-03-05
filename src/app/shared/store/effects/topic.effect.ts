@@ -72,6 +72,17 @@ export class TopicServiceEffect {
           ])
         }));
 
+  @Effect() topicEdit$: Observable<Action> = this.actions
+    .ofType(UIAction.START_TOPIC_EDIT)
+    .map(action => action.payload)
+    .switchMap(payload =>
+      this.topicService.editTopic(payload.topicId, payload.topicTitle)
+        .concatMap(responseMessage => {
+          return Observable.from([
+            this.dataAction.editTopic(payload.topicId, payload.topicTitle)
+          ])
+        }));
+
   private getErrorMessage(error: Response) {
     const body = error.json().msg || '';
     if (typeof body == 'string')

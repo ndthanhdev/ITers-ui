@@ -58,6 +58,8 @@ export class UIAction {
 
   static START_TOPIC_ADD = '[UI ACTION] START_TOPIC_ADD';
 
+  static START_TOPIC_EDIT = '[UI ACTION] START_TOPIC_EDIT';
+
   public startTopicsLoad(): Action {
     return {type: UIAction.START_TOPICS_LOAD}
   }
@@ -264,4 +266,13 @@ export class UIAction {
     }
   }
 
+  public startTopicEdit(topicId: number, topicTitle: string): Action {
+    return {
+      type: UIAction.START_TOPIC_EDIT,
+      payload: {
+        topicId: topicId,
+        topicTitle: topicTitle
+      }
+    }
+  }
 }

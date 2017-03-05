@@ -24,7 +24,8 @@ import {RoleEnum} from "../../../shared/models/role.model";
     <template ngFor let-topic [ngForOf]="topics" let-i="index">
       <app-topic-detail
         *ngIf="i < (currentPage * 10) && i >= ((currentPage-1) * 10)"
-        [topic]="topic">
+        [topic]="topic"
+        (topicEdited)="onTopicEdited($event)">
       </app-topic-detail>
     </template>
   </div>
@@ -42,6 +43,7 @@ export class TopicListComponent implements OnChanges{
   @Input() creatingTopic: boolean;
 
   @Output() topicSaved = new EventEmitter();
+  @Output() topicEdited = new EventEmitter();
   private currentPage: number = 1;
   private isAdding: boolean;
 
@@ -67,6 +69,10 @@ export class TopicListComponent implements OnChanges{
 
   private onInputCanceled() {
     this.isAdding = false;
+  }
+
+  private onTopicEdited($event){
+    this.topicEdited.emit($event);
   }
 
   private canShowAddButton(): boolean {
