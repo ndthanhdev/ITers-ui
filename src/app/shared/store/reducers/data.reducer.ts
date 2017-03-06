@@ -18,7 +18,8 @@ export const initialState = {
   user: null,
   loggedInAccount: null,
   msg: null,
-  responseMessage: null
+  responseMessage: null,
+  unconfirmedPosts: []
 };
 
 export interface DataState {
@@ -28,7 +29,8 @@ export interface DataState {
   user: User;
   loggedInAccount: Account;
   msg: string;
-  responseMessage: ResponseMessage
+  responseMessage: ResponseMessage;
+  unconfirmedPosts: Post[]
 }
 
 export function reducer(state: DataState = initialState, action: Action): DataState {
@@ -196,6 +198,14 @@ export function reducer(state: DataState = initialState, action: Action): DataSt
         })
       });
 
+    case DataAction.CONFIRM_POST:
+      let clonedToBeConfirmedPosts = Object.assign([], state.unconfirmedPosts);
+      let toBeConfirmedPostIndex = clonedToBeConfirmedPosts.findIndex(post => post.id === action.payload.postId);
+      clonedToBeConfirmedPosts.splice(toBeConfirmedPostIndex, 1);
+      return Object.assign({}, state, {
+        unconfirmedPosts: clonedToBeConfirmedPosts
+      });
+
     case DataAction.CONFIRM_ACCOUNT:
       return Object.assign({}, state, {
         responseMessage: action.payload.responseMessage,
@@ -218,12 +228,17 @@ export function reducer(state: DataState = initialState, action: Action): DataSt
 
     case DataAction.EDIT_TOPIC:
       let tobeEditedClonedTopic: Topic[] = Object.assign([], state.topics);
-      let tobeEditedTopic : Topic = tobeEditedClonedTopic.find(topic => topic.id === action.payload.topicId);
+      let tobeEditedTopic: Topic = tobeEditedClonedTopic.find(topic => topic.id === action.payload.topicId);
       tobeEditedTopic.title = action.payload.topicTitle;
       return Object.assign({}, state, {
         topics: tobeEditedClonedTopic
       });
 
+
+    case DataAction.LOAD_UNCONFIRMED_POSTS:
+      return Object.assign({}, state, {
+        unconfirmedPosts: action.payload.unconfirmedPosts
+      });
     default:
       return state;
   }

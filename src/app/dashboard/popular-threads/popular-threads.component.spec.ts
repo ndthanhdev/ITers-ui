@@ -1,20 +1,20 @@
 /* tslint:disable:no-unused-variable */
 import {async, ComponentFixture, TestBed} from "@angular/core/testing";
-import {RecentPostComponent} from "./recent-post.component";
+import {PopularThreadsComponent} from "./popular-threads.component";
 
-describe('RecentPostComponent', () => {
-  let component: RecentPostComponent;
-  let fixture: ComponentFixture<RecentPostComponent>;
+describe('PopularThreadsComponent', () => {
+  let component: PopularThreadsComponent;
+  let fixture: ComponentFixture<PopularThreadsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RecentPostComponent ]
+      declarations: [ PopularThreadsComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RecentPostComponent);
+    fixture = TestBed.createComponent(PopularThreadsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

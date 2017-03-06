@@ -22,7 +22,7 @@ import {DOCUMENT} from "@angular/platform-browser";
     </span>
   </div>
   <template ngFor let-post [ngForOf]="posts" let-i="index">
-    <app-post-detail
+    <app-post-detail 
       *ngIf="isIndexInCurrentPage(i) && isCurrentAccountCanViewUnconfirmedPost(post)"
       [loggedInAccount]="loggedInAccount"
       [managingMods]="managingMods"
@@ -50,7 +50,7 @@ import {DOCUMENT} from "@angular/platform-browser";
   `,
   styleUrls: ['./post-list.component.scss']
 })
-export class PostListComponent implements OnInit {
+export class PostListComponent implements OnInit{
   @Input() posts: Post[];
   @Input() loggedInAccount: Account;
   @Input() managingMods: User[];
@@ -113,7 +113,7 @@ export class PostListComponent implements OnInit {
     this.postEdited.emit($event);
   }
 
-  private onChangePostState($event){
+  private onChangePostState($event) {
     this.postStateChanged.emit($event);
   }
 }

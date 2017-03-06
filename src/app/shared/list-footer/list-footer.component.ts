@@ -14,6 +14,7 @@ import {DOCUMENT} from "@angular/platform-browser";
       [page]="page" 
       [boundaryLinks]="true"></ngb-pagination>
     <button type="button" class="btn btn-outline-primary align-self-start"
+      *ngIf="canShowScrollTopButton"
       placement="left" 
       ngbTooltip="Go to top"
       (click)="onScrollTopClicked()">
@@ -26,6 +27,7 @@ import {DOCUMENT} from "@angular/platform-browser";
 export class ListFooterComponent implements OnInit {
   @Input() page: number;
   @Input() collectionSize: number;
+  @Input() canShowScrollTopButton : boolean = true;
 
   @Output() pageChange: EventEmitter<number> = new EventEmitter();
 

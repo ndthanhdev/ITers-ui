@@ -60,6 +60,11 @@ export class UIAction {
 
   static START_TOPIC_EDIT = '[UI ACTION] START_TOPIC_EDIT';
 
+  static START_UNCONFIRMED_POSTS_LOAD = '[UI ACTION] START_UNCONFIRMED_POSTS_LOAD';
+  static END_UNCONFIRMED_POSTS_LOAD = '[UI ACTION] END_UNCONFIRMED_POSTS_LOAD';
+
+  static START_POST_CONFIRM = '[UI ACTION] START_POST_CONFIRM';
+
   public startTopicsLoad(): Action {
     return {type: UIAction.START_TOPICS_LOAD}
   }
@@ -269,10 +274,19 @@ export class UIAction {
   public startTopicEdit(topicId: number, topicTitle: string): Action {
     return {
       type: UIAction.START_TOPIC_EDIT,
-      payload: {
-        topicId: topicId,
-        topicTitle: topicTitle
-      }
+      payload: {topicId: topicId, topicTitle: topicTitle}
     }
+  }
+
+  public startUnconfirmedPostsLoad(): Action{
+    return {type: UIAction.START_UNCONFIRMED_POSTS_LOAD}
+  }
+
+  public endUnconfirmedPostsLoad(): Action{
+    return {type: UIAction.END_UNCONFIRMED_POSTS_LOAD}
+  }
+
+  public startPostConfirm(postId: number){
+    return {type: UIAction.START_POST_CONFIRM, payload: {postId: postId}}
   }
 }

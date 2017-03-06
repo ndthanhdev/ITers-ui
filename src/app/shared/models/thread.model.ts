@@ -30,7 +30,8 @@ export class Thread implements ThreadInterface {
     this.created_at = that.created_at;
     this.updated_at = that.updated_at;
     this.title = that.title;
-    this.user = new User(that.user);
+    if (that.user)
+      this.user = new User(that.user);
     if (that.latest_posts)
       that.latest_posts.forEach(post => this.latest_posts.push(new Post(post)));
     if (that.oldest_posts)

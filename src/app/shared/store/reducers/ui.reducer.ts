@@ -9,12 +9,13 @@ export const initialState: UIState = {
   loadingTopic: false,
   loadingThread: false,
   loadingUser: false,
-  loggingIn : false,
+  loggingIn: false,
   registering: false,
   creatingPost: false,
   creatingThread: false,
   syncingUserTopic: false,
   creatingTopic: false,
+  loadingUnconfirmedPosts: false
 };
 
 export interface UIState {
@@ -22,12 +23,13 @@ export interface UIState {
   loadingTopic: boolean;
   loadingThread: boolean;
   loadingUser: boolean;
-  loggingIn : boolean;
+  loggingIn: boolean;
   registering: boolean;
   creatingPost: boolean;
   creatingThread: boolean;
   syncingUserTopic: boolean;
   creatingTopic: boolean;
+  loadingUnconfirmedPosts: boolean
 }
 
 export function reducer(state: UIState = initialState, action: Action): UIState {
@@ -69,16 +71,16 @@ export function reducer(state: UIState = initialState, action: Action): UIState 
       return Object.assign({}, state, {registering: false});
 
     case UIAction.START_POST_CREATE:
-      return Object.assign({}, state, {creatingPost : true});
+      return Object.assign({}, state, {creatingPost: true});
 
     case UIAction.END_POST_CREATE:
-      return Object.assign({}, state, {creatingPost : false});
+      return Object.assign({}, state, {creatingPost: false});
 
     case UIAction.START_THREAD_CREATE:
-      return Object.assign({}, state, {creatingThread : true});
+      return Object.assign({}, state, {creatingThread: true});
 
     case UIAction.END_THREAD_CREATE:
-      return Object.assign({}, state, {creatingThread : false});
+      return Object.assign({}, state, {creatingThread: false});
 
     case UIAction.START_ROLE_UPDATE:
       return Object.assign({}, state, {syncingUserTopic: true});
@@ -91,6 +93,12 @@ export function reducer(state: UIState = initialState, action: Action): UIState 
 
     case UIAction.END_TOPIC_CREATE:
       return Object.assign({}, state, {creatingTopic: false});
+
+    case UIAction.START_UNCONFIRMED_POSTS_LOAD:
+      return Object.assign({}, state, {loadingUnconfirmedPosts: true});
+
+    case UIAction.END_UNCONFIRMED_POSTS_LOAD:
+      return Object.assign({}, state, {loadingUnconfirmedPosts: false});
 
     default:
       return state;

@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter} from "@angular/core";
+import {Component, Input, Output, EventEmitter, OnInit} from "@angular/core";
 import {Post} from "../../../shared/models/post.model";
 import {Account} from "../../../shared/models/account.model";
 import {User} from "../../../shared/models/user.model";
@@ -59,7 +59,7 @@ import {RoleEnum} from "../../../shared/models/role.model";
   `,
   styleUrls: ['./post-detail.component.scss']
 })
-export class PostDetailComponent {
+export class PostDetailComponent implements OnInit {
   @Input() post: Post;
   @Input() managingMods: User[];
   @Input() loggedInAccount: Account;
@@ -74,6 +74,9 @@ export class PostDetailComponent {
   private isEditPost: boolean = false;
 
   constructor() {
+  }
+
+  ngOnInit(): void {
   }
 
   private calculateVotes(): number {
@@ -91,7 +94,7 @@ export class PostDetailComponent {
   }
 
   private canShowConfirmOrBlockButton(): boolean {
-    if(!this.loggedInAccount)
+    if (!this.loggedInAccount)
       return false;
     if (this.loggedInAccount.current_role.is(RoleEnum.ADMIN))
       return true;
@@ -126,7 +129,7 @@ export class PostDetailComponent {
     this.isEditPost = false;
   }
 
-  private onCancelEditPost(){
+  private onCancelEditPost() {
     this.isEditPost = false;
   }
 
@@ -136,14 +139,14 @@ export class PostDetailComponent {
   }
 
   //postId, confirmation
-  private onConfirmButtonClick(){
+  private onConfirmButtonClick() {
     this.confirmPost.emit({
       postId: this.post.id,
       confirmation: true
     });
   }
 
-  private onBlockButtonClick(){
+  private onBlockButtonClick() {
     this.blockPost.emit({
       postId: this.post.id,
       confirmation: false

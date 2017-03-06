@@ -50,6 +50,10 @@ export class DataAction {
 
   static EDIT_TOPIC = '[DATA ACTION] EDIT_TOPIC';
 
+  static LOAD_UNCONFIRMED_POSTS = '[DATA ACTION] LOAD_UNCONFIRMED_POSTS';
+
+  static CONFIRM_POST = '[DATA ACTION] CONFIRM_POST';
+
   public loadTopics(topics: Topic[]): Action {
     return {
       type: DataAction.LOAD_TOPICS,
@@ -212,10 +216,21 @@ export class DataAction {
   public editTopic(topicId: number, topicTitle: string): Action {
     return {
       type: DataAction.EDIT_TOPIC,
-      payload: {
-        topicId: topicId,
-        topicTitle: topicTitle
-      }
+      payload: {topicId: topicId, topicTitle: topicTitle}
+    }
+  }
+
+  public loadUnconfirmedPost(unconfirmedPosts: Post[]): Action {
+    return {
+      type: DataAction.LOAD_UNCONFIRMED_POSTS,
+      payload: {unconfirmedPosts: unconfirmedPosts}
+    }
+  }
+
+  public confirmPost(postId: number){
+    return {
+      type: DataAction.CONFIRM_POST,
+      payload: {postId: postId}
     }
   }
 }

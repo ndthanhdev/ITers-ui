@@ -93,6 +93,21 @@ export class PostServiceEffect {
         })
     );
 
+  @Effect() unconfirmedPostsLoad$: Observable<Action> = this.actions
+    .ofType(UIAction.START_UNCONFIRMED_POSTS_LOAD)
+    .map(action => action.payload)
+    .switchMap(payload => this.postService.loadUnconfirmedPosts())
+    .concatMap(posts => Observable.from([
+      this.dataAction.loadUnconfirmedPost(posts),
+      this.uiAction.endUnconfirmedPostsLoad()
+    ]));
+
+  @Effect() postConfirm$: Observable<Action> = this.actions
+    .ofType(UIAction.START_POST_CONFIRM)
+    .map(action => action.payload)
+    .switchMap(payload =>
+      this.postService.changePostState(payload.postId, true)
+        .concatMap(responseMessage => Observable.from([this.dataAction.confirmPost(payload.postId)])));
 
   private getErrorMessage(error: Response) {
     const body = error.json().msg || '';

@@ -1,4 +1,5 @@
 import {UserInterface, User} from "./user.model";
+import {Thread, ThreadInterface} from "./thread.model";
 /**
  * Created by vunguyenhung on 2/21/17.
  */
@@ -9,6 +10,7 @@ export interface PostInterface {
   confirmed?: boolean;
   user?: UserInterface;
   thread_id?: number;
+  thread?: ThreadInterface;
   created_at?: Date;
   updated_at?: Date;
   interacted_users?: UserInterface[];
@@ -20,6 +22,7 @@ export class Post implements PostInterface {
   confirmed: boolean;
   user: User;
   thread_id: number;
+  thread?: Thread;
   created_at: Date;
   updated_at: Date;
   interacted_users: User[] = [];
@@ -32,6 +35,8 @@ export class Post implements PostInterface {
     this.thread_id = that.thread_id;
     this.created_at = that.created_at;
     this.updated_at = that.updated_at;
+    if(that.thread)
+      this.thread = new Thread(that.thread);
     if (that.interacted_users)
       that.interacted_users.forEach(user => this.interacted_users.push(new User(user)));
   }

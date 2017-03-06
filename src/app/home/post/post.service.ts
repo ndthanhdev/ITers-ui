@@ -3,7 +3,7 @@ import {GenericService} from "../../shared/services/generic.service";
 import {Observable} from "rxjs";
 import {ResponseMessage} from "../../shared/models/response-message.model";
 import {RequestOptions, Response} from "@angular/http";
-import {Post} from "../../shared/models/post.model";
+import {Post, PostInterface} from "../../shared/models/post.model";
 
 @Injectable()
 export class PostService extends GenericService {
@@ -22,6 +22,12 @@ export class PostService extends GenericService {
   public loadPost(url: string): Observable<Post> {
     return this.get(new RequestOptions({
       url: url
+    }));
+  }
+
+  public loadUnconfirmedPosts(): Observable<Post[]> {
+    return this.getList(new RequestOptions({
+      url: 'http://homestead.app/api/posts/unconfirmed'
     }));
   }
 
@@ -49,6 +55,13 @@ export class PostService extends GenericService {
 
   protected extractData(resp: Response): Post {
     return new Post(resp.json());
+  }
+
+  protected extractDataList(resp: Response): Post[] {
+    let objectBasedData: Post[] = [];
+    let responseBasedData: PostInterface[] = JSON.parse(resp.text());
+    responseBasedData.forEach(data => objectBasedData.push(new Post(data)));
+    return objectBasedData;
   }
 
 
