@@ -21,6 +21,7 @@ import {SimpleNotificationsModule} from "angular2-notifications";
 import {AuthHttp, AuthConfig} from "angular2-jwt";
 import {Http, RequestOptions} from "@angular/http";
 import {PostServiceEffect} from "./shared/store/effects/post.effect";
+import {DashboardModule} from "./dashboard/dashboard.module";
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig(), http, options);
@@ -45,6 +46,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     AppRoutingModule,
     AuthModule,
     HomeModule,
+    DashboardModule,
     UserModule,
     CoreModule,
   ],
