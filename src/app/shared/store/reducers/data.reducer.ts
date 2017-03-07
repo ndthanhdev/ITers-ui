@@ -7,6 +7,7 @@ import {Account} from "../../models/account.model";
 import {ResponseMessage} from "../../models/response-message.model";
 import {Post} from "../../models/post.model";
 import {Role} from "../../models/role.model";
+import {Settings} from "../../models/settings.model";
 /**
  * Created by vunguyenhung on 2/20/17.
  */
@@ -21,6 +22,7 @@ export const initialState = {
   responseMessage: null,
   unconfirmedPosts: [],
   recentPosts: [],
+  settings: null
 };
 
 export interface DataState {
@@ -33,6 +35,7 @@ export interface DataState {
   responseMessage: ResponseMessage;
   unconfirmedPosts: Post[],
   recentPosts: Post[],
+  settings: Settings
 }
 
 export function reducer(state: DataState = initialState, action: Action): DataState {
@@ -244,6 +247,16 @@ export function reducer(state: DataState = initialState, action: Action): DataSt
     case DataAction.LOAD_RECENT_POSTS:
       return Object.assign({}, state, {
         recentPosts: action.payload.recentPosts
+      });
+
+    case DataAction.LOAD_SETTINGS:
+      return Object.assign({}, state, {
+        settings: action.payload.settings
+      });
+
+    case DataAction.EDIT_SETTINGS:
+      return Object.assign({}, state, {
+        settings: action.payload.settings
       });
 
     default:

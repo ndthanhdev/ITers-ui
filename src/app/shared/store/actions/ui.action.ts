@@ -4,6 +4,7 @@
 import {Injectable} from "@angular/core";
 import {Action} from "@ngrx/store";
 import {User} from "../../models/user.model";
+import {Settings} from "../../models/settings.model";
 @Injectable()
 export class UIAction {
   static START_TOPICS_LOAD = '[UI ACTION] START_TOPICS_LOAD';
@@ -67,6 +68,10 @@ export class UIAction {
 
   static START_RECENT_POSTS_LOAD = '[UI ACTION] START_RECENT_POSTS_LOAD';
   static END_RECENT_POSTS_LOAD = '[UI ACTION] END_RECENT_POSTS_LOAD';
+
+  static START_SETTINGS_LOAD = '[UI ACTION] START_SETTINGS_LOAD';
+
+  static START_SETTINGS_EDIT = '[UI ACTION] START_SETTINGS_EDIT';
 
   public startTopicsLoad(): Action {
     return {type: UIAction.START_TOPICS_LOAD}
@@ -281,23 +286,34 @@ export class UIAction {
     }
   }
 
-  public startUnconfirmedPostsLoad(): Action{
+  public startUnconfirmedPostsLoad(): Action {
     return {type: UIAction.START_UNCONFIRMED_POSTS_LOAD}
   }
 
-  public endUnconfirmedPostsLoad(): Action{
+  public endUnconfirmedPostsLoad(): Action {
     return {type: UIAction.END_UNCONFIRMED_POSTS_LOAD}
   }
 
-  public startPostConfirm(postId: number){
+  public startPostConfirm(postId: number) {
     return {type: UIAction.START_POST_CONFIRM, payload: {postId: postId}}
   }
 
-  public startRecentPostsLoad(): Action{
+  public startRecentPostsLoad(): Action {
     return {type: UIAction.START_RECENT_POSTS_LOAD}
   }
 
-  public endRecentPostsLoad(): Action{
+  public endRecentPostsLoad(): Action {
     return {type: UIAction.END_RECENT_POSTS_LOAD}
+  }
+
+  public startSettingsLoad(): Action {
+    return {type: UIAction.START_SETTINGS_LOAD}
+  }
+
+  public startSettingsEdit(settings: Settings): Action {
+    return {
+      type: UIAction.START_SETTINGS_EDIT,
+      payload: {settings: settings}
+    }
   }
 }

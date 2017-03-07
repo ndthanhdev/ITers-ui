@@ -6,13 +6,20 @@ import {PopularThreadsComponent} from "./popular-threads/popular-threads.compone
 import {UnconfirmedPostsComponent} from "./unconfirmed-posts/unconfirmed-posts.component";
 import {SharedModule} from "../shared/shared.module";
 import {RecentPostsComponent} from "./recent-posts/recent-posts.component";
+import {SettingsComponent} from "./settings/settings.component";
+import {SettingService} from "./settings/setting.service";
+import {FormsModule} from "@angular/forms";
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   imports: [
     CommonModule,
+    NgbModule,
     SharedModule,
+    FormsModule,
     DashboardRoutingModule
   ],
-  declarations: [DashboardComponent, PopularThreadsComponent, UnconfirmedPostsComponent, RecentPostsComponent]
+  providers: [SettingService],
+  declarations: [DashboardComponent, PopularThreadsComponent, UnconfirmedPostsComponent, RecentPostsComponent, SettingsComponent]
 })
 export class DashboardModule { }

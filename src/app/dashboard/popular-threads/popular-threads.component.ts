@@ -4,9 +4,9 @@ import {Thread} from "../../shared/models/thread.model";
 @Component({
   selector: 'app-popular-threads',
   template: `
-  <div class="card">
+  <div class="card mb-3">
     <div class="card-header">
-      Popular Threads
+      <span class="lead">Popular Threads</span>
     </div>
     <div class="card-block">
       <!--TODO: google column chart here-->

@@ -9,6 +9,7 @@ import {User} from "../../models/user.model";
 import {Account} from "../../models/account.model";
 import {ResponseMessage} from "../../models/response-message.model";
 import {Post} from "../../models/post.model";
+import {Settings} from "../../models/settings.model";
 @Injectable()
 export class DataAction {
   static LOAD_TOPICS = '[DATA ACTION] LOAD_TOPICS';
@@ -55,6 +56,10 @@ export class DataAction {
   static CONFIRM_POST = '[DATA ACTION] CONFIRM_POST';
 
   static LOAD_RECENT_POSTS = '[DATA ACTION] LOAD_RECENT_POSTS';
+
+  static LOAD_SETTINGS = '[DATA ACTION] LOAD_SETTINGS';
+
+  static EDIT_SETTINGS = '[DATA ACTION] EDIT_SETTINGS';
 
   public loadTopics(topics: Topic[]): Action {
     return {
@@ -240,6 +245,20 @@ export class DataAction {
     return {
       type: DataAction.LOAD_RECENT_POSTS,
       payload: {recentPosts: recentPosts}
+    }
+  }
+
+  public loadSettings(settings: Settings): Action {
+    return {
+      type: DataAction.LOAD_SETTINGS,
+      payload: {settings: settings}
+    }
+  }
+
+  public editSettings(settings: Settings): Action {
+    return {
+      type: DataAction.EDIT_SETTINGS,
+      payload: {settings: settings}
     }
   }
 }
