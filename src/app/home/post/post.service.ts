@@ -31,6 +31,12 @@ export class PostService extends GenericService {
     }));
   }
 
+  public loadRecentPosts(): Observable<Post[]> { // get post from yesterday to now
+    return this.getList(new RequestOptions({
+      url: 'http://homestead.app/api/posts/recent'
+    }));
+  }
+
   public votePost(postId: number, liked: boolean): Observable<ResponseMessage> {
     return this.putWithAuth(new RequestOptions({url: `http://homestead.app/api/posts/${postId}/vote`}), {
       liked: liked

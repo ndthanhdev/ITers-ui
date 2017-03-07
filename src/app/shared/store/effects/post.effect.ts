@@ -102,6 +102,15 @@ export class PostServiceEffect {
       this.uiAction.endUnconfirmedPostsLoad()
     ]));
 
+  @Effect() recentPostsLoad$: Observable<Action> = this.actions
+    .ofType(UIAction.START_RECENT_POSTS_LOAD)
+    .map(action => action.payload)
+    .switchMap(payload => this.postService.loadRecentPosts())
+    .concatMap(posts => Observable.from([
+      this.dataAction.loadRecentPosts(posts),
+      this.uiAction.endRecentPostsLoad()
+    ]));
+
   @Effect() postConfirm$: Observable<Action> = this.actions
     .ofType(UIAction.START_POST_CONFIRM)
     .map(action => action.payload)

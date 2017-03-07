@@ -54,6 +54,8 @@ export class DataAction {
 
   static CONFIRM_POST = '[DATA ACTION] CONFIRM_POST';
 
+  static LOAD_RECENT_POSTS = '[DATA ACTION] LOAD_RECENT_POSTS';
+
   public loadTopics(topics: Topic[]): Action {
     return {
       type: DataAction.LOAD_TOPICS,
@@ -231,6 +233,13 @@ export class DataAction {
     return {
       type: DataAction.CONFIRM_POST,
       payload: {postId: postId}
+    }
+  }
+
+  public loadRecentPosts(recentPosts: Post[]): Action {
+    return {
+      type: DataAction.LOAD_RECENT_POSTS,
+      payload: {recentPosts: recentPosts}
     }
   }
 }

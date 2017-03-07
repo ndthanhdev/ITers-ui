@@ -5,6 +5,7 @@ import {DashboardRoutingModule} from "./dashboard-routing.module";
 import {PopularThreadsComponent} from "./popular-threads/popular-threads.component";
 import {UnconfirmedPostsComponent} from "./unconfirmed-posts/unconfirmed-posts.component";
 import {SharedModule} from "../shared/shared.module";
+import {RecentPostsComponent} from "./recent-posts/recent-posts.component";
 
 @NgModule({
   imports: [
@@ -12,6 +13,6 @@ import {SharedModule} from "../shared/shared.module";
     SharedModule,
     DashboardRoutingModule
   ],
-  declarations: [DashboardComponent, PopularThreadsComponent, UnconfirmedPostsComponent]
+  declarations: [DashboardComponent, PopularThreadsComponent, UnconfirmedPostsComponent, RecentPostsComponent]
 })
 export class DashboardModule { }

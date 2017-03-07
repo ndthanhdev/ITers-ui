@@ -65,6 +65,9 @@ export class UIAction {
 
   static START_POST_CONFIRM = '[UI ACTION] START_POST_CONFIRM';
 
+  static START_RECENT_POSTS_LOAD = '[UI ACTION] START_RECENT_POSTS_LOAD';
+  static END_RECENT_POSTS_LOAD = '[UI ACTION] END_RECENT_POSTS_LOAD';
+
   public startTopicsLoad(): Action {
     return {type: UIAction.START_TOPICS_LOAD}
   }
@@ -288,5 +291,13 @@ export class UIAction {
 
   public startPostConfirm(postId: number){
     return {type: UIAction.START_POST_CONFIRM, payload: {postId: postId}}
+  }
+
+  public startRecentPostsLoad(): Action{
+    return {type: UIAction.START_RECENT_POSTS_LOAD}
+  }
+
+  public endRecentPostsLoad(): Action{
+    return {type: UIAction.END_RECENT_POSTS_LOAD}
   }
 }

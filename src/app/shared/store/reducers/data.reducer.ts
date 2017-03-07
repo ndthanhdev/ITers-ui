@@ -19,7 +19,8 @@ export const initialState = {
   loggedInAccount: null,
   msg: null,
   responseMessage: null,
-  unconfirmedPosts: []
+  unconfirmedPosts: [],
+  recentPosts: [],
 };
 
 export interface DataState {
@@ -30,7 +31,8 @@ export interface DataState {
   loggedInAccount: Account;
   msg: string;
   responseMessage: ResponseMessage;
-  unconfirmedPosts: Post[]
+  unconfirmedPosts: Post[],
+  recentPosts: Post[],
 }
 
 export function reducer(state: DataState = initialState, action: Action): DataState {
@@ -234,11 +236,16 @@ export function reducer(state: DataState = initialState, action: Action): DataSt
         topics: tobeEditedClonedTopic
       });
 
-
     case DataAction.LOAD_UNCONFIRMED_POSTS:
       return Object.assign({}, state, {
         unconfirmedPosts: action.payload.unconfirmedPosts
       });
+
+    case DataAction.LOAD_RECENT_POSTS:
+      return Object.assign({}, state, {
+        recentPosts: action.payload.recentPosts
+      });
+
     default:
       return state;
   }

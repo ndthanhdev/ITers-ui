@@ -49,6 +49,8 @@ export class NavbarComponent implements OnInit {
   private canShowDashBoardIcon(): boolean{
     if (!this.loggedInAccount)
       return false;
-    else return !this.loggedInAccount.current_role.is(RoleEnum.USER);
+    return this.loggedInAccount.current_role.is(RoleEnum.ADMIN);
+    // else return !this.loggedInAccount.current_role.is(RoleEnum.USER);
+    //TODO: finish this.
   }
 }
