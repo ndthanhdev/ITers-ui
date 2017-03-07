@@ -10,6 +10,9 @@ import {SettingsComponent} from "./settings/settings.component";
 import {SettingService} from "./settings/setting.service";
 import {FormsModule} from "@angular/forms";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import {PopularThreadsChartComponent} from "./popular-threads/popular-threads-chart/popular-threads-chart.component";
+
+google.charts.load('current', {'packages': ['corechart']});
 
 @NgModule({
   imports: [
@@ -20,6 +23,6 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
     DashboardRoutingModule
   ],
   providers: [SettingService],
-  declarations: [DashboardComponent, PopularThreadsComponent, UnconfirmedPostsComponent, RecentPostsComponent, SettingsComponent]
+  declarations: [DashboardComponent, PopularThreadsComponent, UnconfirmedPostsComponent, RecentPostsComponent, SettingsComponent, PopularThreadsChartComponent]
 })
 export class DashboardModule { }

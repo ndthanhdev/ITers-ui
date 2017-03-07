@@ -73,6 +73,10 @@ export class UIAction {
 
   static START_SETTINGS_EDIT = '[UI ACTION] START_SETTINGS_EDIT';
 
+  static START_POPULAR_THREADS_LOAD = '[UI ACTION] START_POPULAR_THREADS_LOAD';
+  static END_POPULAR_THREADS_LOAD = '[UI ACTION] END_POPULAR_THREADS_LOAD';
+
+
   public startTopicsLoad(): Action {
     return {type: UIAction.START_TOPICS_LOAD}
   }
@@ -316,4 +320,13 @@ export class UIAction {
       payload: {settings: settings}
     }
   }
+
+  public startPopularThreadsLoad(): Action {
+    return {type: UIAction.START_POPULAR_THREADS_LOAD}
+  }
+
+  public endPopularThreadsLoad(): Action {
+    return {type: UIAction.END_POPULAR_THREADS_LOAD}
+  }
+
 }

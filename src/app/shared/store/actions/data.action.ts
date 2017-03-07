@@ -61,6 +61,8 @@ export class DataAction {
 
   static EDIT_SETTINGS = '[DATA ACTION] EDIT_SETTINGS';
 
+  static LOAD_POPULAR_THREADS = '[DATA ACTION] LOAD_POPULAR_THREADS';
+
   public loadTopics(topics: Topic[]): Action {
     return {
       type: DataAction.LOAD_TOPICS,
@@ -259,6 +261,13 @@ export class DataAction {
     return {
       type: DataAction.EDIT_SETTINGS,
       payload: {settings: settings}
+    }
+  }
+
+  public loadPopularThreads(popularThreads: Thread[]): Action {
+    return {
+      type: DataAction.LOAD_POPULAR_THREADS,
+      payload: {popularThreads: popularThreads}
     }
   }
 }

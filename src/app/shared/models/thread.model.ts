@@ -12,6 +12,8 @@ export interface ThreadInterface {
   updated_at?: Date;
   latest_posts?: PostInterface[];
   oldest_posts?: PostInterface[];
+  likes?: number;
+  dislikes?: number;
 }
 
 export class Thread implements ThreadInterface {
@@ -23,6 +25,8 @@ export class Thread implements ThreadInterface {
   user?: User;
   latest_posts?: Post[] = [];
   oldest_posts?: Post[] = [];
+  likes?: number = 0;
+  dislikes?: number = 0;
 
   public constructor(that: ThreadInterface) {
     this.id = that.id;
@@ -30,6 +34,8 @@ export class Thread implements ThreadInterface {
     this.created_at = that.created_at;
     this.updated_at = that.updated_at;
     this.title = that.title;
+    this.likes = that.likes;
+    this.dislikes = that.dislikes;
     if (that.user)
       this.user = new User(that.user);
     if (that.latest_posts)

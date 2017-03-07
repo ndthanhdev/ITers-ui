@@ -6,6 +6,7 @@ import {Post} from "../../shared/models/post.model";
 import {Observable} from "rxjs";
 import {Router} from "@angular/router";
 import {Settings} from "../../shared/models/settings.model";
+import {Thread} from "../../shared/models/thread.model";
 
 @Component({
   selector: 'app-dashboard',
@@ -13,7 +14,9 @@ import {Settings} from "../../shared/models/settings.model";
   <div class="jumbotron mb-3">
     <h1 class="display-4">Content</h1>
   </div>
-  <app-popular-threads>
+  <app-popular-threads
+    [popularThreads]="popularThreads | async"
+    [loadingPopularThread]="loadingPopularThreads | async">
   </app-popular-threads>
   <div class="row">
     <div class="col-6">
@@ -45,8 +48,10 @@ import {Settings} from "../../shared/models/settings.model";
 export class DashboardComponent implements OnInit {
   private unconfirmedPosts: Observable<Post[]>;
   private recentPosts: Observable<Post[]>;
+  private popularThreads: Observable<Thread[]>;
   private loadingUnconfirmedPosts: Observable<boolean>;
   private loadingRecentPosts: Observable<boolean>;
+  private loadingPopularThreads: Observable<boolean>;
   private settings: Observable<Settings>;
 
   constructor(private store: Store<AppState>,
@@ -55,16 +60,22 @@ export class DashboardComponent implements OnInit {
     this.store.dispatch(this.uiAction.startUnconfirmedPostsLoad());
     this.store.dispatch(this.uiAction.startRecentPostsLoad());
     this.store.dispatch(this.uiAction.startSettingsLoad());
+    this.store.dispatch(this.uiAction.startPopularThreadsLoad());
   }
 
   ngOnInit() {
     this.unconfirmedPosts = this.store.select(state => state.dataState.unconfirmedPosts);
     this.loadingUnconfirmedPosts = this.store.select(state => state.uiState.loadingUnconfirmedPosts);
 
+
     this.recentPosts = this.store.select(state => state.dataState.recentPosts);
     this.loadingRecentPosts = this.store.select(state => state.uiState.loadingRecentPosts);
 
+    this.popularThreads = this.store.select(state => state.dataState.popularThreads);
+    this.loadingPopularThreads = this.store.select(state => state.uiState.loadingPopularThreads);
+
     this.settings = this.store.select(state => state.dataState.settings);
+
   }
 
   private onPostDetailButtonClick($event) {

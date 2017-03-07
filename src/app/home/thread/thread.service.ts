@@ -1,7 +1,7 @@
 import {Injectable, Injector} from "@angular/core";
 import {GenericService} from "../../shared/services/generic.service";
 import {Observable} from "rxjs";
-import {Thread} from "../../shared/models/thread.model";
+import {Thread, ThreadInterface} from "../../shared/models/thread.model";
 import {RequestOptions, Response} from "@angular/http";
 import {ResponseMessage} from "../../shared/models/response-message.model";
 
@@ -25,6 +25,12 @@ export class ThreadService extends GenericService {
     }))
   }
 
+  public loadPopularThreads(): Observable<Thread[]> {
+    return this.getList(new RequestOptions({
+      url: `http://homestead.app/api/threads/popular`
+    }))
+  }
+
   private extractResponseMessage(resp: Response): ResponseMessage {
     return new ResponseMessage(resp.json());
   }
@@ -32,4 +38,12 @@ export class ThreadService extends GenericService {
   protected extractData(resp: Response): Thread {
     return new Thread(resp.json());
   }
+
+  protected extractDataList(resp: Response): Thread[] {
+    let objectBasedData: Thread[] = [];
+    let responseBasedData: ThreadInterface[] = JSON.parse(resp.text());
+    responseBasedData.forEach(data => objectBasedData.push(new Thread(data)));
+    return objectBasedData;
+  }
+
 }

@@ -22,7 +22,8 @@ export const initialState = {
   responseMessage: null,
   unconfirmedPosts: [],
   recentPosts: [],
-  settings: null
+  settings: null,
+  popularThreads: []
 };
 
 export interface DataState {
@@ -35,7 +36,8 @@ export interface DataState {
   responseMessage: ResponseMessage;
   unconfirmedPosts: Post[],
   recentPosts: Post[],
-  settings: Settings
+  settings: Settings,
+  popularThreads: Thread[]
 }
 
 export function reducer(state: DataState = initialState, action: Action): DataState {
@@ -257,6 +259,11 @@ export function reducer(state: DataState = initialState, action: Action): DataSt
     case DataAction.EDIT_SETTINGS:
       return Object.assign({}, state, {
         settings: action.payload.settings
+      });
+
+    case DataAction.LOAD_POPULAR_THREADS:
+      return Object.assign({}, state, {
+        popularThreads: action.payload.popularThreads
       });
 
     default:

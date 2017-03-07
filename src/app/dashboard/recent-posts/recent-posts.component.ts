@@ -35,7 +35,7 @@ import {Post} from "../../shared/models/post.model";
               <th scope="row">{{post.id}}</th>
               <td>{{post.content | truncateText: 30}}</td>
               <td><a [routerLink]="['/users', post.user.id]">{{post.user.full_name}}</a></td>
-              <td>{{post.created_at | amTimeAgo}}</td>
+              <td>{{post.created_at | amUTCOffset:7 | amTimeAgo}}</td>
               <td class="justify-content-between"><button type="button" class="btn btn-sm btn-outline-primary" (click)="onPostDetailButtonClicked(post.thread.topic_id, post.thread_id, post.id)">Detail</button></td>
             </tr>
           </template>

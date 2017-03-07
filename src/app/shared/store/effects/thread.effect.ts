@@ -71,6 +71,15 @@ export class ThreadServiceEffect {
           ])
         }));
 
+  @Effect() popularThreadsLoad$: Observable<Action> = this.actions
+    .ofType(UIAction.START_POPULAR_THREADS_LOAD)
+    .map(action => action.payload)
+    .switchMap(payload => this.threadService.loadPopularThreads())
+    .concatMap(threads => Observable.from([
+      this.dataAction.loadPopularThreads(threads),
+      this.uiAction.endPopularThreadsLoad()
+    ]));
+
   private getErrorMessage(error: Response) {
     const body = error.json().msg || '';
     if (typeof body == 'string')
