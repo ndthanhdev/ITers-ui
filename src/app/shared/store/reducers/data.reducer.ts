@@ -25,6 +25,7 @@ export const initialState = {
   settings: null,
   popularThreads: [],
   popularUsers: [],
+  unconfirmedAccounts: [],
 };
 
 export interface DataState {
@@ -40,6 +41,7 @@ export interface DataState {
   settings: Settings,
   popularThreads: Thread[],
   popularUsers: User[],
+  unconfirmedAccounts: Account[],
 }
 
 export function reducer(state: DataState = initialState, action: Action): DataState {
@@ -215,6 +217,14 @@ export function reducer(state: DataState = initialState, action: Action): DataSt
         unconfirmedPosts: clonedToBeConfirmedPosts
       });
 
+    case DataAction.CONFIRM_ACCOUNT_DASHBOARD:
+      let clonedToBeConfirmedAccounts = Object.assign([], state.unconfirmedAccounts);
+      let toBeConfirmedAccountIndex = clonedToBeConfirmedAccounts.findIndex(account => account.user.id === action.payload.userId);
+      clonedToBeConfirmedAccounts.splice(toBeConfirmedAccountIndex, 1);
+      return Object.assign({}, state, {
+        unconfirmedAccounts: clonedToBeConfirmedAccounts
+      });
+
     case DataAction.CONFIRM_ACCOUNT:
       return Object.assign({}, state, {
         responseMessage: action.payload.responseMessage,
@@ -271,6 +281,11 @@ export function reducer(state: DataState = initialState, action: Action): DataSt
     case DataAction.LOAD_POPULAR_USERS:
       return Object.assign({}, state, {
         popularUsers: action.payload.popularUsers
+      });
+
+    case DataAction.LOAD_UNCONFIRMED_ACCOUNTS:
+      return Object.assign({}, state, {
+        unconfirmedAccounts: action.payload.unconfirmedAccounts
       });
 
     default:

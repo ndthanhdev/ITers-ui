@@ -65,6 +65,10 @@ export class DataAction {
 
   static LOAD_POPULAR_USERS = '[DATA ACTION] LOAD_POPULAR_USERS';
 
+  static LOAD_UNCONFIRMED_ACCOUNTS = '[DATA ACTION] LOAD_UNCONFIRMED_ACCOUNTS';
+
+  static CONFIRM_ACCOUNT_DASHBOARD = '[DATA ACTION] CONFIRM_ACCOUNT_DASHBOARD';
+
   public loadTopics(topics: Topic[]): Action {
     return {
       type: DataAction.LOAD_TOPICS,
@@ -277,6 +281,20 @@ export class DataAction {
     return {
       type: DataAction.LOAD_POPULAR_USERS,
       payload: {popularUsers: popularUsers}
+    }
+  }
+
+  public loadUnconfirmedAccounts(unconfirmedAccounts: Account[]): Action {
+    return {
+      type: DataAction.LOAD_UNCONFIRMED_ACCOUNTS,
+      payload: {unconfirmedAccounts: unconfirmedAccounts}
+    }
+  }
+
+  public confirmAccountDashboard(userId: number){
+    return {
+      type: DataAction.CONFIRM_ACCOUNT_DASHBOARD,
+      payload: {userId: userId}
     }
   }
 

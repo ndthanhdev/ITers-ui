@@ -79,6 +79,11 @@ export class UIAction {
   static START_POPULAR_USERS_LOAD = '[UI ACTION] START_POPULAR_USERS_LOAD';
   static END_POPULAR_USERS_LOAD = '[UI ACTION] END_POPULAR_USERS_LOAD';
 
+  static START_UNCONFIRMED_ACCOUNTS_LOAD = '[UI ACTION] START_UNCONFIRMED_ACCOUNTS_LOAD';
+  static END_UNCONFIRMED_ACCOUNTS_LOAD = '[UI ACTION] END_UNCONFIRMED_ACCOUNTS_LOAD';
+
+  static START_ACCOUNT_CONFIRM_DASHBOARD = '[UI ACTION] START_ACCOUNT_CONFIRM_DASHBOARD';
+
   public startTopicsLoad(): Action {
     return {type: UIAction.START_TOPICS_LOAD}
   }
@@ -339,4 +344,15 @@ export class UIAction {
     return {type: UIAction.END_POPULAR_USERS_LOAD}
   }
 
+  public startUnconfirmedAccountsLoad(): Action {
+    return {type: UIAction.START_UNCONFIRMED_ACCOUNTS_LOAD}
+  }
+
+  public endUnconfirmedAccountsLoad(): Action {
+    return {type: UIAction.END_UNCONFIRMED_ACCOUNTS_LOAD}
+  }
+
+  public startAccountConfirmDashboard(userId: number) {
+    return {type: UIAction.START_ACCOUNT_CONFIRM_DASHBOARD, payload: {userId: userId}}
+  }
 }

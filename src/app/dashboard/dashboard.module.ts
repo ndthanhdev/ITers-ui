@@ -13,6 +13,7 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {PopularThreadsChartComponent} from "./popular-threads/popular-threads-chart/popular-threads-chart.component";
 import {PopularUsersComponent} from "./popular-users/popular-users.component";
 import {PopularUsersChartComponent} from "./popular-users/popular-users-chart/popular-users-chart.component";
+import {UnconfirmedAccountsComponent} from "./unconfirmed-accounts/unconfirmed-accounts.component";
 
 google.charts.load('current', {'packages': ['corechart']});
 
@@ -25,6 +26,17 @@ google.charts.load('current', {'packages': ['corechart']});
     DashboardRoutingModule
   ],
   providers: [SettingService],
-  declarations: [DashboardComponent, PopularThreadsComponent, UnconfirmedPostsComponent, RecentPostsComponent, SettingsComponent, PopularThreadsChartComponent, PopularUsersComponent, PopularUsersChartComponent]
+  declarations: [
+    DashboardComponent,
+    PopularThreadsComponent,
+    UnconfirmedPostsComponent,
+    RecentPostsComponent,
+    SettingsComponent,
+    PopularThreadsChartComponent,
+    PopularUsersComponent,
+    PopularUsersChartComponent,
+    UnconfirmedAccountsComponent
+  ]
 })
-export class DashboardModule { }
+export class DashboardModule {
+}

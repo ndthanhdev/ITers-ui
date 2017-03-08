@@ -7,6 +7,7 @@ import {SharedModule} from "../shared/shared.module";
 import {FormsModule} from "@angular/forms";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {MultiselectDropdownModule} from "angular-2-dropdown-multiselect";
+import {AccountService} from "./account.service";
 
 @NgModule({
   imports: [
@@ -18,6 +19,6 @@ import {MultiselectDropdownModule} from "angular-2-dropdown-multiselect";
     UserRoutingModule,
   ],
   declarations: [UserComponent],
-  providers: [UserService]
+  providers: [UserService, AccountService]
 })
 export class UserModule { }

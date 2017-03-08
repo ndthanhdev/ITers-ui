@@ -23,6 +23,7 @@ import {Http, RequestOptions} from "@angular/http";
 import {PostServiceEffect} from "./shared/store/effects/post.effect";
 import {DashboardModule} from "./dashboard/dashboard.module";
 import {SettingServiceEffect} from "./shared/store/effects/settings.effect";
+import {AccountServiceEffect} from "./shared/store/effects/account.effect";
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions) {
   return new AuthHttp(new AuthConfig(), http, options);
@@ -42,6 +43,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions) {
     EffectsModule.run(ThreadServiceEffect),
     EffectsModule.run(PostServiceEffect),
     EffectsModule.run(UserServiceEffect),
+    EffectsModule.run(AccountServiceEffect),
     EffectsModule.run(AuthServiceEffect),
     EffectsModule.run(SettingServiceEffect),
     BrowserModule,

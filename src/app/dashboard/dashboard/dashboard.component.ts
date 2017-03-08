@@ -8,6 +8,7 @@ import {Router} from "@angular/router";
 import {Settings} from "../../shared/models/settings.model";
 import {Thread} from "../../shared/models/thread.model";
 import {User} from "../../shared/models/user.model";
+import {Account} from "../../shared/models/account.model";
 
 @Component({
   selector: 'app-dashboard',
@@ -39,10 +40,20 @@ import {User} from "../../shared/models/user.model";
   <div class="jumbotron mb-3">
     <h1 class="display-4">Manage User</h1>
   </div>
-  <app-popular-users
-    [popularUsers]="popularUsers|async"
-    [loadingPopularUsers]="loadingPopularUsers | async">
-  </app-popular-users>
+  <!--<app-popular-users-->
+    <!--[popularUsers]="popularUsers|async"-->
+    <!--[loadingPopularUsers]="loadingPopularUsers | async">-->
+  <!--</app-popular-users>-->
+  <div class="row">
+    <div class="col-6">
+      <app-unconfirmed-accounts
+        [unconfirmedAccounts]="unconfirmedAccounts | async"
+        [loadingUnConfirmedAccounts]="loadingUnconfirmedAccounts | async"
+        (accountDetailButtonClicked)="onAccountDetailButtonClick($event)"
+        (accountConfirmButtonClicked)="onAccountConfirmButtonClick($event)">
+      </app-unconfirmed-accounts>
+    </div>
+  </div>
   <!--<div class="jumbotron mb-3">-->
     <!--<h1 class="display-4">Settings</h1>-->
   <!--</div>-->
@@ -57,11 +68,17 @@ export class DashboardComponent implements OnInit {
   private unconfirmedPosts: Observable<Post[]>;
   private recentPosts: Observable<Post[]>;
   private popularThreads: Observable<Thread[]>;
+
   private popularUsers: Observable<User[]>;
+  private unconfirmedAccounts: Observable<Account[]>;
+
   private loadingUnconfirmedPosts: Observable<boolean>;
   private loadingRecentPosts: Observable<boolean>;
   private loadingPopularThreads: Observable<boolean>;
+
   private loadingPopularUsers: Observable<boolean>;
+  private loadingUnconfirmedAccounts: Observable<boolean>;
+
   private settings: Observable<Settings>;
 
   constructor(private store: Store<AppState>,
@@ -71,7 +88,8 @@ export class DashboardComponent implements OnInit {
     // this.store.dispatch(this.uiAction.startRecentPostsLoad());
     // this.store.dispatch(this.uiAction.startSettingsLoad());
     // this.store.dispatch(this.uiAction.startPopularThreadsLoad());
-    this.store.dispatch(this.uiAction.startPopularUsersLoad());
+    // this.store.dispatch(this.uiAction.startPopularUsersLoad());
+    this.store.dispatch(this.uiAction.startUnconfirmedAccountsLoad());
   }
 
   ngOnInit() {
@@ -84,8 +102,11 @@ export class DashboardComponent implements OnInit {
     // this.popularThreads = this.store.select(state => state.dataState.popularThreads);
     // this.loadingPopularThreads = this.store.select(state => state.uiState.loadingPopularThreads);
 
-    this.popularUsers = this.store.select(state => state.dataState.popularUsers);
-    this.loadingPopularUsers = this.store.select(state => state.uiState.loadingPopularUsers);
+    // this.popularUsers = this.store.select(state => state.dataState.popularUsers);
+    // this.loadingPopularUsers = this.store.select(state => state.uiState.loadingPopularUsers);
+
+    this.unconfirmedAccounts = this.store.select(state => state.dataState.unconfirmedAccounts);
+    this.loadingUnconfirmedAccounts = this.store.select(state => state.uiState.loadingUnconfirmedAccounts);
 
     // this.settings = this.store.select(state => state.dataState.settings);
   }
@@ -96,6 +117,14 @@ export class DashboardComponent implements OnInit {
 
   private onPostConfirmButtonClick($event) {
     this.store.dispatch(this.uiAction.startPostConfirm($event));
+  }
+
+  private onAccountDetailButtonClick($event){
+    this.router.navigate(['users', $event.userId]);
+  }
+
+  private onAccountConfirmButtonClick($event){
+    this.store.dispatch(this.uiAction.startAccountConfirmDashboard($event));
   }
 
   private onSettingEdit($event){
