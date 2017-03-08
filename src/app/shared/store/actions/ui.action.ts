@@ -69,6 +69,9 @@ export class UIAction {
   static START_RECENT_POSTS_LOAD = '[UI ACTION] START_RECENT_POSTS_LOAD';
   static END_RECENT_POSTS_LOAD = '[UI ACTION] END_RECENT_POSTS_LOAD';
 
+  static START_RECENT_ACCOUNTS_LOAD = '[UI ACTION] START_RECENT_ACCOUNTS_LOAD';
+  static END_RECENT_ACCOUNTS_LOAD = '[UI ACTION] END_RECENT_ACCOUNTS_LOAD';
+
   static START_SETTINGS_LOAD = '[UI ACTION] START_SETTINGS_LOAD';
 
   static START_SETTINGS_EDIT = '[UI ACTION] START_SETTINGS_EDIT';
@@ -315,6 +318,14 @@ export class UIAction {
 
   public endRecentPostsLoad(): Action {
     return {type: UIAction.END_RECENT_POSTS_LOAD}
+  }
+
+  public startRecentAccountsLoad(): Action {
+    return {type: UIAction.START_RECENT_ACCOUNTS_LOAD}
+  }
+
+  public endRecentAccountsLoad(): Action {
+    return {type: UIAction.END_RECENT_ACCOUNTS_LOAD}
   }
 
   public startSettingsLoad(): Action {

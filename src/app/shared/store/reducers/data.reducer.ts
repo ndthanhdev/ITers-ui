@@ -26,6 +26,7 @@ export const initialState = {
   popularThreads: [],
   popularUsers: [],
   unconfirmedAccounts: [],
+  recentAccounts : []
 };
 
 export interface DataState {
@@ -42,6 +43,7 @@ export interface DataState {
   popularThreads: Thread[],
   popularUsers: User[],
   unconfirmedAccounts: Account[],
+  recentAccounts : Account[]
 }
 
 export function reducer(state: DataState = initialState, action: Action): DataState {
@@ -286,6 +288,11 @@ export function reducer(state: DataState = initialState, action: Action): DataSt
     case DataAction.LOAD_UNCONFIRMED_ACCOUNTS:
       return Object.assign({}, state, {
         unconfirmedAccounts: action.payload.unconfirmedAccounts
+      });
+
+    case DataAction.LOAD_RECENT_ACCOUNTS:
+      return Object.assign({}, state, {
+        recentAccounts: action.payload.recentAccounts
       });
 
     default:

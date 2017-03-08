@@ -20,6 +20,7 @@ export const initialState: UIState = {
   loadingPopularThreads: false,
   loadingPopularUsers: false,
   loadingUnconfirmedAccounts: false,
+  loadingRecentAccounts: false,
 };
 
 export interface UIState {
@@ -38,6 +39,7 @@ export interface UIState {
   loadingPopularThreads: boolean;
   loadingPopularUsers: boolean;
   loadingUnconfirmedAccounts: boolean;
+  loadingRecentAccounts: boolean;
 }
 
 export function reducer(state: UIState = initialState, action: Action): UIState {
@@ -131,6 +133,12 @@ export function reducer(state: UIState = initialState, action: Action): UIState 
 
     case UIAction.END_UNCONFIRMED_ACCOUNTS_LOAD:
       return Object.assign({}, state, {loadingUnconfirmedAccounts: false});
+
+    case UIAction.START_RECENT_ACCOUNTS_LOAD:
+      return Object.assign({}, state, {loadingRecentAccounts: true});
+
+    case UIAction.END_RECENT_ACCOUNTS_LOAD:
+      return Object.assign({}, state, {loadingRecentAccounts: false});
 
     default:
       return state;

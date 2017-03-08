@@ -37,7 +37,7 @@ import {Account} from "../../shared/models/account.model";
             <template ngFor let-account [ngForOf]="unconfirmedAccounts" let-i="index">
               <tr *ngIf="isIndexInCurrentPage(i)">
                 <th scope="row">{{account.user.id}}</th>
-                <td><a [routerLink]="['/users', account.user.id]">{{account.user.full_name}}</a></td>
+                <td>{{account.user.full_name}}</td>
                 <td>{{account.created_at | amUTCOffset:7 | amTimeAgo}}</td>
                 <td class="justify-content-between"><button type="button" class="btn btn-sm btn-outline-primary" (click)="onAccountDetailButtonClicked(account.user.id)">Detail</button></td>
                 <td class="justify-content-between"><button type="button" class="btn btn-sm btn-outline-success" (click)="onAccountConfirmButtonClicked(account.user.id)">Confirm</button></td>

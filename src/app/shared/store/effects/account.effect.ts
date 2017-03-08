@@ -17,7 +17,6 @@ export class AccountServiceEffect {
               private userService: UserService,
               private dataAction: DataAction,
               private uiAction: UIAction) {
-
   }
 
   @Effect() unconfirmedAccountsLoad$: Observable<Action> = this.actions
@@ -29,14 +28,14 @@ export class AccountServiceEffect {
       this.uiAction.endUnconfirmedAccountsLoad()
     ]));
 
-  // @Effect() recentUsersLoad$: Observable<Action> = this.actions
-  //   .ofType(UIAction.START_RECENT_POSTS_LOAD)
-  //   .map(action => action.payload)
-  //   .switchMap(payload => this.postService.loadRecentPosts())
-  //   .concatMap(posts => Observable.from([
-  //     this.dataAction.loadRecentPosts(posts),
-  //     this.uiAction.endRecentPostsLoad()
-  //   ]));
+  @Effect() recentAccountsLoad$: Observable<Action> = this.actions
+    .ofType(UIAction.START_RECENT_ACCOUNTS_LOAD)
+    .map(action => action.payload)
+    .switchMap(payload => this.accountService.loadRecentAccounts())
+    .concatMap(accounts => Observable.from([
+      this.dataAction.loadRecentAccounts(accounts),
+      this.uiAction.endRecentAccountsLoad()
+    ]));
 
   @Effect() accountConfirmDashboard$: Observable<Action> = this.actions
     .ofType(UIAction.START_ACCOUNT_CONFIRM_DASHBOARD)

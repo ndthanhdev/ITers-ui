@@ -14,6 +14,7 @@ import {PopularThreadsChartComponent} from "./popular-threads/popular-threads-ch
 import {PopularUsersComponent} from "./popular-users/popular-users.component";
 import {PopularUsersChartComponent} from "./popular-users/popular-users-chart/popular-users-chart.component";
 import {UnconfirmedAccountsComponent} from "./unconfirmed-accounts/unconfirmed-accounts.component";
+import {RecentAccountsComponent} from "./recent-accounts/recent-accounts.component";
 
 google.charts.load('current', {'packages': ['corechart']});
 
@@ -35,7 +36,8 @@ google.charts.load('current', {'packages': ['corechart']});
     PopularThreadsChartComponent,
     PopularUsersComponent,
     PopularUsersChartComponent,
-    UnconfirmedAccountsComponent
+    UnconfirmedAccountsComponent,
+    RecentAccountsComponent
   ]
 })
 export class DashboardModule {

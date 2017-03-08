@@ -69,6 +69,8 @@ export class DataAction {
 
   static CONFIRM_ACCOUNT_DASHBOARD = '[DATA ACTION] CONFIRM_ACCOUNT_DASHBOARD';
 
+  static LOAD_RECENT_ACCOUNTS = '[DATA ACTION] LOAD_RECENT_ACCOUNTS';
+
   public loadTopics(topics: Topic[]): Action {
     return {
       type: DataAction.LOAD_TOPICS,
@@ -295,6 +297,13 @@ export class DataAction {
     return {
       type: DataAction.CONFIRM_ACCOUNT_DASHBOARD,
       payload: {userId: userId}
+    }
+  }
+
+  public loadRecentAccounts(recentAccounts: Account[]): Action {
+    return {
+      type: DataAction.LOAD_RECENT_ACCOUNTS,
+      payload: {recentAccounts: recentAccounts}
     }
   }
 
