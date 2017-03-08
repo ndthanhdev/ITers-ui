@@ -63,6 +63,8 @@ export class DataAction {
 
   static LOAD_POPULAR_THREADS = '[DATA ACTION] LOAD_POPULAR_THREADS';
 
+  static LOAD_POPULAR_USERS = '[DATA ACTION] LOAD_POPULAR_USERS';
+
   public loadTopics(topics: Topic[]): Action {
     return {
       type: DataAction.LOAD_TOPICS,
@@ -270,4 +272,12 @@ export class DataAction {
       payload: {popularThreads: popularThreads}
     }
   }
+
+  public loadPopularUsers(popularUsers: User[]): Action {
+    return {
+      type: DataAction.LOAD_POPULAR_USERS,
+      payload: {popularUsers: popularUsers}
+    }
+  }
+
 }

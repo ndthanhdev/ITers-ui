@@ -63,4 +63,14 @@ export class UserServiceEffect {
       .concatMap(responseMessage => Observable.from([
         this.dataAction.confirmAccount(responseMessage)
       ])));
+
+  @Effect() popularUsersLoad$: Observable<Action> = this.actions
+    .ofType(UIAction.START_POPULAR_USERS_LOAD)
+    .map(action => action.payload)
+    .switchMap(payload => this.userService.loadPopularUsers())
+    .concatMap(users => Observable.from([
+      this.dataAction.loadPopularUsers(users),
+      this.uiAction.endPopularUsersLoad()
+    ]));
+
 }

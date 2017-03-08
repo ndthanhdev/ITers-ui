@@ -1,22 +1,21 @@
-import {Component, OnInit, Input, AfterViewInit, OnChanges} from "@angular/core";
-import {Thread} from "../../../shared/models/thread.model";
-
+import {Component, OnInit, Input, OnChanges} from "@angular/core";
+import {User} from "../../../shared/models/user.model";
 
 @Component({
-  selector: 'app-popular-threads-chart',
+  selector: 'app-popular-users-chart',
   template: `
-  <div id="popular-threads-chart"></div>
+  <div id="popular-users-chart"></div>
   `,
-  styleUrls: ['./popular-threads-chart.component.scss']
+  styleUrls: ['./popular-users-chart.component.scss']
 })
-export class PopularThreadsChartComponent implements OnInit, OnChanges, AfterViewInit {
-  @Input() popularThreads: Thread[];
+export class PopularUsersChartComponent implements OnInit , OnChanges{
+  @Input() popularUsers: User[];
 
   private wrapper: google.visualization.ChartWrapper = null;
   protected dataTable: google.visualization.DataTable;
   protected options: any = {
     isStacked: true,
-    hAxis: {title: 'Thread'},
+    hAxis: {title: 'User'},
     vAxis: {title: 'Likes + Dislikes'},
     legend: {position: 'top', maxLines: 3},
     animation: {
@@ -30,12 +29,11 @@ export class PopularThreadsChartComponent implements OnInit, OnChanges, AfterVie
     }
   };
 
-  constructor() {
-  }
+  constructor() { }
 
   ngOnChanges(): void {
-    if (this.popularThreads.length > 0 && this.wrapper) {
-      this.dataTable = this.prepareDataTable(this.popularThreads);
+    if (this.popularUsers.length > 0 && this.wrapper) {
+      this.dataTable = this.prepareDataTable(this.popularUsers);
       this.wrapper.setDataTable(this.dataTable);
       this.wrapper.draw();
     }
@@ -45,28 +43,25 @@ export class PopularThreadsChartComponent implements OnInit, OnChanges, AfterVie
     this.initializeWrapper({
       chartType: 'ColumnChart',
       options: this.options,
-      containerId: 'popular-threads-chart'
+      containerId: 'popular-users-chart'
     })
   }
 
-  ngAfterViewInit(): void {
-
-  }
 
   private initializeWrapper(chartSpec: google.visualization.ChartSpecs): void {
     if (google.visualization)
       this.wrapper = new google.visualization.ChartWrapper(chartSpec);
   }
 
-  private prepareDataTable(popularThread: Thread[]): google.visualization.DataTable {
+  private prepareDataTable(popularUsers: User[]): google.visualization.DataTable {
     let dataTable: google.visualization.DataTable = new google.visualization.DataTable();
     dataTable.addColumn('string', 'Thread');
     dataTable.addColumn('number', 'Likes');
     dataTable.addColumn('number', 'Dislikes');
 
-    popularThread.forEach(thread => {
+    popularUsers.forEach(thread => {
       dataTable.addRow([
-        thread.title,
+        thread.full_name,
         thread.likes,
         thread.dislikes,
       ])
@@ -74,5 +69,4 @@ export class PopularThreadsChartComponent implements OnInit, OnChanges, AfterVie
 
     return dataTable;
   }
-
 }

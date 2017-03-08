@@ -23,7 +23,8 @@ export const initialState = {
   unconfirmedPosts: [],
   recentPosts: [],
   settings: null,
-  popularThreads: []
+  popularThreads: [],
+  popularUsers: [],
 };
 
 export interface DataState {
@@ -37,7 +38,8 @@ export interface DataState {
   unconfirmedPosts: Post[],
   recentPosts: Post[],
   settings: Settings,
-  popularThreads: Thread[]
+  popularThreads: Thread[],
+  popularUsers: User[],
 }
 
 export function reducer(state: DataState = initialState, action: Action): DataState {
@@ -264,6 +266,11 @@ export function reducer(state: DataState = initialState, action: Action): DataSt
     case DataAction.LOAD_POPULAR_THREADS:
       return Object.assign({}, state, {
         popularThreads: action.payload.popularThreads
+      });
+
+    case DataAction.LOAD_POPULAR_USERS:
+      return Object.assign({}, state, {
+        popularUsers: action.payload.popularUsers
       });
 
     default:

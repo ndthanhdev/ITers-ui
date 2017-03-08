@@ -6,7 +6,6 @@ import {Store} from "@ngrx/store";
 import {Observable} from "rxjs";
 
 @Component({
-  moduleId: module.id,
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']

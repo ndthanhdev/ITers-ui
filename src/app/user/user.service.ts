@@ -1,6 +1,6 @@
 import {Injectable, Injector} from "@angular/core";
 import {Response, RequestOptions} from "@angular/http";
-import {User} from "../shared/models/user.model";
+import {User, UserInterface} from "../shared/models/user.model";
 import {GenericService} from "../shared/services/generic.service";
 import {Observable} from "rxjs";
 import {ResponseMessage} from "../shared/models/response-message.model";
@@ -27,6 +27,12 @@ export class UserService extends GenericService {
     });
   }
 
+  public loadPopularUsers(): Observable<User[]> {
+    return this.getList(new RequestOptions({
+      url: this.BASE_URL + '/popular'
+    }))
+  }
+
   public updateRole(userId: number, privilege_level: number): Observable<ResponseMessage> {
     return this.patchWithAuth(new RequestOptions({url: this.BASE_URL + '/' + userId + '/accounts/roles'}), {
       privilege_level: privilege_level
@@ -47,6 +53,13 @@ export class UserService extends GenericService {
 
   protected extractData(resp: Response): User {
     return new User(resp.json());
+  }
+
+  protected extractDataList(resp: Response): User[] {
+    let objectBasedData: User[] = [];
+    let responseBasedData: UserInterface[] = JSON.parse(resp.text());
+    responseBasedData.forEach(data => objectBasedData.push(new User(data)));
+    return objectBasedData;
   }
 
 }

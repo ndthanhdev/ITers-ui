@@ -7,7 +7,6 @@ import {UIAction} from "../../shared/store/actions/ui.action";
 import {Observable} from "rxjs";
 
 @Component({
-  moduleId: module.id,
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
