@@ -13,7 +13,7 @@ import {Account} from "../../shared/models/account.model";
         <i class="fa fa-spinner fa-pulse fa-fw fa-2x" *ngIf="loadingUnConfirmedAccounts"></i>
       </div>
       <div class="d-flex justify-content-center" *ngIf="unconfirmedAccounts.length == 0 && !loadingUnConfirmedAccounts">
-        <span class="lead">There's no unconfirmed user right now!</span>
+        <span class="lead">All users have been confirmed!</span>
       </div>
       <div *ngIf="unconfirmedAccounts.length > 0">
         <app-list-header 
