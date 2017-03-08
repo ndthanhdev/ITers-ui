@@ -63,12 +63,14 @@ export class PopularThreadsChartComponent implements OnInit, OnChanges, AfterVie
     dataTable.addColumn('string', 'Thread');
     dataTable.addColumn('number', 'Likes');
     dataTable.addColumn('number', 'Dislikes');
+    dataTable.addColumn({ type: 'number', role: 'annotation' });
 
     popularThread.forEach(thread => {
       dataTable.addRow([
         thread.title,
         thread.likes,
         thread.dislikes,
+        thread.likes + thread.dislikes
       ])
     });
 

@@ -58,12 +58,14 @@ export class PopularUsersChartComponent implements OnInit , OnChanges{
     dataTable.addColumn('string', 'Thread');
     dataTable.addColumn('number', 'Likes');
     dataTable.addColumn('number', 'Dislikes');
+    dataTable.addColumn({ type: 'number', role: 'annotation' });
 
-    popularUsers.forEach(thread => {
+    popularUsers.forEach(user => {
       dataTable.addRow([
-        thread.full_name,
-        thread.likes,
-        thread.dislikes,
+        user.full_name,
+        user.likes,
+        user.dislikes,
+        user.likes + user.dislikes
       ])
     });
 
